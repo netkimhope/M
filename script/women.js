@@ -6,7 +6,7 @@ module.exports.config = {
 	name: 'women',
 	version: '1.0.0',
 	hasPermision: 0,
-	credits: 'chilli',
+	credits: 'churchillitos',
 	usePrefix: true,
 	description: 'Send a video from Google Drive',
 	commandCategory: 'media',

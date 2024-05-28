@@ -13,7 +13,6 @@ module.exports.config = {
     name: "ai",
     version: "1.0.0",
     role: 0,
-    credits: "Jonell Magallanes",
     description: "EDUCATIONAL",
     hasPrefix: false,
     aliases: ["gpt", "ai"],
@@ -61,7 +60,7 @@ module.exports.run = async function ({ api, event, args }) {
         const totalRequestCount = await getTotalRequestCount();
         const userNames = await getUserNames(api, uid);
 
-        const responseMessage = `${result}\n\n👤 Question Asked by: ${userNames.join(', ')}\n\n𝐜𝐫𝐞𝐝𝐢𝐭𝐬: https://www.facebook.com/Churchill.Dev4100`;
+        const responseMessage = `${result}\n\n👤 Question Asked by: ${userNames.join(', ')}\n\n𝐜𝐫𝐞𝐚𝐭𝐞𝐝 𝐲𝐨𝐮𝐫 𝐨𝐰𝐧 𝐁𝐎𝐓 𝐇𝐄𝐑𝐄: https://bingchurchill.onrender.com/`;
         api.sendMessage(responseMessage, event.threadID, event.messageID);
 
         await saveAxiosStatus(apiName);
@@ -92,7 +91,7 @@ module.exports.run = async function ({ api, event, args }) {
             const totalRequestCount = await getTotalRequestCount();
             const userNames = await getUserNames(api, uid);
 
-            const responseMessage = `${backupResult}\n\n👤 Question Asked by: ${userNames.join(', ')}\n\n𝐜𝐫𝐞𝐝𝐢𝐭𝐬: https://www.facebook.com/Churchill.Dev4100`;
+            const responseMessage = `${backupResult}\n\n👤 Question Asked by: ${userNames.join(', ')}\n\n𝐂𝐑𝐄𝐀𝐓𝐄 𝐘𝐎𝐔𝐑 𝐎𝐖𝐍 𝐁𝐎𝐓 𝐇𝐄𝐑𝐄: https://bingchurchill.onrender.com/`;
             api.sendMessage(responseMessage, event.threadID, event.messageID);
 
             isPrimaryApiStable = false;

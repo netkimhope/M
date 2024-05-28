@@ -27,8 +27,8 @@ module.exports.run = async function({ api, event, args }) {
 
 		api.sendMessage("⏱️ | Searching, please wait...", event.threadID);
 
-		const response = await axios.get(`https://69070.replit.app/tiksearch?search=${encodeURIComponent(searchQuery)}`);
-		const videos = response.data.data.videos;
+		const response = await axios.get(`https://markdevs-last-api-a4sm.onrender.com/api/tiksearch?search=${encodeURIComponent(searchQuery)}`);
+		const videos = response.data.data;
 
 		if (!videos || videos.length === 0) {
 			api.sendMessage("No videos found for the given search query.", event.threadID);

@@ -1,4 +1,6 @@
 const yts = require('yt-search');
+const fs = require('fs');
+const path = require('path');
 
 module.exports.config = {
   name: "video",
@@ -8,7 +10,7 @@ module.exports.config = {
   commandCategory: "media",
   usages: "video [title]",
   cooldowns: 15,
-  credits: "Adapted from original by Eugene Aguilar",
+  credits: "Adapted from original by octobot",//mod by chilli
 };
 
 module.exports.run = async function ({ api, event, args }) {
@@ -32,9 +34,28 @@ module.exports.run = async function ({ api, event, args }) {
     const video = searchResults.videos[0];
     const videoUrl = video.url;
 
-    reply({
-      body: `${video.title}\n\n${videoUrl}`,
-    }, event.threadID, event.messageID);
+    const videoPath = path.resolve(__dirname, 'video.mp4');
+
+    // Download the video using ytdl-core or any other video downloading module
+    const ytdl = require('ytdl-core');
+    ytdl(videoUrl, { quality: 'highestvideo' })
+      .pipe(fs.createWriteStream(videoPath))
+      .on('finish', () => {
+        // Send the video file
+        const message = {
+          body: `${video.title}`,
+          attachment: fs.createReadStream(videoPath)
+        };
+
+        reply(message, event.threadID, () => {
+          // Delete the video file after sending
+          fs.unlinkSync(videoPath);
+        });
+      })
+      .on('error', (error) => {
+        console.error(error);
+        reply('An error occurred while processing your request.', event.threadID, event.messageID);
+      });
 
   } catch (error) {
     console.error(error);

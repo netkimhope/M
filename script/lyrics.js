@@ -1,34 +1,19 @@
-const axios = require('axios');
-const fs = require('fs');
-
 module.exports.config = {
-  name: 'lyrics',
-  version: '1',
-  role: 0,
-  credits: 'Grey',
-  hasPrefix: true,
-  description: 'Lyrics Finder',
-  commandCategory: 'fun',
-  usage: '[song]',
-  cooldowns: 5
+	name: "lyrics",
+	version: "1.0.0",
+	hasPermssion: 0,
+	credits: "LTChi",
+	description: "View lyrics",
+	usePrefix: true,
+	commandCategory: "media",
+	usages: "[name of the song]",
+	cooldowns: 5
 };
 
-module.exports.run = async ({ api, event, args }) => {
-  const song = args.join(' ');
-
-  if (!song) {
-    return api.sendMessage('Please enter a song.', event.threadID, event.messageID);
-  } else {
-    axios.get(`https://lyrist-tumk.onrender.com/api/${encodeURIComponent(song)}`)
-      .then(res => {
-        const { lyrics, title, artist } = res.data;
-
-        const message = `Title: ${title}\n\nArtist: ${artist}\n\nLyrics: ${lyrics}`;
-        api.sendMessage(message, event.threadID, event.messageID);
-      })
-      .catch(error => {
-        console.error('Lyrics API error:', error);
-        api.sendMessage('Failed to fetch lyrics.', event.threadID, event.messageID);
-      });
-  }
-};
+module.exports.run = async function ({ api, args, event }) {
+	const lyricsFinder = require('lyrics-finder');
+		let lyrics = await lyricsFinder(args.join(" ")) || "Not Found!";
+		console.log(lyrics);
+api.sendMessage(`${lyrics}`, event.threadID, event.messageID);
+	api.setMessageReaction("🎼", event.messageID, (err) => {}, true)
+}

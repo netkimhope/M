@@ -2,47 +2,47 @@ const axios = require('axios');
 const fs = require('fs-extra');
 
 module.exports.config = {
-  name: "remini",
-  version: "2.2",
-  hasPermssion: 0,
-  credits: "Hazeyy",//modbychurchill
-  description: "( 𝚁𝚎𝚖𝚒𝚗𝚒 )",
-  commandCategory: "𝚗𝚘 𝚙𝚛𝚎𝚏𝚒𝚡",
-  usages: "( 𝙴𝚗𝚌𝚑𝚊𝚗𝚌𝚎 𝙸𝚖𝚊𝚐𝚎𝚜 )",
-  cooldowns: 2,
+	name: "remini",
+	version: "1.0",
+	role: 0,
+	hasPermission: 0,
+	credits: "cliff", // API by hazey
+	description: "Enhance your photo",
+	hasPrefix: false,
+	usePrefix: false,
+	commandCategory: "image",
+	usages: "[reply to image]",
+	cooldowns: 2,
+	cooldown: 2,
+	aliases: ["remini", "4k"],
+	usage: "replying photo"
 };
 
-module.exports.handleEvent = async function ({ api, event }) {
-  if (!(event.body.indexOf("remini") === 0 || event.body.indexOf("Remini") === 0)) return;
-  const args = event.body.split(/\s+/);
-  args.shift();
+module.exports.run = async ({ api, event, args }) => {
+	const pathie = __dirname + `/cache/remove_bg.jpg`;
+	const { threadID, messageID } = event;
 
-  const pathie = __dirname + `/cache/zombie.jpg`;
-  const { threadID, messageID } = event;
+	const photoUrl = event.messageReply ? event.messageReply.attachments[0].url : args.join(" ");
 
-  const photoUrl = event.messageReply && event.messageReply.attachments && event.messageReply.attachments[0] ? event.messageReply.attachments[0].url : args.join(" ");
+	if (!photoUrl) {
+		api.sendMessage("📸 Please reply to a photo to process and remove backgrounds.", threadID, messageID);
+		return;
+	}
 
-  if (!photoUrl) {
-    api.sendMessage("📸 𝙿𝚕𝚎𝚊𝚜𝚎 𝚛𝚎𝚙𝚕𝚢 𝚝𝚘 𝚊 𝚙𝚑𝚘𝚝𝚘 𝚝𝚘 𝚙𝚛𝚘𝚌𝚎𝚎𝚍 𝚎𝚗𝚑𝚊𝚗𝚌𝚒𝚗𝚐 𝚒𝚖𝚊𝚐𝚎𝚜.", threadID, messageID);
-    return;
-  }
+	try {
+		api.sendMessage("🕟 | Upscaling Image, Please wait for a moment..", threadID, messageID);
+		const response = await axios.get(`https://hazee-upscale.replit.app/upscale?url=${encodeURIComponent(photoUrl)}&face_enhance=true`);
+		const processedImageURL = response.data.hazescale;
 
-  api.sendMessage("🕟 | 𝙴𝚗𝚑𝚊𝚗𝚌𝚒𝚗𝚐, 𝙿𝚕𝚎𝚊𝚜𝚎 𝚠𝚊𝚒𝚝 𝚏𝚘𝚛 𝚊 𝚖𝚘𝚖𝚎𝚗𝚝..", threadID, async () => {
-    try {
-      const response = await axios.get(`https://markdevs-last-api-a4sm.onrender.com/api/remini?input=${encodeURIComponent(photoUrl)}`);
-      const processedImageURL = response.data.image_data;
-      const img = (await axios.get(processedImageURL, { responseType: "arraybuffer" })).data;
+		const img = (await axios.get(processedImageURL, { responseType: "arraybuffer" })).data;
 
-      fs.writeFileSync(pathie, Buffer.from(img, 'binary'));
+		fs.writeFileSync(pathie, Buffer.from(img, 'binary'));
 
-      api.sendMessage({
-        body: "✨ 𝙴𝚗𝚑𝚊𝚗𝚌𝚎𝚍 𝚂𝚞𝚌𝚌𝚎𝚜𝚜𝚏𝚞𝚕𝚕𝚢",
-        attachment: fs.createReadStream(pathie)
-      }, threadID, () => fs.unlinkSync(pathie), messageID);
-    } catch (error) {
-      api.sendMessage(`🚫 𝙴𝚛𝚛𝚘𝚛 𝚙𝚛𝚘𝚌𝚎𝚜𝚜𝚒𝚗𝚐 𝚒𝚖𝚊𝚐𝚎: ${error}`, threadID, messageID);
-    }
-  });
+		api.sendMessage({
+			body: "🔮 Image Successfully Enhanced",
+			attachment: fs.createReadStream(pathie)
+		}, threadID, () => fs.unlinkSync(pathie), messageID);
+	} catch (error) {
+		api.sendMessage(`Error processing image: ${error.message}`, threadID, messageID);
+	}
 };
-
-module.exports.run = async function ({ api, event }) {};

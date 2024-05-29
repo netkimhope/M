@@ -2,13 +2,10 @@ module.exports.config = {
 	name: "tiktok",
 	version: "1.0.0",
 	role: 0,
-	hasPermission: 0,
-	commandCategory: "Media",
-	usePrefix: false,
-	credits: "cliff",
-	description: "tiktok search videos",
+	credits: "Jonell Magallanes", //original code Kim Joseph DG Bien
+	description: "tiktok search",
 	hasPrefix: false,
-	aliases: ["tik"],
+	aliases: ["tiktok"],
 	usage: "[Tiktok <search>]",
 	cooldown: 5,
 };
@@ -27,8 +24,8 @@ module.exports.run = async function({ api, event, args }) {
 
 		api.sendMessage("⏱️ | Searching, please wait...", event.threadID);
 
-		const response = await axios.get(`https://markdevs-last-api-a4sm.onrender.com/api/tiksearch?search=${encodeURIComponent(searchQuery)}`);
-		const videos = response.data.data;
+		const response = await axios.get(`https://cc-project-apis-jonell-magallanes.onrender.com/api/tiktok/searchvideo?keywords=${encodeURIComponent(searchQuery)}`);
+		const videos = response.data.data.videos;
 
 		if (!videos || videos.length === 0) {
 			api.sendMessage("No videos found for the given search query.", event.threadID);

@@ -5,11 +5,12 @@ body {
     font-family: 'Poppins', BlinkMacSystemFont, sans-serif;
     overflow-y: auto;
     overflow-x: hidden;
+    color: #fff;
 }
 
 /* Gradient background animation */
 body {
-    background: linear-gradient(135deg, #f8d3f5, #a6f3f3, #a2e3f8, #ff9e9e);
+    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #53354a);
     animation: gradient 15s ease infinite;
     background-size: 400% 400%;
     background-attachment: fixed;
@@ -33,7 +34,7 @@ body {
     background: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 0 .5rem #fff, 0 0 .5rem #fff, 0 0 2rem #1F51FF, 0 0 1rem #1F51FF, 0 0 3rem #1F51FF, inset 0 0 1.5rem #1F51FF;
+    box-shadow: 0 0 0.5rem #fff, 0 0 0.5rem #fff, 0 0 2rem #1F51FF, 0 0 1rem #1F51FF, 0 0 3rem #1F51FF, inset 0 0 1.5rem #1F51FF;
     margin-top: 20px;
     margin-bottom: 20px;
     outline: 2px solid #fff;
@@ -41,7 +42,7 @@ body {
 
 /* Heading styles */
 h1 {
-    color: #fff;
+    color: #ff4c4c;
     font-size: 24px;
     margin-bottom: 15px;
 }
@@ -49,6 +50,7 @@ h1 {
 /* Textarea styles */
 .centered-textarea {
     color: #fff;
+    background-color: #333;
     width: 100%;
     min-height: 150px;
     padding: 10px;
@@ -62,7 +64,7 @@ h1 {
 .btn-primary {
     background-color: #00ff00;
     border: 1px solid #007bff;
-    color: #261a1a;
+    color: #1a1a2e;
     transition: background-color 0.3s ease, border-color 0.3s ease;
     width: 100%;
 }
@@ -74,7 +76,7 @@ h1 {
 
 /* Footer styles */
 .footer {
-    background-color: #5c6bc0;
+    background-color: #0f3460;
     padding: 10px;
     text-align: center;
     font-size: 16px;
@@ -94,7 +96,7 @@ h1 {
 
 /* Checkbox styles */
 .form-check input[type="checkbox"] {
-    color: #FFF;
+    color: #fff;
     margin-right: 10px;
 }
 
@@ -110,4 +112,54 @@ h1 {
     .form-check-label {
         font-size: 12px;
     }
+}
+
+/* Video styles */
+video {
+    width: 100%;
+    border: 2px solid #00ffff;
+    border-radius: 10px;
+}
+
+/* Additional styling for input fields */
+input[type="text"] {
+    color: #fff;
+    background-color: #333;
+    border: 1px solid #00ffff;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Dropdown menu styles */
+.navbar-nav .dropdown-menu {
+    background-color: #1a1a2e;
+}
+
+.navbar-nav .dropdown-item {
+    color: #fff;
+}
+
+.navbar-nav .dropdown-item:hover {
+    background-color: #333;
+    color: #00ffff;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: #16213e;
+}
+
+.navbar-brand, .nav-link {
+    color: #fff !important;
+}
+
+.nav-link:hover {
+    color: #00ffff !important;
+}
+
+/* Checkbox label color */
+input[type="checkbox"] + label {
+    color: #fff;
 }

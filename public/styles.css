@@ -1,157 +1,172 @@
-/* Reset default browser styles */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Poppins', BlinkMacSystemFont, sans-serif;
-    overflow-y: auto;
-    overflow-x: hidden;
-    color: #333;
-    background-color: #f4f4f4;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIF Background Example</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        /* Reset default browser styles */
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', BlinkMacSystemFont, sans-serif;
+            overflow-y: auto;
+            overflow-x: hidden;
+            color: #333;
+            background: url('https://i.imgur.com/V8H6HHJ.gif') no-repeat center center fixed;
+            background-size: cover;
+            background-blend-mode: darken;
+        }
 
-/* Common container styles */
-.container {
-    color: #333;
-    background: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-top: 20px;
-    margin-bottom: 20px;
-}
+        /* Common container styles */
+        .container {
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
 
-/* Heading styles */
-h1 {
-    color: #333;
-    font-size: 24px;
-    margin-bottom: 15px;
-}
+        /* Heading styles */
+        h1 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
 
-/* Textarea styles */
-.centered-textarea {
-    color: #333;
-    background-color: #f9f9f9;
-    width: 100%;
-    min-height: 150px;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    resize: none;
-}
+        /* Textarea styles */
+        .centered-textarea {
+            width: 100%;
+            min-height: 150px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
 
-/* Button styles */
-.btn-primary {
-    background-color: #007bff;
-    border: 1px solid #007bff;
-    color: #fff;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    width: 100%;
-}
+        /* Button styles */
+        .btn-primary {
+            background-color: #007bff;
+            border: 1px solid #007bff;
+            color: #fff;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            width: 100%;
+        }
 
-.btn-primary:hover {
-    background-color: #0056b3;
-    border: 1px solid #0056b3;
-}
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border: 1px solid #0056b3;
+        }
 
-/* Footer styles */
-.footer {
-    background-color: #f9f9f9;
-    padding: 10px;
-    text-align: center;
-    font-size: 16px;
-    color: #333;
-    margin-top: 50px;
-}
+        /* Footer styles */
+        .footer {
+            background-color: #f9f9f9;
+            padding: 10px;
+            text-align: center;
+            font-size: 16px;
+            margin-top: 50px;
+        }
 
-.footer p {
-    margin: 0;
-    display: inline-block;
-    margin-right: 30px;
-}
+        .footer p {
+            margin: 0;
+            display: inline-block;
+            margin-right: 30px;
+        }
 
-/* Checkbox styles */
-.form-check input[type="checkbox"] {
-    color: #333;
-    margin-right: 10px;
-}
+        /* Checkbox styles */
+        .form-check input[type="checkbox"] {
+            margin-right: 10px;
+        }
 
-.form-check-label {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    padding: 22px;
-}
+        .form-check-label {
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            padding: 22px;
+        }
 
-/* Media query for smaller screens */
-@media (max-width: 576px) {
-    .form-check-label {
-        font-size: 12px;
-    }
-}
+        /* Media query for smaller screens */
+        @media (max-width: 576px) {
+            .form-check-label {
+                font-size: 12px;
+            }
+        }
 
-/* Video styles */
-video {
-    width: 100%;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-}
+        /* Video styles */
+        video {
+            width: 100%;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+        }
 
-/* Additional styling for input fields */
-input[type="text"] {
-    color: #333;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
-}
+        /* Additional styling for input fields */
+        input[type="text"] {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-/* Dropdown menu styles */
-.navbar-nav .dropdown-menu {
-    background-color: #ffffff;
-}
+        /* Dropdown menu styles */
+        .navbar-nav .dropdown-menu {
+            background-color: #ffffff;
+        }
 
-.navbar-nav .dropdown-item {
-    color: #333;
-}
+        .navbar-nav .dropdown-item {
+            color: #333;
+        }
 
-.navbar-nav .dropdown-item:hover {
-    background-color: #f9f9f9;
-    color: #007bff;
-}
+        .navbar-nav .dropdown-item:hover {
+            background-color: #f9f9f9;
+            color: #007bff;
+        }
 
-/* Navbar styles */
-.navbar {
-    background-color: #ffffff;
-    border-bottom: 1px solid #ccc;
-}
+        /* Navbar styles */
+        .navbar {
+            background-color: #ffffff;
+            border-bottom: 1px solid #ccc;
+        }
 
-.navbar-brand, .nav-link {
-    color: #333 !important;
-}
+        .navbar-brand, .nav-link {
+            color: #333 !important;
+        }
 
-.nav-link:hover {
-    color: #007bff !important;
-}
+        .nav-link:hover {
+            color: #007bff !important;
+        }
 
-/* Checkbox label color */
-input[type="checkbox"] + label {
-    color: #333;
-}
+        /* Checkbox label color */
+        input[type="checkbox"] + label {
+            color: #333;
+        }
 
-/* Ensuring elements are not hidden */
-.hidden {
-    display: none !important;
-}
+        /* Ensuring elements are not hidden */
+        .hidden {
+            display: none !important;
+        }
 
-.visible {
-    display: block !important;
-}
+        .visible {
+            display: block !important;
+        }
 
-/* Ensuring icons are visible */
-.icon {
-    color: #333;
-    font-size: 18px;
-}
+        /* Ensuring icons are visible */
+        .icon {
+            color: #333;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Example Heading</h1>
+        <textarea class="centered-textarea"></textarea>
+        <button class="btn-primary">Submit</button>
+    </div>
+    <div class="footer">
+        <p>Footer content here</p>
+    </div>
+</body>
+</html>

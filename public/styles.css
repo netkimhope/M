@@ -163,3 +163,18 @@ input[type="text"] {
 input[type="checkbox"] + label {
     color: #fff;
 }
+
+/* Ensuring elements are not hidden */
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
+
+/* Ensuring icons are visible */
+.icon {
+    color: #fff;
+    font-size: 18px;
+}

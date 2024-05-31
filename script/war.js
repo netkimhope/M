@@ -66,6 +66,11 @@ function startWar(api, event) {
 }
 
 module.exports.run = async function({ api, args, event, admin }) {
+	if (args.length === 0) {
+		api.sendMessage("Type 'war on' to activate war mode or 'war off' to deactivate war mode.", event.threadID);
+		return;
+	}
+	
 	const command = args[0].toLowerCase();
 	
 	if (command === "on") {

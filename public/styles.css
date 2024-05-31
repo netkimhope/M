@@ -5,87 +5,63 @@ body {
     font-family: 'Poppins', BlinkMacSystemFont, sans-serif;
     overflow-y: auto;
     overflow-x: hidden;
-    color: #fff;
-}
-
-/* Gradient background animation */
-body {
-    background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460, #53354a);
-    animation: gradient 15s ease infinite;
-    background-size: 400% 400%;
-    background-attachment: fixed;
-}
-
-@keyframes gradient {
-    0% {
-        background-position: 0% 0%;
-    }
-    50% {
-        background-position: 100% 100%;
-    }
-    100% {
-        background-position: 0% 0%;
-    }
+    color: #333;
+    background-color: #f4f4f4;
 }
 
 /* Common container styles */
 .container {
-    color: #fff;
-    background: rgba(0, 0, 0, 0.7);
+    color: #333;
+    background: #ffffff;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 0 0.5rem #fff, 0 0 0.5rem #fff, 0 0 2rem #1F51FF, 0 0 1rem #1F51FF, 0 0 3rem #1F51FF, inset 0 0 1.5rem #1F51FF;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
     margin-bottom: 20px;
-    outline: 2px solid #fff;
 }
 
 /* Heading styles */
 h1 {
-    color: #ff4c4c;
+    color: #333;
     font-size: 24px;
     margin-bottom: 15px;
 }
 
 /* Textarea styles */
 .centered-textarea {
-    color: #fff;
-    background-color: #333;
+    color: #333;
+    background-color: #f9f9f9;
     width: 100%;
     min-height: 150px;
     padding: 10px;
     box-sizing: border-box;
-    border: 1px solid #00ffff;
+    border: 1px solid #ccc;
     border-radius: 5px;
     resize: none;
 }
 
 /* Button styles */
 .btn-primary {
-    background-color: #00ff00;
+    background-color: #007bff;
     border: 1px solid #007bff;
-    color: #1a1a2e;
+    color: #fff;
     transition: background-color 0.3s ease, border-color 0.3s ease;
     width: 100%;
 }
 
 .btn-primary:hover {
-    background-color: #76d674;
+    background-color: #0056b3;
     border: 1px solid #0056b3;
 }
 
 /* Footer styles */
 .footer {
-    background-color: #0f3460;
+    background-color: #f9f9f9;
     padding: 10px;
     text-align: center;
     font-size: 16px;
-    color: #fff;
+    color: #333;
     margin-top: 50px;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
 }
 
 .footer p {
@@ -96,7 +72,7 @@ h1 {
 
 /* Checkbox styles */
 .form-check input[type="checkbox"] {
-    color: #fff;
+    color: #333;
     margin-right: 10px;
 }
 
@@ -117,15 +93,15 @@ h1 {
 /* Video styles */
 video {
     width: 100%;
-    border: 2px solid #00ffff;
+    border: 2px solid #ccc;
     border-radius: 10px;
 }
 
 /* Additional styling for input fields */
 input[type="text"] {
-    color: #fff;
-    background-color: #333;
-    border: 1px solid #00ffff;
+    color: #333;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
     width: 100%;
@@ -134,34 +110,35 @@ input[type="text"] {
 
 /* Dropdown menu styles */
 .navbar-nav .dropdown-menu {
-    background-color: #1a1a2e;
+    background-color: #ffffff;
 }
 
 .navbar-nav .dropdown-item {
-    color: #fff;
+    color: #333;
 }
 
 .navbar-nav .dropdown-item:hover {
-    background-color: #333;
-    color: #00ffff;
+    background-color: #f9f9f9;
+    color: #007bff;
 }
 
 /* Navbar styles */
 .navbar {
-    background-color: #16213e;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ccc;
 }
 
 .navbar-brand, .nav-link {
-    color: #fff !important;
+    color: #333 !important;
 }
 
 .nav-link:hover {
-    color: #00ffff !important;
+    color: #007bff !important;
 }
 
 /* Checkbox label color */
 input[type="checkbox"] + label {
-    color: #fff;
+    color: #333;
 }
 
 /* Ensuring elements are not hidden */
@@ -175,6 +152,6 @@ input[type="checkbox"] + label {
 
 /* Ensuring icons are visible */
 .icon {
-    color: #fff;
+    color: #333;
     font-size: 18px;
 }

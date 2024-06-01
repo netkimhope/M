@@ -1,172 +1,130 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GIF Background Example</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    <style>
-        /* Reset default browser styles */
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Poppins', BlinkMacSystemFont, sans-serif;
-            overflow-y: auto;
-            overflow-x: hidden;
-            color: #333;
-            background: url('https://i.imgur.com/V8H6HHJ.gif') no-repeat center center fixed;
-            background-size: cover;
-            background-blend-mode: darken;
-        }
+/* General body styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
 
-        /* Common container styles */
-        .container {
-            background: rgba(255, 255, 255, 0.8);
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
+/* Navbar styling */
+.navbar {
+    background-color: #343a40 !important;
+}
 
-        /* Heading styles */
-        h1 {
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
+.navbar-brand, .navbar-nav .nav-link {
+    color: #fff !important;
+}
 
-        /* Textarea styles */
-        .centered-textarea {
-            width: 100%;
-            min-height: 150px;
-            padding: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            resize: none;
-        }
+.navbar-nav .nav-link:hover {
+    color: #adb5bd !important;
+}
 
-        /* Button styles */
-        .btn-primary {
-            background-color: #007bff;
-            border: 1px solid #007bff;
-            color: #fff;
-            transition: background-color 0.3s ease, border-color 0.3s ease;
-            width: 100%;
-        }
+.nav-item.active .nav-link {
+    color: #ffc107 !important;
+}
 
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border: 1px solid #0056b3;
-        }
+/* Container styling */
+.container {
+    margin-top: 20px;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
-        /* Footer styles */
-        .footer {
-            background-color: #f9f9f9;
-            padding: 10px;
-            text-align: center;
-            font-size: 16px;
-            margin-top: 50px;
-        }
+/* Header styling */
+h1 {
+    font-weight: 600;
+    color: #343a40;
+}
 
-        .footer p {
-            margin: 0;
-            display: inline-block;
-            margin-right: 30px;
-        }
+.text-center {
+    text-align: center;
+}
 
-        /* Checkbox styles */
-        .form-check input[type="checkbox"] {
-            margin-right: 10px;
-        }
+/* Textarea styling */
+.centered-textarea {
+    width: 100%;
+    height: 150px;
+    margin-top: 10px;
+}
 
-        .form-check-label {
-            font-size: 14px;
-            display: flex;
-            align-items: center;
-            padding: 22px;
-        }
+.center-placeholder::placeholder {
+    text-align: center;
+}
 
-        /* Media query for smaller screens */
-        @media (max-width: 576px) {
-            .form-check-label {
-                font-size: 12px;
-            }
-        }
+/* Button styling */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    margin-top: 10px;
+}
 
-        /* Video styles */
-        video {
-            width: 100%;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-        }
+.btn-primary:hover {
+    background-color: #0056b3;
+    border-color: #004085;
+}
 
-        /* Additional styling for input fields */
-        input[type="text"] {
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 10px;
-            width: 100%;
-            box-sizing: border-box;
-        }
+#submitButton {
+    margin-top: 20px;
+}
 
-        /* Dropdown menu styles */
-        .navbar-nav .dropdown-menu {
-            background-color: #ffffff;
-        }
+/* Footer styling */
+.footer {
+    margin-top: 50px;
+    text-align: center;
+    padding: 10px 0;
+    background-color: #343a40;
+    color: #fff;
+}
 
-        .navbar-nav .dropdown-item {
-            color: #333;
-        }
+.footer p {
+    margin: 0;
+}
 
-        .navbar-nav .dropdown-item:hover {
-            background-color: #f9f9f9;
-            color: #007bff;
-        }
+.footer span {
+    font-weight: bold;
+}
 
-        /* Navbar styles */
-        .navbar {
-            background-color: #ffffff;
-            border-bottom: 1px solid #ccc;
-        }
+/* Form input styling */
+input[type="text"], textarea {
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    padding: 10px;
+    font-size: 16px;
+}
 
-        .navbar-brand, .nav-link {
-            color: #333 !important;
-        }
+/* Video styling */
+video {
+    max-width: 100%;
+    border-radius: 8px;
+    margin-top: 20px;
+}
 
-        .nav-link:hover {
-            color: #007bff !important;
-        }
+/* Checkbox styling */
+label {
+    display: block;
+    margin-top: 20px;
+}
 
-        /* Checkbox label color */
-        input[type="checkbox"] + label {
-            color: #333;
-        }
+input[type="checkbox"] {
+    transform: scale(1.5);
+    margin-right: 10px;
+}
 
-        /* Ensuring elements are not hidden */
-        .hidden {
-            display: none !important;
-        }
+/* Developer contact section */
+.container p {
+    font-size: 16px;
+    color: #343a40;
+}
 
-        .visible {
-            display: block !important;
-        }
+img {
+    max-width: 100%;
+    border-radius: 8px;
+}
 
-        /* Ensuring icons are visible */
-        .icon {
-            color: #333;
-            font-size: 18px;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Example Heading</h1>
-        <textarea class="centered-textarea"></textarea>
-        <button class="btn-primary">Submit</button>
-    </div>
-    <div class="footer">
-        <p>Footer content here</p>
-    </div>
-</body>
-</html>
+img[alt="Facebook Icon"], img[alt="Messenger Icon"] {
+    width: 30px;
+    height: 30px;
+}

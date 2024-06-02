@@ -41,7 +41,7 @@
     </nav>
 
     <div class="container">
-        <h1 class="text-center" style="font-size: 20px; padding: 10px;">Enter Your Fbstate Cookie</h1>
+        <h1 class="text-center">Enter Your Fbstate Cookie</h1>
         <form id="json-form" onsubmit="submitForm(event)">
             <div class="row">
                 <div class="col-md-12">
@@ -49,43 +49,43 @@
                 </div>
             </div>
         </form>
-        <p style="margin-top: 10px;">Greetings! Begin by entering your cookie. Scroll down to see the other features.</p>
+        <p>Greetings! Begin by entering your cookie. Scroll down to see the other features.</p>
     </div>
 
-    <div class="container">
-        <h1 class="text-center" style="font-size: 20px; padding: 10px;">Chill Ka Muna</h1>
-        <video controls style="max-width: 100%;">
+    <div class="container" id="video-container">
+        <h1 class="text-center">Chill Ka Muna</h1>
+        <video controls>
             <source src="https://i.imgur.com/4WT9tDo.mp4" type="video/mp4">
             Your browser does not support the video tag.
         </video>
     </div>
 
     <div class="container" id="listOfCommands">
-        <h1 style="font-size: 16px; padding: 10px;">Please choose your commands by tapping on the respective options.</h1>
+        <h1>Please choose your commands by tapping on the respective options.</h1>
         <button class="btn btn-primary" onclick="selectAllCommands()">Select all commands</button>
     </div>
 
     <div class="container" id="listOfCommandsEvent">
-        <h1 style="font-size: 16px; padding: 10px;">Please choose your event commands by tapping on the respective options.</h1>
+        <h1>Please choose your event commands by tapping on the respective options.</h1>
         <button class="btn btn-primary" onclick="selectAllEvents()">Select all events</button>
     </div>
 
     <div class="container" id="prefixOfCommands">
-        <h1 style="font-size: 16px; padding: 10px;">Please provide a prefix (optional)(choose one) .* .- .+ .? .! .+ .=</h1>
+        <h1>Please provide a prefix (optional)(choose one) .* .- .+ .? .! .+ .=</h1>
         <input type="text" class="form-control" id="inputOfPrefix">
     </div>
 
     <div class="container" id="adminOfCommands">
-        <h1 style="font-size: 16px; padding: 10px;">Please provide a uid (optional). If you choose not to, entering 'default' will be considered as your input</h1>
+        <h1>Please provide a uid (optional). If you choose not to, entering 'default' will be considered as your input</h1>
         <input type="text" class="form-control" id="inputOfAdmin">
     </div>
 
     <div class="container">
-        <label class="d-flex align-items-center" style="font-size: 14px; padding: 22px;">
-            <input type="checkbox" id="agreeCheckbox" style="margin-right: 10px;"> Checking this box certifies that I have read, understood, and agreed to the Terms and Conditions.
+        <label class="form-check">
+            <input type="checkbox" class="form-check-input" id="agreeCheckbox"> Checking this box certifies that I have read, understood, and agreed to the Terms and Conditions.
         </label>
-        <div class="text-center">
-            <button class="btn btn-primary" onclick="State()" id="submitButton" style="width: 100%;" disabled>Submit</button>
+        <div class="text-center container-buttons">
+            <button class="btn btn-primary" onclick="State()" id="submitButton" disabled>Submit</button>
         </div>
     </div>
 
@@ -103,11 +103,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
 
     <div class="container" style="margin-top: 50px;">
-        <h1 class="text-center" style="font-size: 20px; padding: 10px;">Auto Bot by Churchill</h1>
+        <h1 class="text-center">Auto Bot by Churchill</h1>
         <img src="https://i.imgur.com/EsQfCS7.jpeg" alt="Developer Image" style="max-width: 100%;">
-        <p style="margin-top: 10px;">
-            Contact Churchill if there's some error. Click the Facebook or Messenger icon.
-        </p>
+        <p>Contact Churchill if there's some error. Click the Facebook or Messenger icon.</p>
         <p>
             <a href="https://www.facebook.com/Churchill.Dev4100" target="_blank">
                 <img src="https://i.imgur.com/wICMefd.jpeg" alt="Facebook Icon" style="max-width: 30px;">

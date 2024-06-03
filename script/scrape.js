@@ -1,4 +1,5 @@
 const axios = require('axios');
+const cheerio = require('cheerio');
 
 module.exports.config = {
   name: "scrape",
@@ -20,11 +21,14 @@ module.exports.run = async function({ api, event, args }) {
 
   try {
     const response = await axios.get(url);
-    const data = response.data;
+    const html = response.data;
+    const $ = cheerio.load(html);
 
-    // Format the scraped content, you can adjust this part as needed
-    const content = JSON.stringify(data, null, 2);
-    api.sendMessage(`Scraped content: ${content}`, event.threadID);
+    // Example: Extract the title of the page
+    const title = $('title').text();
+    const bodyText = $('body').text().substring(0, 500); // First 500 characters of the body text
+
+    api.sendMessage(`Title: ${title}\n\nContent: ${bodyText}`, event.threadID);
   } catch (error) {
     api.sendMessage(`Error: ${error.message}`, event.threadID, event.messageID);
   }

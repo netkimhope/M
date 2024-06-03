@@ -1,3 +1,4 @@
+/* General Body and Background Styling */
 body {
     margin: auto;
     padding: 20px;
@@ -15,10 +16,11 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4); /* Reduced opacity */
+    background: rgba(0, 0, 0, 0.4);
     z-index: -1;
 }
 
+/* Gradient Animation */
 @keyframes gradient {
     0% {
         background-position: 0% 0%;
@@ -31,8 +33,9 @@ body::before {
     }
 }
 
+/* Wave Animation */
 .wave {
-    background: rgb(255 255 255 / 20%); /* Reduced opacity */
+    background: rgb(255 255 255 / 20%);
     border-radius: 1000% 1000% 0 0;
     position: fixed;
     width: 200%;
@@ -75,9 +78,10 @@ body::before {
     }
 }
 
+/* Container and Text Styling */
 .container {
     color: #FFFFFF;
-    background: rgba(0, 0, 0, 0.5); /* Reduced opacity */
+    background: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #1F51FF,
@@ -91,7 +95,7 @@ body::before {
 
 h1 {
     color: #FFFFFF;
-    font-size: 24px;
+    font-size: 20px; /* Adjusted font size */
     margin-bottom: 15px;
 }
 
@@ -129,13 +133,14 @@ label {
 .success-message {
     color: green;
     margin-top: 10px;
+    display: block;
 }
 
 .footer {
     background-color: #E90207;
     padding: 10px;
     text-align: center;
-    font-size: 16px;
+    font-size: 14px; /* Adjusted font size */
     color: #FFFFFF;
     margin-top: 50px;
     border-top: 1px solid blue;

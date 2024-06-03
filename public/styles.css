@@ -131,7 +131,7 @@ label {
 }
 
 .success-message {
-    color: green;
+    /*color: green;
     margin-top: 10px;
     display: block;
 }

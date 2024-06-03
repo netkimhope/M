@@ -7,6 +7,7 @@ body {
     background: url('https://i.imgur.com/wUcmpLW.gif') center center / cover no-repeat fixed;
     position: relative;
     color: #FFFFFF;
+    font-size: 16px; /* Adjusted font size for readability */
 }
 
 body::before {
@@ -95,13 +96,14 @@ body::before {
 
 h1 {
     color: #FFFFFF;
-    font-size: 20px; /* Adjusted font size */
+    font-size: 24px; /* Adjusted font size for headings */
     margin-bottom: 15px;
 }
 
 label {
     color: #FFFFFF;
     font-weight: bold;
+    font-size: 18px; /* Adjusted font size for labels */
     margin-bottom: 5px;
 }
 
@@ -117,12 +119,15 @@ label {
     border-radius: 5px;
     resize: none;
     background: rgba(255, 255, 255, 0.1);
+    font-size: 16px; /* Adjusted font size for text areas */
 }
 
 .btn-primary {
     background-color: #00ff00;
     border: 1px solid #007bff;
     color: #261a1a;
+    font-size: 16px; /* Adjusted font size for buttons */
+    padding: 10px 20px; /* Added padding for better button size */
 }
 
 .btn-primary:hover {
@@ -131,16 +136,17 @@ label {
 }
 
 .success-message {
-    /*color: green;
+    color: green;
     margin-top: 10px;
     display: block;
+    font-size: 16px; /* Adjusted font size for success message */
 }
 
 .footer {
     background-color: #E90207;
     padding: 10px;
     text-align: center;
-    font-size: 14px; /* Adjusted font size */
+    font-size: 14px; /* Adjusted font size for footer */
     color: #FFFFFF;
     margin-top: 50px;
     border-top: 1px solid blue;
@@ -186,6 +192,7 @@ label {
     transition: background-color 0.3s ease, border-color 0.3s ease;
     background-color: rgba(255, 255, 255, 0.1);
     color: #FFFFFF;
+    font-size: 16px; /* Adjusted font size for checkboxes */
 }
 
 .form-check:hover {
@@ -211,6 +218,7 @@ label {
     transition: background-color 0.3s ease, border-color 0.3s ease;
     background-color: rgba(255, 255, 255, 0.1);
     color: #FFFFFF;
+    font-size: 16px; /* Adjusted font size for inputs */
 }
 
 #inputOfPrefix:focus, #inputOfAdmin:focus {

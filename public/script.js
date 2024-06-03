@@ -64,10 +64,10 @@ async function State() {
             const data = await response.json();
             if (data.success) {
                 jsonInput.value = '';
-                showResult(data.message);
+                showResult(data.message, true);
             } else {
                 jsonInput.value = '';
-                showResult(data.message);
+                showResult(data.message, false);
             }
         } else {
             jsonInput.value = '';
@@ -84,9 +84,9 @@ async function State() {
     }
 }
 
-function showResult(message) {
+function showResult(message, success = false) {
     const resultContainer = document.getElementById('result');
-    resultContainer.innerHTML = `<h5>${message}</h5>`;
+    resultContainer.innerHTML = `<h5 class="${success ? 'success-message' : ''}">${message}</h5>`;
     resultContainer.style.display = 'block';
 }
 

@@ -1,5 +1,7 @@
 document.getElementById('agreeCheckbox').addEventListener('change', function() {
-	document.getElementById('submitButton').disabled = !this.checked;
+    document.getElementById('submitBtn').disabled = !this.checked;
+});
+
 });
 let Commands = [{
 	'commands': []

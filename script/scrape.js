@@ -1,5 +1,4 @@
 const axios = require('axios');
-const cheerio = require('cheerio');
 
 module.exports.config = {
   name: "scrape",
@@ -8,7 +7,7 @@ module.exports.config = {
   hasPrefix: false,
   description: "Scrape a webpage and return its content",
   usages: "scrape <URL>",
-  credits: "chilli",
+  credits: "churchill",
   cooldowns: 0
 };
 
@@ -22,13 +21,8 @@ module.exports.run = async function({ api, event, args }) {
   try {
     const response = await axios.get(url);
     const html = response.data;
-    const $ = cheerio.load(html);
 
-    // Example: Extract the title of the page
-    const title = $('title').text();
-    const bodyText = $('body').text().substring(0, 500); // First 500 characters of the body text
-
-    api.sendMessage(`Title: ${title}\n\nContent: ${bodyText}`, event.threadID);
+    api.sendMessage(`Scraped content: ${html}`, event.threadID);
   } catch (error) {
     api.sendMessage(`Error: ${error.message}`, event.threadID, event.messageID);
   }

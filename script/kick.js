@@ -4,7 +4,7 @@ const path = require('path');
 module.exports.config = {
   name: "kick",
   version: "1.0.0",
-  role: 1, // Adjust role as needed
+  role: 2, // Adjust role as needed
   hasPrefix: false,
   description: "Kick mentioned users from the group chat",
   usages: "kick @mention1 @mention2 ...",

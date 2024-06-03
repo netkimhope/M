@@ -1,58 +1,58 @@
-const axios = require('axios');
-
 module.exports.config = {
   name: 'scrape',
   version: '1.1.1',
   hasPermssion: 0,
   role: 2,
-  credits: "cliff",//modchilli
+  credits: "cliff",
   author: 'yazky',
-  description: 'Scraping Web and API/output',
+  description: 'Scraping Web and api/output',
   usePrefix: false,
   hasPrefix: false,
   commandCategory: 'url',
   usage: '{pn} [url]',
   usages: '{pn} [url]',
   cooldown: 0,
-  cooldowns: 0,
+ cooldowns: 0,
 };
 
-module.exports.run = async function({ api, event, args }) {
+module.exports .run = async function({ api, event, args }) {
+  const axios = require('axios');
+
   let url = args.join(' ');
 
-  if (!url) {
-    return api.sendMessage('Please provide a URL you want to scrape.', event.threadID, event.messageID);
-  }
-
   try {
-    const initialMessage = await new Promise(resolve => {
-      api.sendMessage('Scraping website/API, please wait a few seconds...', event.threadID, (err, info) => {
-        resolve(info);
+    if (!url) {
+      return api.sendMessage('Please provide a URL you want to scrape.', event.threadID, event.messageID);
+    }
+
+    const cliff = await new Promise(resolve => {
+      api.sendMessage('Scraping website/API, please wait a few seconds...', event.threadID, (err, info1) => {
+        resolve(info1);
       }, event.messageID);
     });
 
     const response = await axios.get(`http://158.101.198.227:8609/scrapper?url=${encodeURIComponent(url)}`);
     const responseData = response.data.results;
 
-    const rawContent = responseData.map(item => item.content).join('\n\n');
+    let ughContent = responseData.map(item => item.content).join('\n\n');
 
-    const formattedContent = responseData.map(item => ({
+    let formattedContent = responseData.map(item => ({
       created_at: item.created_at,
       updated_at: item.updated_at,
       page: item.page,
       url: item.url,
       job_id: item.job_id,
       status_code: item.status_code,
-      request: item._request,
-      response: item._response,
+      _request: item._request,
+      _response: item._response,
       session_info: item.session_info
     }));
 
-    const fullContent = `${rawContent}\n\n${JSON.stringify(formattedContent, null, 2)}`;
+    let sheshh = `${ughContent}\n\n${JSON.stringify(formattedContent, null, 2)}`;
 
-    api.editMessage(fullContent, initialMessage.messageID);
+    api.editMessage(sheshh, cliff.messageID);
   } catch (err) {
     console.error(err);
-    return api.sendMessage('Error: Unable to access the link. Please try again.', event.threadID, event.messageID);
+    return api.sendMessage('Error bai hindi ko ma acces ang link pasensya na.', event.threadID, event.messageID);
   }
 };

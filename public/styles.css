@@ -15,7 +15,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.6);
     z-index: -1;
 }
 
@@ -77,7 +77,7 @@ body::before {
 
 .container {
     color: #FFFFFF;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.7);
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #1F51FF,
@@ -96,7 +96,7 @@ h1 {
 }
 
 label {
-    color: #343434;
+    color: #FFFFFF;
     font-weight: bold;
     margin-bottom: 5px;
 }
@@ -175,20 +175,22 @@ label {
     align-items: center;
     margin-top: 10px;
     padding: 14px;
-    border: 1px solid red;
+    border: 1px solid #00ffff;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
 }
 
 .form-check:hover {
-    background-color: #f5f5f5;
-    border-color: #f8f8f8;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #00ffff;
 }
 
 .form-check-input {
     margin-right: 10px;
+    accent-color: #00ffff;
 }
 
 .disable {
@@ -202,7 +204,13 @@ label {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease;
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #FFFFFF;
+}
+
+#inputOfPrefix:focus, #inputOfAdmin:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-color: #00ffff;
 }
 
 #listOfCommands, #listOfCommandsEvent, #prefixOfCommands, #adminOfCommands {

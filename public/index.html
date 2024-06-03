@@ -40,7 +40,7 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container mt-4">
         <h1 class="text-center">Enter Your Fbstate Cookie</h1>
         <form id="json-form" onsubmit="submitForm(event)">
             <div class="row">
@@ -81,9 +81,10 @@
     </div>
 
     <div class="container">
-        <label class="form-check">
-            <input type="checkbox" class="form-check-input" id="agreeCheckbox"> Checking this box certifies that I have read, understood, and agreed to the Terms and Conditions.
-        </label>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="agreeCheckbox">
+            <label class="form-check-label" for="agreeCheckbox">Checking this box certifies that I have read, understood, and agreed to the Terms and Conditions.</label>
+        </div>
         <div class="text-center container-buttons">
             <button class="btn btn-primary" onclick="State()" id="submitButton" disabled>Submit</button>
         </div>

@@ -6,19 +6,24 @@ body {
     overflow: auto;
     background: linear-gradient(135deg, #1f1f1f, #4d4d4d);
     color: #FFFFFF;
-    font-size: 14px; /* Adjusted font size for readability */
+    font-size: 16px; /* Adjusted font size for readability */
+    animation: backgroundAnimation 30s ease infinite alternate;
 }
 
 /* Container Styling */
 .container {
     color: #FFFFFF;
     margin-top: 20px;
+    max-width: 800px; /* Adjusted maximum width for better readability */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 h1 {
     font-weight: 500;
     color: #FFD700; /* Gold color for titles */
     margin-bottom: 20px;
+    font-size: 24px; /* Adjusted font size for titles */
 }
 
 /* Navbar Styling */
@@ -29,6 +34,7 @@ h1 {
 .navbar-brand,
 .nav-link {
     color: #FFD700 !important; /* Gold color for navbar links */
+    font-size: 18px; /* Adjusted font size for navbar links */
 }
 
 .navbar-brand:hover,
@@ -43,6 +49,7 @@ textarea#json-data {
     height: 200px;
     margin-bottom: 20px;
     text-align: center;
+    font-size: 16px; /* Adjusted font size for textarea */
 }
 
 textarea::placeholder {
@@ -54,6 +61,7 @@ button.btn-primary {
     background-color: #FFD700;
     border-color: #FFD700;
     color: #333;
+    font-size: 16px; /* Adjusted font size for buttons */
 }
 
 button.btn-primary:hover {
@@ -76,6 +84,7 @@ button.btn-primary:hover {
     bottom: 0;
     width: 100%;
     text-align: center;
+    font-size: 14px; /* Adjusted font size for footer */
 }
 
 .footer p {
@@ -101,6 +110,7 @@ input[type="text"] {
     border: 2px solid #FFD700;
     background-color: #333;
     color: #FFD700;
+    font-size: 16px; /* Adjusted font size for input fields */
 }
 
 input[type="text"]::placeholder {
@@ -111,6 +121,7 @@ input[type="text"]::placeholder {
 #listOfCommands button,
 #listOfCommandsEvent button {
     margin: 10px 0;
+    font-size: 16px; /* Adjusted font size for buttons in command list */
 }
 
 /* Result Container Styling */
@@ -128,5 +139,15 @@ input[type="text"]::placeholder {
     .navbar-brand {
         text-align: center;
         width: 100%;
+    }
+}
+
+/* Background Animation */
+@keyframes backgroundAnimation {
+    0% {
+        background-position: 0% 0%;
+    }
+    100% {
+        background-position: 100% 100%;
     }
 }

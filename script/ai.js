@@ -4,10 +4,7 @@ const fs = require('fs').promises;
 const storageFile = 'user_data.json';
 const axiosStatusFile = 'axios_status.json';
 
-const primaryApiUrl = 'https://jonellccapisprojectv2-a62001f39859.herokuapp.com/api/gptconvo';
-const backupApiUrl = 'https://jonellccapisprojectv2-a62001f39859.herokuapp.com/api/v2/ai';
-
-let isPrimaryApiStable = true;
+const newApiUrl = 'https://cprojectapisjonellv2.adaptable.app/api/ai?query=';
 
 module.exports.config = {
     name: "ai",
@@ -29,23 +26,14 @@ module.exports.run = async function ({ api, event, args }) {
     const content = encodeURIComponent(args.join(" "));
     const uid = event.senderID;
 
-    let apiUrl, apiName;
-
-    if (isPrimaryApiStable) {
-        apiUrl = `${primaryApiUrl}?ask=${content}&id=${uid}`;
-        apiName = 'Primary Axios';
-    } else {
-        apiUrl = `${backupApiUrl}?ask=${content}`;
-        apiName = 'Backup Axios';
-    }
-
     if (!content) return api.sendMessage("Please provide your question.\n\nExample: ai what is the solar system?", event.threadID, event.messageID);
 
     try {
         api.sendMessage(`🔍 | AI is searching for your answer. Please wait...`, event.threadID, event.messageID);
 
+        const apiUrl = `${newApiUrl}${content}`;
         const response = await axios.get(apiUrl);
-        const result = isPrimaryApiStable ? response.data.response : response.data.message;
+        const result = response.data.message;
 
         if (!result) {
             throw new Error("Axios response is undefined");
@@ -55,7 +43,7 @@ module.exports.run = async function ({ api, event, args }) {
         userData.requestCount = (userData.requestCount || 0) + 1;
         userData.responses = userData.responses || [];
         userData.responses.push({ question: content, response: result });
-        await saveUserData(uid, userData, apiName);
+        await saveUserData(uid, userData, 'New Axios');
 
         const totalRequestCount = await getTotalRequestCount();
         const userNames = await getUserNames(api, uid);
@@ -63,47 +51,12 @@ module.exports.run = async function ({ api, event, args }) {
         const responseMessage = `${result}\n\n👤 Question Asked by: ${userNames.join(', ')}\n\n𝐜𝐫𝐞𝐚𝐭𝐞𝐝 𝐲𝐨𝐮𝐫 𝐨𝐰𝐧 𝐁𝐎𝐓 𝐇𝐄𝐑𝐄: https://bingchurchill.onrender.com/`;
         api.sendMessage(responseMessage, event.threadID, event.messageID);
 
-        await saveAxiosStatus(apiName);
-
-        if (!isPrimaryApiStable) {
-            isPrimaryApiStable = true;
-            api.sendMessage("🔃 | Switching back to the primary Axios. Just please wait.", event.threadID);
-        }
+        await saveAxiosStatus('New Axios');
 
     } catch (error) {
         console.error(error);
-
-        try {
-            api.sendMessage("🔄 | Trying Switching Axios!", event.threadID);
-            const backupResponse = await axios.get(`${backupApiUrl}?ask=${content}`);
-            const backupResult = backupResponse.data.message;
-
-            if (!backupResult) {
-                throw new Error("Backup Axios response is undefined");
-            }
-
-            const userData = await getUserData(uid);
-            userData.requestCount = (userData.requestCount || 0) + 1;
-            userData.responses = userData.responses || [];
-            userData.responses.push({ question: content, response: backupResult });
-            await saveUserData(uid, userData, 'Backup Axios');
-
-            const totalRequestCount = await getTotalRequestCount();
-            const userNames = await getUserNames(api, uid);
-
-            const responseMessage = `${backupResult}\n\n👤 Question Asked by: ${userNames.join(', ')}\n\n𝐂𝐑𝐄𝐀𝐓𝐄 𝐘𝐎𝐔𝐑 𝐎𝐖𝐍 𝐁𝐎𝐓 𝐇𝐄𝐑𝐄: https://bingchurchill.onrender.com/`;
-            api.sendMessage(responseMessage, event.threadID, event.messageID);
-
-            isPrimaryApiStable = false;
-
-            await saveAxiosStatus('Backup Axios');
-
-        } catch (backupError) {
-            console.error(backupError);
-            api.sendMessage("An error occurred while processing your request.", event.threadID);
-
-            await saveAxiosStatus('Unknown');
-        }
+        api.sendMessage("An error occurred while processing your request.", event.threadID);
+        await saveAxiosStatus('Unknown');
     }
 };
 

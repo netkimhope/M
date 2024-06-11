@@ -5,205 +5,128 @@ body {
     font-family: 'Poppins', sans-serif;
     overflow: auto;
     background: linear-gradient(135deg, #1f1f1f, #4d4d4d);
-    position: relative;
     color: #FFFFFF;
-    font-size: 16px; /* Adjusted font size for readability */
+    font-size: 14px; /* Adjusted font size for readability */
 }
 
+/* Container Styling */
 .container {
     color: #FFFFFF;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #1F51FF,
-                0 0 0.8rem #1F51FF,
-                0 0 2.8rem #1F51FF,
-                inset 0 0 1.3rem #1F51FF;
     margin-top: 20px;
-    margin-bottom: 20px;
-    outline: 2px solid #FFFFFF;
 }
 
 h1 {
-    color: #FFFFFF;
-    font-size: 24px; /* Adjusted font size for headings */
+    font-weight: 500;
+    color: #FFD700; /* Gold color for titles */
     margin-bottom: 20px;
 }
 
-label {
-    color: #FFFFFF;
-    font-weight: bold;
-    font-size: 16px; /* Adjusted font size for labels */
-    margin-bottom: 10px;
+/* Navbar Styling */
+.navbar {
+    background-color: #343a40;
 }
 
-.centered-textarea {
-    color: #FFFFFF;
-    display: flex;
-    margin: 0 auto;
-    width: 100%;
-    min-height: 150px;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #00ffff;
-    border-radius: 5px;
-    resize: none;
-    background: rgba(255, 255, 255, 0.1);
-    font-size: 16px; /* Adjusted font size for text areas */
+.navbar-brand,
+.nav-link {
+    color: #FFD700 !important; /* Gold color for navbar links */
 }
 
-.btn-primary {
-    background-color: #00ff00;
-    border: 1px solid #007bff;
-    color: #261a1a;
-    font-size: 16px; /* Adjusted font size for buttons */
-    padding: 10px 20px; /* Added padding for better button size */
-    border-radius: 8px;
+.navbar-brand:hover,
+.nav-link:hover {
+    color: #FFA500 !important; /* Darker gold color on hover */
 }
 
-.btn-primary:hover {
-    background-color: #76d674;
-    border: 1px solid #0056b3;
-}
-
-.success-message {
-    color: green;
-    margin-top: 10px;
-    display: block;
-    font-size: 16px; /* Adjusted font size for success message */
-}
-
-.footer {
-    background-color: #E90207;
-    padding: 20px;
+/* Textarea Styling */
+textarea#json-data {
+    background-color: #333;
+    color: #FFD700;
+    height: 200px;
+    margin-bottom: 20px;
     text-align: center;
-    font-size: 16px; /* Adjusted font size for footer */
+}
+
+textarea::placeholder {
+    text-align: center;
+}
+
+/* Button Styling */
+button.btn-primary {
+    background-color: #FFD700;
+    border-color: #FFD700;
+    color: #333;
+}
+
+button.btn-primary:hover {
+    background-color: #FFA500;
+    border-color: #FFA500;
     color: #FFFFFF;
-    margin-top: 50px;
-    border-top: 1px solid blue;
+}
+
+/* Form Check Styling */
+.form-check {
+    margin: 20px 0;
+}
+
+/* Footer Styling */
+.footer {
+    background-color: #343a40;
+    color: #FFD700;
+    padding: 10px;
     position: fixed;
     bottom: 0;
-    left: 0;
     width: 100%;
+    text-align: center;
 }
 
 .footer p {
     margin: 0;
-    display: inline-block;
-    margin-right: 30px;
 }
 
-.container-buttons {
-    margin-top: 20px;
-    text-align: center;
+/* Text Center Styling */
+.text-center video,
+.text-center img {
+    margin: 20px 0;
 }
 
-.container-buttons .btn {
-    margin: 5px;
+.text-center img {
+    border-radius: 50%;
 }
 
+/* Custom Input Styling */
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    box-sizing: border-box;
+    border: 2px solid #FFD700;
+    background-color: #333;
+    color: #FFD700;
+}
+
+input[type="text"]::placeholder {
+    color: #FFD700;
+}
+
+/* Command List Button Styling */
+#listOfCommands button,
+#listOfCommandsEvent button {
+    margin: 10px 0;
+}
+
+/* Result Container Styling */
 #result {
-    padding: 15px;
-    margin-top: 20px;
-    border-radius: 5px;
-}
-
-.center-placeholder::placeholder {
-    text-align: center;
-}
-
-.form-check {
-    display: flex;
-    align-items: center;
-    margin-top: 10px;
-    padding: 10px; /* Adjusted padding for checkboxes */
-    border: 1px solid #00ffff;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #FFFFFF;
-    font-size: 16px; /* Adjusted font size for checkboxes */
-}
-
-.form-check:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-color: #00ffff;
-}
-
-.form-check-input {
-    margin-right: 10px;
-    accent-color: #00ffff;
-}
-
-.disable {
     display: none;
+    margin-top: 20px;
 }
 
-#inputOfPrefix, #inputOfAdmin {
-    padding: 10px; /* Adjusted padding for inputs */
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #FFFFFF;
-    font-size: 16px; /* Adjusted font size for inputs */
-}
-
-#inputOfPrefix:focus, #inputOfAdmin:focus {
-    background-color: rgba(255, 255, 255, 0.2);
-    border-color: #00ffff;
-}
-
-#listOfCommands, #listOfCommandsEvent, #prefixOfCommands, #adminOfCommands {
-    border: none !important;
-}
-
-#listOfCommands:not(.modal), #listOfCommandsEvent:not(.modal), #prefixOfCommands:not(.modal), #adminOfCommands:not(.modal) {
-    box-shadow: none !important;
-}
-
-div {
-    margin-bottom: 10px;
-    border-radius: 5px;
-}
-
-video {
-    max-width: 100%;
-    max-height: 40%;
-    margin-bottom: 20px;
-    outline: 2px solid #FFFFFF;
-    background: linear-gradient(135deg, aqua, rgb(0, 255, 0), rgb(255, 255, 0), orange, red, rgb(255, 0, 234));
-    border-radius: 10px;
-    animation: neon-border 2s linear infinite alternate;
-}
-
-@keyframes neon-border {
-    from {
-        border-color: #ff0000;
-        box-shadow: 0 0 10px #ff0000, 0 0 20px #ff0000, 0 0 30px #ff0000;
+/* Media Query for Responsive Design */
+@media (max-width: 768px) {
+    .navbar-nav {
+        text-align: center;
     }
-    to {
-        border-color: #00ff00;
-        box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00;
+
+    .navbar-brand {
+        text-align: center;
+        width: 100%;
     }
-}
-
-#video-container {
-    width: 100%;
-    height: 100%;
-    margin-bottom: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#video {
-    overflow: hidden;
-    width: 100%;
-    border-radius: 10px;
-    object-fit: cover;
-    margin: auto;
 }

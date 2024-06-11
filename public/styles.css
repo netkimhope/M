@@ -1,13 +1,13 @@
 /* General Body and Background Styling */
 body {
-    margin: auto;
+    margin: 0 auto;
     padding: 20px;
     font-family: 'Poppins', sans-serif;
     overflow: auto;
     background: url('https://i.imgur.com/wUcmpLW.gif') center center / cover no-repeat fixed;
     position: relative;
     color: #FFFFFF;
-    font-size: 14px; /* Adjusted font size for readability */
+    font-size: 16px; /* Adjusted font size for readability */
 }
 
 body::before {
@@ -36,7 +36,7 @@ body::before {
 
 /* Wave Animation */
 .wave {
-    background: rgb(255 255 255 / 20%);
+    background: rgba(255, 255, 255, 0.2);
     border-radius: 1000% 1000% 0 0;
     position: fixed;
     width: 200%;
@@ -84,8 +84,8 @@ body::before {
     color: #FFFFFF;
     background: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 .2rem #fff, 0 0 .2rem #fff, 0 0 2rem #1F51FF,
+    padding: 30px;
+    box-shadow: 0 0 0.2rem #fff, 0 0 0.2rem #fff, 0 0 2rem #1F51FF,
                 0 0 0.8rem #1F51FF,
                 0 0 2.8rem #1F51FF,
                 inset 0 0 1.3rem #1F51FF;
@@ -96,15 +96,15 @@ body::before {
 
 h1 {
     color: #FFFFFF;
-    font-size: 22px; /* Adjusted font size for headings */
-    margin-bottom: 15px;
+    font-size: 28px; /* Adjusted font size for headings */
+    margin-bottom: 20px;
 }
 
 label {
     color: #FFFFFF;
     font-weight: bold;
-    font-size: 16px; /* Adjusted font size for labels */
-    margin-bottom: 5px;
+    font-size: 18px; /* Adjusted font size for labels */
+    margin-bottom: 10px;
 }
 
 .centered-textarea {
@@ -113,21 +113,22 @@ label {
     margin: 0 auto;
     width: 100%;
     min-height: 150px;
-    padding: 10px;
+    padding: 15px;
     box-sizing: border-box;
     border: 1px solid #00ffff;
     border-radius: 5px;
     resize: none;
     background: rgba(255, 255, 255, 0.1);
-    font-size: 14px; /* Adjusted font size for text areas */
+    font-size: 16px; /* Adjusted font size for text areas */
 }
 
 .btn-primary {
     background-color: #00ff00;
     border: 1px solid #007bff;
     color: #261a1a;
-    font-size: 14px; /* Adjusted font size for buttons */
-    padding: 10px 20px; /* Added padding for better button size */
+    font-size: 16px; /* Adjusted font size for buttons */
+    padding: 12px 24px; /* Added padding for better button size */
+    border-radius: 8px;
 }
 
 .btn-primary:hover {
@@ -139,14 +140,14 @@ label {
     color: green;
     margin-top: 10px;
     display: block;
-    font-size: 14px; /* Adjusted font size for success message */
+    font-size: 16px; /* Adjusted font size for success message */
 }
 
 .footer {
     background-color: #E90207;
-    padding: 10px;
+    padding: 20px;
     text-align: center;
-    font-size: 14px; /* Adjusted font size for footer */
+    font-size: 16px; /* Adjusted font size for footer */
     color: #FFFFFF;
     margin-top: 50px;
     border-top: 1px solid blue;
@@ -172,7 +173,7 @@ label {
 }
 
 #result {
-    padding: 10px;
+    padding: 15px;
     margin-top: 20px;
     border-radius: 5px;
 }
@@ -192,7 +193,7 @@ label {
     transition: background-color 0.3s ease, border-color 0.3s ease;
     background-color: rgba(255, 255, 255, 0.1);
     color: #FFFFFF;
-    font-size: 14px; /* Adjusted font size for checkboxes */
+    font-size: 16px; /* Adjusted font size for checkboxes */
 }
 
 .form-check:hover {
@@ -210,7 +211,7 @@ label {
 }
 
 #inputOfPrefix, #inputOfAdmin {
-    padding: 12px; /* Adjusted padding for inputs */
+    padding: 15px; /* Adjusted padding for inputs */
     width: 100%;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -218,7 +219,7 @@ label {
     transition: background-color 0.3s ease, border-color 0.3s ease;
     background-color: rgba(255, 255, 255, 0.1);
     color: #FFFFFF;
-    font-size: 14px; /* Adjusted font size for inputs */
+    font-size: 16px; /* Adjusted font size for inputs */
 }
 
 #inputOfPrefix:focus, #inputOfAdmin:focus {

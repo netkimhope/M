@@ -1,6 +1,7 @@
 document.getElementById('agreeCheckbox').addEventListener('change', function() {
 	document.getElementById('submitButton').disabled = !this.checked;
 });
+
 let Commands = [{
 	'commands': []
 }, {
@@ -37,6 +38,7 @@ function updateTime() {
 }
 updateTime();
 setInterval(updateTime, 1000);
+
 async function State() {
 	const jsonInput = document.getElementById('json-data');
 	const button = document.getElementById('submitButton');
@@ -87,6 +89,7 @@ function showResult(message) {
 	resultContainer.innerHTML = `<h5>${message}</h5>`;
 	resultContainer.style.display = 'block';
 }
+
 async function commandList() {
 	try {
 		const [listOfCommands, listOfCommandsEvent] = [document.getElementById('listOfCommands'), document.getElementById('listOfCommandsEvent')];

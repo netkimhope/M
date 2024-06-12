@@ -27,7 +27,13 @@ module.exports.run = async function ({ api, event, args }) {
                         uid: uid
                     }
                 });
-                return response.data.response;
+                console.log('API Response:', response.data); // Log the API response
+                if (response.data && response.data.response) {
+                    return response.data.response;
+                } else {
+                    console.error('Unexpected API response structure:', response.data);
+                    return 'Unexpected API response structure.';
+                }
             } catch (error) {
                 console.error('Error fetching AI response:', error);
                 return 'An error occurred while fetching the AI response.';

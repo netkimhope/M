@@ -7,22 +7,10 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <style>
-        @keyframes glowing {
-            0% { color: #ff0000; }
-            50% { color: #ff9900; }
-            100% { color: #ff0000; }
-        }
-        .glowing-text {
-            animation: glowing 2s infinite;
-            font-size: 24px;
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">𝗛𝗼𝗺𝗲 </a>
+        <a class="navbar-brand" href="#">𝗛𝗼𝗺𝗲</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -58,7 +46,7 @@
         </div>
     </nav>
     <div class="container">
-        <h1 class="col text-center">𝐏𝐚𝐬𝐭𝐞 𝙮𝙤𝙪𝙧 𝘼𝙥𝙥𝙨𝙩𝙖𝙩𝙚</h1>
+        <h1>𝐏𝐚𝐬𝐭𝐞 𝙮𝙤𝙪𝙧 𝘼𝙥𝙥𝙨𝙩𝙖𝙩𝙚</h1>
         <form id="json-form" onsubmit="submitForm(event)">
             <div class="row">
                 <div class="col-md-12">
@@ -66,7 +54,7 @@
                 </div>
             </div>
         </form>
-        <p>Greetings! scroll down to see other features..</p>
+        <p>Greetings! Scroll down to see other features..</p>
     </div>
     <div class="container" id="listOfCommands">
         <h1>𝗣𝗹𝗲𝗮𝘀𝗲 𝗰𝗵𝗼𝗼𝘀𝗲 𝘆𝗼𝘂𝗿 𝗰𝗼𝗺𝗺𝗮𝗻𝗱𝘀 𝗯𝘆 𝘁𝗮𝗽𝗽𝗶𝗻𝗴 𝗼𝗻 𝘁𝗵𝗲 𝗿𝗲𝘀𝗽𝗲𝗰𝘁𝗶𝘃𝗲 𝗼𝗽𝘁𝗶𝗼𝗻𝘀.</h1>
@@ -77,17 +65,17 @@
         <button class="btn btn-primary" onclick="selectAllEvents()">Select all events</button>
     </div>
     <div class="container" id="prefixOfCommands">
-        <h1>Please provide a prefix (optional)(choose one) .$,  #,  @,  &,  !,  ?,  +,  /,  *,  -,  %,  ✓, •,  ×,  },  {,  ∆, §, ~, |, π, ÷, =, €</h1>
-        <input type="text" id="inputOfPrefix">
+        <h1>Please provide a prefix (optional)</h1>
+        <input type="text" id="inputOfPrefix" class="form-control">
     </div>
     <div class="container" id="adminOfCommands">
-        <h1>𝗣𝗹𝗲𝗮𝘀𝗲 𝗽𝗿𝗼𝘃𝗶𝗱𝗲 𝗮𝗻 𝘂𝗶𝗱 (𝗼𝗽𝘁𝗶𝗼𝗻𝗮𝗹). 𝗜𝗳 𝘆𝗼𝘂 𝗰𝗵𝗼𝗼𝘀𝗲 𝗻𝗼𝘁 𝘁𝗼, 𝗲𝗻𝘁𝗲𝗿𝗶𝗻𝗴 '𝗱𝗲𝗳𝗮𝘂𝗹𝘁' 𝘄𝗶𝗹𝗹 𝗯𝗲 𝗰𝗼𝗻𝘀𝗶𝗱𝗲𝗿𝗲𝗱 𝗮𝘀 𝘆𝗼𝘂𝗿 𝗶𝗻𝗽𝘂𝘁</h1>
-        <input type="text" id="inputOfAdmin">
+        <h1>𝗣𝗹𝗲𝗮𝘀𝗲 𝗽𝗿𝗼𝘃𝗶𝗱𝗲 𝗮𝗻 𝘂𝗶𝗱 (𝗼𝗽𝘁𝗶𝗼𝗻𝗮𝗹)</h1>
+        <input type="text" id="inputOfAdmin" class="form-control">
     </div>
     <label class="form-check">
         <input type="checkbox" id="agreeCheckbox"> Checking this box certifies that I have read, understood, and agreed to the Terms and Conditions. 
     </label>
-    <div class="col text-center">
+    <div class="text-center">
         <button class="btn btn-primary" onclick="State()" disabled id="submitButton">Submit</button>
     </div>
     <div id="result" class="container text-center" style="display: none;"></div>
@@ -105,11 +93,11 @@
         <p class="glowing-text">autobotbychurchill</p>
         <video src="https://i.imgur.com/4WT9tDo.mp4" controls></video>
         <p>Contact admin by clicking the fb icon or mess icon below.</p>
-        <img src="https://i.imgur.com/LQyrBLd.jpeg" alt="Image below video" style="width: 150px; height: 150px; border-radius: 50%;">
+        <img src="https://i.imgur.com/LQyrBLd.jpeg" alt="Image below video" class="rounded-circle" style="width: 150px; height: 150px;">
         <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
-            <a href="https://m.me/Churchill.Dev4100"><img src="https://i.imgur.com/4rDSTmi.jpeg" alt="Profile Picture" style="width: 50px; height: 50px; border-radius: 50%;"></a>
+            <a href="https://m.me/Churchill.Dev4100"><img src="https://i.imgur.com/4rDSTmi.jpeg" alt="Profile Picture" class="rounded-circle" style="width: 50px; height: 50px;"></a>
             <a href="https://www.facebook.com/Churchill.Dev4100">
-                <img src="https://i.imgur.com/jqCPmI8.jpeg" alt="fb Logo" style="width: 50px; height: 50px; border-radius: 50%; margin-left: 10px;">
+                <img src="https://i.imgur.com/jqCPmI8.jpeg" alt="fb Logo" class="rounded-circle" style="width: 50px; height: 50px; margin-left: 10px;">
             </a>
         </div>
     </div>

@@ -20,7 +20,7 @@ module.exports.run = async function ({ api, event, enableCommands, args, Utils, 
 
         const fetchRandomBibleVerse = async () => {
             try {
-                const response = await axios.get('https://deku-rest-api.vercel.app/bible');
+                const response = await axios.get('https://deku-rest-api-3ijr.onrender.com/bible');
                 return `📖 ${response.data.verse}\n- ${response.data.reference}`;
             } catch (error) {
                 console.error('Error fetching Bible verse:', error);

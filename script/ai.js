@@ -1,60 +1,32 @@
-const axios = require('axios');
+const { get } = require('axios');
 
 module.exports.config = {
-    name: 'ai',
-    version: '1.0.0',
+    name: "ai",
+    version: "1.0.0",
     role: 0,
     hasPrefix: false,
-    aliases: ['ai'],
-    description: "Ask AI anything",
-    usage: "ai [question]",
-    credits: 'churchill',
+    credits: "churchill",
+    description: "Ask any question to the AI.",
+    aliases: [],
+    usages: "[question]",
+    cooldown: 0,
 };
 
-module.exports.run = async function ({ api, event, args }) {
-    const input = args.join(' ');
-
-    if (!input) {
-        return api.sendMessage('Please provide a question for the AI.', event.threadID, event.messageID);
+module.exports.run = async function({ api, event, args }) {
+    function sendMessage(msg) {
+        api.sendMessage(msg, event.threadID, event.messageID);
     }
+
+    if (!args[0]) return sendMessage('Please provide a question.');
+
+    const question = args.join(" ");
+    const url = `https://deku-rest-api-3ijr.onrender.com/api/neuronspike?q=${encodeURIComponent(question)}`;
 
     try {
-        const fetchAIResponse = async (question, uid) => {
-            try {
-                const response = await axios.get(`https://deku-rest-api-3ijr.onrender.com/gpt4`, {
-                    params: {
-                        prompt: question,
-                        uid: uid
-                    }
-                });
-                console.log('API Response:', response.data); // Log the API response
-                if (response.data && response.data.response) {
-                    return response.data.response;
-                } else {
-                    console.error('Unexpected API response structure:', response.data);
-                    return 'Unexpected API response structure.';
-                }
-            } catch (error) {
-                console.error('Error fetching AI response:', error);
-                return 'An error occurred while fetching the AI response.';
-            }
-        };
-
-        const uid = event.senderID; // Using senderID as the uid
-        const aiResponse = await fetchAIResponse(input, uid);
-
-        // Get user info to display the name
-        api.getUserInfo(event.senderID, (err, userInfo) => {
-            if (err) {
-                console.error('Error fetching user info:', err);
-                return api.sendMessage('An error occurred while fetching user information.', event.threadID, event.messageID);
-            }
-            const userName = userInfo[event.senderID].name;
-            const responseMessage = `${aiResponse}\n\nQuestion asked by: ${userName}`;
-            api.sendMessage(responseMessage, event.threadID, event.messageID);
-        });
+        const response = await get(url);
+        const data = response.data;
+        return sendMessage(data.response);
     } catch (error) {
-        console.log(error);
-        api.sendMessage('An error occurred while processing your request.', event.threadID, event.messageID);
+        return sendMessage('Sorry, there was an error with the request.');
     }
-};
+}

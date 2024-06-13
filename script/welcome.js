@@ -4,7 +4,7 @@ const fs = require('fs');
 let autoWelcomeActive = false;
 
 module.exports.config = {
-    name: "Welcome",
+    name: "welcome",
     version: "1.0.0",
     role: 1,
     hasPrefix: true,

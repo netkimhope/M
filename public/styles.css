@@ -5,10 +5,14 @@ body {
     overflow: auto;
     background: #ffffff;
     color: #333333;
+    background-image: url('path/to/your/image/background.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
 
 .container {
-    background: #f8f9fa;
+    background: rgba(248, 249, 250, 0.8); /* Semi-transparent background to see the image through */
     border-radius: 10px;
     padding: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -53,7 +57,7 @@ label {
 }
 
 .footer {
-    background-color: #f1f1f1;
+    background-color: rgba(241, 241, 241, 0.8); /* Semi-transparent background to see the image through */
     padding: 10px;
     text-align: center;
     font-size: 16px;
@@ -81,7 +85,7 @@ label {
     padding: 10px;
     margin-top: 20px;
     border-radius: 5px;
-    background-color: #e9ecef;
+    background-color: rgba(233, 236, 239, 0.8); /* Semi-transparent background to see the image through */
 }
 
 .center-placeholder::placeholder {
@@ -97,11 +101,11 @@ label {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background to see the image through */
 }
 
 .form-check:hover {
-    background-color: #f8f9fa;
+    background-color: rgba(248, 249, 250, 0.8); /* Semi-transparent background to see the image through */
     border-color: #dee2e6;
 }
 
@@ -121,7 +125,7 @@ label {
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease;
-    background-color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent background to see the image through */
 }
 
 #listOfCommands, #listOfCommandsEvent, #prefixOfCommands, #adminOfCommands {

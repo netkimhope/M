@@ -39,6 +39,7 @@
             </ul>
         </div>
     </nav>
+
     <div class="container">
         <h1>𝐏𝐚𝐬𝐭𝐞 𝙮𝙤𝙪𝙧 𝘼𝙥𝙥𝙨𝙩𝙖𝙩𝙚</h1>
         <form id="json-form" onsubmit="submitForm(event)">
@@ -50,33 +51,42 @@
         </form>
         <p>Greetings! Scroll down to see other features..</p>
     </div>
+
     <div class="container" id="listOfCommands">
         <h1>𝗣𝗹𝗲𝗮𝘀𝗲 𝗰𝗵𝗼𝗼𝘀𝗲 𝘆𝗼𝘂𝗿 𝗰𝗼𝗺𝗺𝗮𝗻𝗱𝘀 𝗯𝘆 𝘁𝗮𝗽𝗽𝗶𝗻𝗴 𝗼𝗻 𝘁𝗵𝗲 𝗿𝗲𝘀𝗽𝗲𝗰𝘁𝗶𝘃𝗲 𝗼𝗽𝘁𝗶𝗼𝗻𝘀.</h1>
         <button class="btn btn-primary" onclick="selectAllCommands()">Select all commands</button>
     </div>
+
     <div class="container" id="listOfCommandsEvent">
         <h1>𝗣𝗹𝗲𝗮𝘀𝗲 𝗰𝗵𝗼𝗼𝘀𝗲 𝘆𝗼𝘂𝗿 𝗲𝘃𝗲𝗻𝘁 𝗰𝗼𝗺𝗺𝗮𝗻𝗱𝘀 𝗯𝘆 𝘁𝗮𝗽𝗽𝗶𝗻𝗴 𝗼𝗻 𝘁𝗵𝗲 𝗿𝗲𝘀𝗽𝗲𝗰𝘁𝗶𝘃𝗲 𝗼𝗽𝘁𝗶𝗼𝗻𝘀.</h1>
         <button class="btn btn-primary" onclick="selectAllEvents()">Select all events</button>
     </div>
+
     <div class="container" id="prefixOfCommands">
         <h1>Please provide a prefix (optional)</h1>
         <input type="text" id="inputOfPrefix" class="form-control">
     </div>
+
     <div class="container" id="adminOfCommands">
         <h1>𝗣𝗹𝗲𝗮𝘀𝗲 𝗽𝗿𝗼𝘃𝗶𝗱𝗲 𝗮𝗻 𝘂𝗶𝗱 (𝗼𝗽𝘁𝗶𝗼𝗻𝗮𝗹)</h1>
         <input type="text" id="inputOfAdmin" class="form-control">
     </div>
+
     <label class="form-check">
         <input type="checkbox" id="agreeCheckbox"> Checking this box certifies that I have read, understood, and agreed to the Terms and Conditions. 
     </label>
+
     <div class="text-center">
         <button class="btn btn-primary" onclick="State()" disabled id="submitButton">Submit</button>
     </div>
+
     <div id="result" class="container text-center" style="display: none;"></div>
+
     <div class="footer">
         <p>Time: <span id="time"></span></p>
         <p>Ping: <span id="ping"></span></p>
     </div>
+
     <script src="script.js"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
@@ -87,5 +97,5 @@
         <p>autobotbychurchill</p>
         <video src="https://i.imgur.com/4WT9tDo.mp4" controls></video>
     </div>
-</body> 
+</body>
 </html>

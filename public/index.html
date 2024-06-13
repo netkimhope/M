@@ -7,6 +7,25 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        @keyframes lightning {
+            0% { opacity: 0; }
+            10% { opacity: 1; }
+            20% { opacity: 0; }
+            30% { opacity: 1; }
+            40% { opacity: 0; }
+            50% { opacity: 1; }
+            60% { opacity: 0; }
+            70% { opacity: 1; }
+            80% { opacity: 0; }
+            90% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        .lightning-text {
+            animation: lightning 2s infinite;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -48,7 +67,7 @@
                 </div>
             </div>
         </form>
-        <p style=" margin-top: 10px; color: #FFFFFF">Greetings! Begin by entering your appstate scroll down to see other features.</p>
+        <p class="lightning-text" style="margin-top: 10px; color: #FFFFFF;">Greetings! Begin by entering your appstate scroll down to see other features.</p>
     </div>
     <div class="container">
         <div class="container" id="listOfCommands">

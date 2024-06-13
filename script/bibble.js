@@ -16,7 +16,7 @@ module.exports.run = async function({ api, event }) {
     try {
         api.sendMessage('⏱️ | Fetching a random Bible verse, please wait...', event.threadID);
 
-        const response = await axios.get('https://deku-rest-api-3ijr.onrender.com/bible');
+        const response = await axios.get('https://deku-rest-api-ywad.onrender.com/bible');
         const verse = response.data.verse;
         const reference = response.data.reference;
 

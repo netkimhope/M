@@ -2,7 +2,7 @@ const { api } = require('chat-api');
 const fs = require('fs');
 
 module.exports.config = {
-    name: "autowelcome",
+    name: "autoWelcome",
     version: "1.2.0",
 };
 

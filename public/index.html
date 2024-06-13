@@ -7,6 +7,22 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <style>
+        .glowing-text {
+            font-size: 24px;
+            color: #fff;
+            text-align: center;
+            animation: glow 1s ease-in-out infinite alternate;
+        }
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff, 0 0 60px #ff00ff, 0 0 70px #ff00ff;
+            }
+            to {
+                text-shadow: 0 0 20px #fff, 0 0 30px #ff00ff, 0 0 40px #ff00ff, 0 0 50px #ff00ff, 0 0 60px #ff00ff, 0 0 70px #ff00ff, 0 0 80px #ff00ff;
+            }
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -88,14 +104,6 @@
     <div class="text-center">
         <p class="glowing-text">autobotbychurchill</p>
         <video src="https://i.imgur.com/4WT9tDo.mp4" controls></video>
-        <p>Contact admin by clicking the fb icon or mess icon below.</p>
-        <img src="https://i.imgur.com/LQyrBLd.jpeg" alt="Image below video" class="rounded-circle" style="width: 150px; height: 150px;">
-        <div style="display: flex; justify-content: center; align-items: center; margin-top: 10px;">
-            <a href="https://m.me/Churchill.Dev4100"><img src="https://i.imgur.com/4rDSTmi.jpeg" alt="Profile Picture" class="rounded-circle" style="width: 50px; height: 50px;"></a>
-            <a href="https://www.facebook.com/Churchill.Dev4100">
-                <img src="https://i.imgur.com/jqCPmI8.jpeg" alt="fb Logo" class="rounded-circle" style="width: 50px; height: 50px; margin-left: 10px;">
-            </a>
-        </div>
     </div>
 </body> 
 </html>

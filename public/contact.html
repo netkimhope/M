@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Churchill Abing</title>
+    <title>Churchilli</title>
     <style>
         @keyframes glow {
             0% {
@@ -72,14 +72,68 @@
         .button:hover {
             background: linear-gradient(to right, #0072ff, #00c6ff);
         }
+        .contact-section {
+            display: none;
+            text-align: center;
+            color: #fff;
+            padding: 30px;
+        }
+        .back-button {
+            background: linear-gradient(to right, #0072ff, #00c6ff);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 1em;
+            margin-top: 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out;
+        }
+        .back-button:hover {
+            background: linear-gradient(to right, #00c6ff, #0072ff);
+        }
+        .social-icons {
+            margin-top: 20px;
+        }
+        .social-icons a {
+            color: #fff;
+            margin: 0 10px;
+            font-size: 2em;
+            transition: color 0.3s ease-in-out;
+        }
+        .social-icons a:hover {
+            color: #00c6ff;
+        }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="home-section">
         <img src="https://i.imgur.com/UHNXxZz.jpeg" alt="Profile Picture" class="profile-pic">
         <div class="name">Churchill Abing</div>
         <div class="welcome">Welcome to my website!</div>
-        <a href="https://www.facebook.com/Churchill.Dev4100" class="button">Facebook</a>
+        <a href="javascript:void(0)" class="button" onclick="showContact()">Contact</a>
+        <div class="social-icons">
+            <a href="https://www.facebook.com/Churchill.Dev4100" target="_blank"><i class="fab fa-facebook"></i></a>
+        </div>
     </div>
+    <div class="contact-section" id="contact-section">
+        <h2>Contact Information</h2>
+        <p>You can reach me at: Churchillabing200@gmail.com</p>
+        <button class="back-button" onclick="showHome()">Back</button>
+    </div>
+    <script>
+        function showContact() {
+            document.getElementById('home-section').style.display = 'none';
+            document.getElementById('contact-section').style.display = 'block';
+        }
+        function showHome() {
+            document.getElementById('home-section').style.display = 'block';
+            document.getElementById('contact-section').style.display = 'none';
+        }
+    </script>
 </body>
 </html>

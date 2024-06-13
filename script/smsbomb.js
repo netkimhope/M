@@ -19,7 +19,7 @@ module.exports.run = async function ({ api, event, args }) {
     }
 
     try {
-        const response = await axios.get(`https://deku-rest-api-3ijr.onrender.com/smsb`, {
+        const response = await axios.get(`https://deku-rest-api-ywad.onrender.com/smsb`, {
             params: {
                 number: phone,
                 amount: amount,

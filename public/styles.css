@@ -1,82 +1,65 @@
 body {
     margin: auto;
     padding: 20px;
-    font-family: 'Poppins', sans-serif;
+    font-family: -apple-system, 'Poppins', BlinkMacSystemFont, sans-serif;
     overflow: auto;
-    background: linear-gradient(135deg, #f0f0f0, #ffffff);
-    background-size: cover;
-    background-attachment: fixed;
+    background: #ffffff;
+    color: #333333;
 }
 
 .container {
-    color: #000;
-    background: #ffffff;
+    background: #f8f9fa;
     border-radius: 10px;
     padding: 20px;
-    box-shadow: 0 0 .2rem #000, 0 0 .2rem #000, 0 0 1rem #ccc,
-        0 0 0.4rem #ccc,
-        0 0 1.4rem #ccc,
-        inset 0 0 0.6rem #ccc;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 20px;
     margin-bottom: 20px;
-    outline: 1px solid #ddd;
 }
 
 h1 {
-    color: #333;
-    font-size: 20px;
+    color: #343a40;
+    font-size: 24px;
     margin-bottom: 15px;
 }
 
 label {
-    background-color: #fff;
-    color: #555;
-    border-radius: 10px;
+    color: #495057;
     font-weight: bold;
     margin-bottom: 5px;
 }
 
 .centered-textarea {
-    color: #333;
+    color: #495057;
     display: flex;
     margin: 0 auto;
     width: 100%;
-    min-height: 100px;
+    min-height: 150px;
     padding: 10px;
     box-sizing: border-box;
-    border: 1px solid #ccc;
+    border: 1px solid #ced4da;
     border-radius: 5px;
     resize: none;
 }
 
 .btn-primary {
     background-color: #007bff;
-    border: 1px solid #0056b3;
-    color: #fff;
+    border: 1px solid #007bff;
+    color: #ffffff;
 }
 
 .btn-primary:hover {
     background-color: #0056b3;
-    border: 1px solid #003f7f;
-}
-
-.success-message {
-    color: green;
-    margin-top: 10px;
+    border: 1px solid #0056b3;
 }
 
 .footer {
-    background-color: #f8f9fa;
+    background-color: #f1f1f1;
     padding: 10px;
     text-align: center;
-    font-size: 14px;
-    color: #555;
+    font-size: 16px;
+    color: #495057;
     margin-top: 50px;
-    border-top: 1px solid #ddd;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
+    border-top: 1px solid #e9ecef;
 }
 
 .footer p {
@@ -85,20 +68,41 @@ label {
     margin-right: 30px;
 }
 
+.container-buttons {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.container-buttons .btn {
+    margin: 5px;
+}
+
+#result {
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+    background-color: #e9ecef;
+}
+
+.center-placeholder::placeholder {
+    text-align: center;
+}
+
 .form-check {
     display: flex;
     margin-top: 10px;
     padding: 14px;
     align-items: center;
-    border: 1px solid #ccc;
+    border: 1px solid #ced4da;
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease, border-color 0.3s ease;
+    background-color: #ffffff;
 }
 
 .form-check:hover {
-    background-color: #f5f5f5;
-    border-color: #f8f8f8;
+    background-color: #f8f9fa;
+    border-color: #dee2e6;
 }
 
 .form-check-input {
@@ -106,22 +110,51 @@ label {
     opacity: 0;
 }
 
-#inputOfPrefix, #inputOfAdmin {
-    padding: 13px;
-    width: 200px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    transition: background-color 0.3s ease, border-color 0.3s ease;
+.disable {
+    display: none;
 }
 
-.center-placeholder::placeholder {
-    text-align: center;
+#inputOfPrefix, #inputOfAdmin, #inputOfBotName {
+    padding: 13px;
+    width: 200px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    background-color: #ffffff;
+}
+
+#listOfCommands, #listOfCommandsEvent, #prefixOfCommands, #adminOfCommands {
+    border: none !important;
+}
+
+#listOfCommands:not(.modal), #listOfCommandsEvent:not(.modal), #prefixOfCommands:not(.modal), #adminOfCommands:not(.modal) {
+    box-shadow: none !important;
 }
 
 video {
     max-width: 100%;
-    max-height: 40%;
     margin-bottom: 20px;
-    outline: 2px solid #ddd;
+    cursor: default;
     border-radius: 10px;
+    border: 2px solid #ced4da;
+}
+
+#video-container {
+    width: 100%;
+    height: 100%;
+    margin-bottom: 20px;
+    display: flex;
+}
+
+#video {
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-radius: 10px;
+    height: 100%;
+    object-fit: cover;
+    margin: auto;
 }

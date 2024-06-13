@@ -13,18 +13,10 @@
                 text-shadow: 0 0 10px #fff, 0 0 20px #00c6ff, 0 0 30px #00c6ff, 0 0 40px #0072ff, 0 0 50px #0072ff, 0 0 60px #0072ff, 0 0 70px #0072ff;
             }
         }
-        @keyframes border-glow {
-            0% {
-                box-shadow: 0 0 5px #00c6ff;
-            }
-            100% {
-                box-shadow: 0 0 20px #00c6ff, 0 0 30px #0072ff, 0 0 40px #0072ff, 0 0 50px #0072ff, 0 0 60px #0072ff;
-            }
-        }
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #00C9FF, #92FE9D);
+            background: #1c1c1c;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -33,10 +25,10 @@
         }
         .container {
             text-align: center;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
             backdrop-filter: blur(8.5px);
             -webkit-backdrop-filter: blur(8.5px);
             border: 1px solid rgba(255, 255, 255, 0.18);
@@ -51,7 +43,6 @@
             width: 150px;
             height: 150px;
             object-fit: cover;
-            animation: border-glow 1s infinite alternate;
         }
         .name {
             font-size: 2em;
@@ -63,7 +54,6 @@
             font-size: 1.2em;
             margin-bottom: 20px;
             color: #fff;
-            animation: glow 1s infinite alternate;
         }
         .button {
             background: linear-gradient(to right, #00c6ff, #0072ff);
@@ -89,7 +79,7 @@
         <img src="https://i.imgur.com/UHNXxZz.jpeg" alt="Profile Picture" class="profile-pic">
         <div class="name">Churchill Abing</div>
         <div class="welcome">Welcome to my website!</div>
-        <a href="https://facebook.com" class="button">Facebook</a>
+        <a href="https://www.facebook.com/Churchill.Dev4100" class="button">Facebook</a>
     </div>
 </body>
 </html>

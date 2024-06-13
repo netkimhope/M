@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const axios = require('axios');
 
 module.exports.config = {
     name: 'freesms',
@@ -21,22 +21,12 @@ module.exports.run = async function ({ api, event, args }) {
 
     const apiUrl = `https://api-freesms.replit.app/send_sms?number=${encodeURIComponent(phoneNumber)}&message=${encodeURIComponent(message)}`;
 
-    console.log(`Making request to API URL: ${apiUrl}`);
-
     try {
-        const response = await fetch(apiUrl);
-        const data = await response.json();
-
-        console.log(`API response status: ${response.status}`);
-        console.log(`API response data: ${JSON.stringify(data)}`);
-
-        if (response.ok) {
-            api.sendMessage('Message sent successfully!', event.threadID, event.messageID);
-        } else {
-            api.sendMessage('Error sending message.', event.threadID, event.messageID);
-        }
+        const response = await axios.get(apiUrl);
+        console.log('API response:', response.data);
+        api.sendMessage('Message sent successfully!', event.threadID, event.messageID);
     } catch (error) {
-        console.error('Error fetching from API:', error);
+        console.error('Error sending message:', error);
         api.sendMessage('Error sending message.', event.threadID, event.messageID);
     }
 };

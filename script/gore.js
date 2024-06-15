@@ -5,32 +5,37 @@ module.exports.config = {
   version: '1.0.0',
   role: 0,
   hasPrefix: false,
-  aliases: ['goreVideo', 'gore'],
+  aliases: ['gore', 'randomGoreVideo'],
   description: "Sends a random gore video",
   usage: "randGoreVideo",
-  credits: 'churchill',
+  credits: 'churhill',
   cooldown: 3,
 };
 
 module.exports.run = async function({ api, event }) {
-  api.sendMessage(' Fetching a random gore video, please wait...', event.threadID, event.messageID);
+  api.sendMessage('🔍 Fetching a random gore video, please wait...', event.threadID, event.messageID);
 
   try {
     const response = await axios.get('https://deku-rest-api-ywad.onrender.com/api/randgore');
-    const randomGoreVideoUrl = response.data.videoUrl;
+    console.log('API Response:', response.data); // Log the response data
 
-    if (randomGoreVideoUrl) {
+    if (response.data && response.data.videoUrl) {
+      const videoUrl = response.data.videoUrl;
+
+      // Fetch the video stream
+      const videoStream = await axios({
+        method: 'get',
+        url: videoUrl,
+        responseType: 'stream'
+      });
+
+      // Send the video stream as an attachment
       api.sendMessage({
         body: "Here's a random gore video:",
-        attachment: await axios.get(randomGoreVideoUrl, { responseType: 'stream' })
-          .then(res => res.data)
-          .catch(err => {
-            console.error('Error fetching video:', err);
-            throw new Error('Failed to fetch video.');
-          })
+        attachment: videoStream.data
       }, event.threadID, event.messageID);
     } else {
-      throw new Error('No video URL found in response.');
+      throw new Error('No video URL found in the response.');
     }
   } catch (error) {
     console.error('Error fetching random gore video:', error);

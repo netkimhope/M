@@ -1,43 +1,37 @@
 const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
 
 module.exports.config = {
-  name: 'gore',
-  version: '1.0.0',
-  role: 0,
-  hasPrefix: false,
-  aliases: ['goreVideo', 'randomGoreVideo'],
-  description: "Sends a random gore video",
-  usage: "randGoreVideo",
-  credits: 'Developer: https://www.facebook.com/Churchill.Dev4100',
-  cooldown: 10,
+  name: "gore",
+  version: "9.0",
+  hasPermssion: 0,
+  description: "Random gore video",
+  commandCategory: "not for kids",
+  usages: "gore",
+  cooldowns: 9,
+  credits: "Eugene Aguilar",
 };
 
-module.exports.run = async function({ api, event }) {
-  api.sendMessage('💀 Fetching a random gore video, please wait...', event.threadID, event.messageID);
-
+module.exports.run = async function ({ api, event }) {
+  const { sendMessage: reply } = api;
   try {
-    const response = await axios.get('https://deku-rest-api-ywad.onrender.com/api/randgore'); // Corrected endpoint
-    console.log('API Response:', response.data); // Log the response data
+    reply(`gore is sending please wait ...`, event.threadID, event.messageID);
 
-    if (response.data && response.data.result && response.data.result.video1) {
-      const videoUrl = response.data.result.video1;
-
-      const videoResponse = await axios({
-        method: 'get',
-        url: videoUrl,
-        responseType: 'stream'
-      });
-
-      // Send the video stream as an attachment
-      api.sendMessage({
-        body: "Here's a random gore video:",
-        attachment: videoResponse.data
-      }, event.threadID, event.messageID);
-    } else {
-      throw new Error('No video URL found in the response.');
+    const gen = await axios.get(`https://deku-rest-api-ywad.onrender.com/api/randgre`);
+    const video = gen.data.link;
+    if (!video) {
+      return reply(`No gore video found!!`, event.threadID, event.messageID);
     }
+
+    const res = await axios.get(video, { responseType: "arraybuffer" });
+    const pathToFile = path.join(__dirname, `cache/gore.mp4`);
+
+    fs.writeFileSync(pathToFile, Buffer.from(res.data, "utf-8"));
+
+    reply({ body: `Here's your gore video, enjoy!!`, attachment: fs.createReadStream(pathToFile) }, event.threadID, event.messageID);
   } catch (error) {
-    console.error('Error fetching random gore video:', error);
-    api.sendMessage('An error occurred while fetching a random gore video.', event.threadID, event.messageID);
+    reply(`Error fetching gore api!!\n${error}`, event.threadID, event.messageID);
+    console.log(error);
   }
 };

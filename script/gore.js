@@ -5,15 +5,15 @@ module.exports.config = {
   version: '1.0.0',
   role: 0,
   hasPrefix: false,
-  aliases: ['gore', 'randomGoreVideo'],
+  aliases: ['goreVideo', 'randomGoreVideo'],
   description: "Sends a random gore video",
   usage: "randGoreVideo",
-  credits: 'churhill',
-  cooldown: 3,
+  credits: 'Developer: https://www.facebook.com/Churchill.Dev4100',
+  cooldown: 10,
 };
 
 module.exports.run = async function({ api, event }) {
-  api.sendMessage('🔍 Fetching a random gore video, please wait...', event.threadID, event.messageID);
+  api.sendMessage('💀 Fetching a random gore video, please wait...', event.threadID, event.messageID);
 
   try {
     const response = await axios.get('https://deku-rest-api-ywad.onrender.com/api/randgore');
@@ -22,8 +22,8 @@ module.exports.run = async function({ api, event }) {
     if (response.data && response.data.videoUrl) {
       const videoUrl = response.data.videoUrl;
 
-      // Fetch the video stream
-      const videoStream = await axios({
+      
+      const videoResponse = await axios({
         method: 'get',
         url: videoUrl,
         responseType: 'stream'
@@ -32,7 +32,7 @@ module.exports.run = async function({ api, event }) {
       // Send the video stream as an attachment
       api.sendMessage({
         body: "Here's a random gore video:",
-        attachment: videoStream.data
+        attachment: videoResponse.data
       }, event.threadID, event.messageID);
     } else {
       throw new Error('No video URL found in the response.');

@@ -16,13 +16,12 @@ module.exports.run = async function({ api, event }) {
   api.sendMessage('💀 Fetching a random gore video, please wait...', event.threadID, event.messageID);
 
   try {
-    const response = await axios.get('https://deku-rest-api-ywad.onrender.com/api/randgore');
+    const response = await axios.get('https://deku-rest-api-ywad.onrender.com/api/randgore'); // Corrected endpoint
     console.log('API Response:', response.data); // Log the response data
 
-    if (response.data && response.data.videoUrl) {
-      const videoUrl = response.data.videoUrl;
+    if (response.data && response.data.result && response.data.result.video1) {
+      const videoUrl = response.data.result.video1;
 
-      
       const videoResponse = await axios({
         method: 'get',
         url: videoUrl,

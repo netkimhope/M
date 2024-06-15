@@ -1,14 +1,14 @@
 const axios = require('axios');
 
 module.exports.config = {
-  name: 'nglspammer',
+  name: 'nglspamm',
   version: '1.0.0',
   role: 0,
   hasPrefix: false,
   aliases: ['ngl', 'spam'],
   description: "NGL Spammer Command",
-  usage: "nglSpammer [username] [message] [amount]",
-  credits: 'Developer: https://www.facebook.com/Churchill.Dev4100',
+  usage: "nglspamm [username] [message] [amount]",
+  credits: 'churchill',
   cooldown: 3,
 };
 
@@ -19,7 +19,7 @@ module.exports.run = async function({ api, event, args }) {
 
   if (!username || !message || isNaN(amount) || amount <= 0) {
     responseDiv.className = 'error';
-    responseDiv.textContent = 'Please fill out all fields';
+    responseDiv.textContent = 'nglspamm username message amount';
     api.sendMessage(responseDiv.textContent, event.threadID, event.messageID);
     return;
   }
@@ -43,7 +43,7 @@ module.exports.run = async function({ api, event, args }) {
       console.error('Error:', error);
     } finally {
       logs.push(`Message ${i + 1} sent successfully`);
-      await new Promise(resolve => setTimeout(resolve, 2000));  // Sleep for 2 seconds
+      await new Promise(resolve => setTimeout(resolve, 2000));  
     }
   }
 

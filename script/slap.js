@@ -1,7 +1,8 @@
 const DIG = require("discord-image-generation");
 const fs = require("fs-extra");
 
-module.exports.config = {
+module.exports = {
+  config: {
     name: "slap",
     version: "1.1",
     role: 0,
@@ -10,23 +11,23 @@ module.exports.config = {
     description: "Buttslap image",
     usage: "buttslap @tag",
     credits: "KSHITIZ",
-};
+  },
 
-module.exports.langs = {
+  langs: {
     vi: {
-        noTag: ""
+      noTag: ""
     },
     en: {
-        noTag: "You must tag the person you want to slap"
+      noTag: "You must tag the person you want to slap"
     }
-};
+  },
 
-module.exports.run = async function({ event, message, usersData, args, getLang }) {
+  run: async function({ event, message, usersData, args, getLang }) {
     const uid1 = event.senderID;
     const uid2 = Object.keys(event.mentions)[0];
 
     if (!uid2) {
-        return message.reply(getLang("noTag"));
+      return message.reply(getLang("noTag"));
     }
 
     const avatarURL1 = await usersData.getAvatarUrl(uid1);
@@ -39,7 +40,8 @@ module.exports.run = async function({ event, message, usersData, args, getLang }
     const content = args.join(' ').replace(Object.keys(event.mentions)[0], "");
 
     message.reply({
-        body: `${content || "hehe boii"}`,
-        attachment: fs.createReadStream(pathSave)
+      body: `${content || "hehe boii"}`,
+      attachment: fs.createReadStream(pathSave)
     }, () => fs.unlinkSync(pathSave));
+  }
 };

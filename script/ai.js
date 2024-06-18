@@ -16,19 +16,33 @@ module.exports.run = async function({ api, event, args }) {
     const query = args.join(' ');
 
     if (!query) {
-        api.sendMessage('Please provide a question ex:ai what is nigga.', event.threadID, event.messageID);
+        api.sendMessage('Please provide a question ex:ai what is nigga?.', event.threadID, event.messageID);
         return;
     }
 
-    api.sendMessage('Fetching response...', event.threadID, event.messageID);
+    api.sendMessage('🖕𝙎𝙚𝙖𝙧𝙘𝙝𝙞𝙣𝙜 𝙥𝙡𝙚𝙖𝙨𝙚 𝙬𝙖𝙞𝙩...', event.threadID, event.messageID);
 
     try {
-        const response = await axios.get('https://deku-rest-api-ywad.onrender.com/gpt4', {
+        
+        const aiResponse = await axios.get('https://deku-rest-api-ywad.onrender.com/gpt4', {
             params: { prompt: query, uid: event.senderID }
         });
-        const data = response.data;
+        const aiData = aiResponse.data.gpt4;
 
-        api.sendMessage(`Response: ${JSON.stringify(data)}`, event.threadID, event.messageID);
+        
+        api.getUserInfo(event.senderID, (err, result) => {
+            if (err) {
+                console.error('Error fetching user info:', err);
+                api.sendMessage('An error occurred while fetching the user info.', event.threadID, event.messageID);
+                return;
+            }
+
+            const userName = result[event.senderID].name;
+
+            // Send the combined response
+            const finalResponse = `${aiData}\n\nQuestion asked by: ${userName}`;
+            api.sendMessage(finalResponse, event.threadID, event.messageID);
+        });
     } catch (error) {
         console.error('Error:', error);
         api.sendMessage('An error occurred while fetching the response.', event.threadID, event.messageID);

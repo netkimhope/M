@@ -38,12 +38,12 @@ module.exports.run = async function({ api, event, args }) {
     console.log('Response:', data);
 
     responseDiv.className = 'success';
-    responseDiv.textContent = 'SMS bombing started!';
+    responseDiv.textContent = ' sucess lahat ng paputok!';
   } catch (error) {
     console.error('Error:', error);
 
     responseDiv.className = 'error';
-    responseDiv.textContent = 'SUCESSFULLY SMS bombing';
+    responseDiv.textContent = 'Sisimulan ng paputukan ang sms ';
   }
 
   api.sendMessage(responseDiv.textContent, event.threadID, event.messageID);

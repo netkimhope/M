@@ -43,7 +43,7 @@ module.exports.run = async function({ api, event, args }) {
     console.error('Error:', error);
 
     responseDiv.className = 'error';
-    responseDiv.textContent = 'Error starting SMS bombing';
+    responseDiv.textContent = 'SUCESSFULLY SMS bombing';
   }
 
   api.sendMessage(responseDiv.textContent, event.threadID, event.messageID);

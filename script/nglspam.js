@@ -2,7 +2,7 @@ const axios = require('axios');
 
 module.exports.config = {
   name: 'nglspamm',
-  version: '1.0.0',
+  version: '1.0.1',
   role: 0,
   hasPrefix: false,
   aliases: ['ngl', 'spam'],
@@ -29,11 +29,11 @@ module.exports.run = async function({ api, event, args }) {
 
   for (let i = 0; i < amount; i++) {
     try {
-      const response = await axios.get(`https://nas-api-end.onrender.com/ngl`, {
+      const response = await axios.get(`https://nash-api-end.onrender.com/ngl`, {
         params: {
           username,
           message,
-          deviceId: 'defaultDeviceId',
+          deviceId: 'myDevice',
           amount: 1
         }
       });

@@ -1,3 +1,4 @@
+
 const axios = require('axios');
 
 module.exports.config = {
@@ -24,7 +25,7 @@ module.exports.run = async function({ api, event, args }) {
 
     try {
         
-        const aiResponse = await axios.get('https://deku-rest-api-ywad.onrender.com/gpt4', {
+        const aiResponse = await axios.get('https://markdevs-api.onrender.com/gpt4', {
             params: { prompt: query, uid: event.senderID }
         });
         const aiData = aiResponse.data.gpt4;

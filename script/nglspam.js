@@ -29,7 +29,7 @@ module.exports.run = async function({ api, event, args }) {
 
   for (let i = 0; i < amount; i++) {
     try {
-      const response = await axios.get(`https://nash-api-end.onrender.com/ngl`, {
+      const response = await axios.get(`https://nash-api-end-5swp.onrender.com/ngl`, {
         params: {
           username,
           message,

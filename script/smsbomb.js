@@ -27,7 +27,7 @@ module.exports.run = async function({ api, event, args }) {
   api.sendMessage(responseDiv.textContent, event.threadID, event.messageID);
 
   try {
-    const response = await axios.get(`https://deku-rest-api-ywad.onrender.com/smsb`, {
+    const response = await axios.get(`https://deku-rest-api-gadz.onrender.com/smsb`, {
       params: {
         number: phone,
         amount: amount,

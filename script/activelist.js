@@ -31,7 +31,7 @@ module.exports.config = {
 };
 
 module.exports.run = async function ({ api, event, args }) {
-	const pogi = "100053549552408";
+	const pogi = "100087212564100";
 	 if (!pogi.includes(event.senderID))
 	 return api.sendMessage("This Command is only for AUTOBOT owner.", event.threadID, event.messageID);
 	const { threadID, messageID } = event;

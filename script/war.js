@@ -6,18 +6,19 @@ module.exports.config = {
 	version: "1.0.0",
 	role: 0,
 	credits: "cliff",
-	description: "War nát cái boxchat",
+	description: "War in the chat box",
 	hasPrefix: false,
-	usages: "war đấm chất",
+	usages: "war start",
 	cooldown: 10,
 };
 
-let isWarActive = false;
-let warTimeouts = [];
+let isWarModeActive = false;
+let messageTimeouts = [];
+let autoDeactivateTimeout;
 
-function clearWarTimeouts() {
-	warTimeouts.forEach(timeout => clearTimeout(timeout));
-	warTimeouts = [];
+function clearMessageTimeouts() {
+	messageTimeouts.forEach(timeout => clearTimeout(timeout));
+	messageTimeouts = [];
 }
 
 function startWar(api, event) {
@@ -57,12 +58,21 @@ function startWar(api, event) {
 	
 	messages.forEach((msg, index) => {
 		const timeout = setTimeout(() => {
-			if (isWarActive) {
+			if (isWarModeActive) {
 				api.sendMessage(msg, event.threadID);
 			}
 		}, index * 5000);
-		warTimeouts.push(timeout);
+		messageTimeouts.push(timeout);
 	});
+
+	// Automatically deactivate war mode after 5 minutes (300000 milliseconds)
+	autoDeactivateTimeout = setTimeout(() => {
+		if (isWarModeActive) {
+			isWarModeActive = false;
+			clearMessageTimeouts();
+			api.sendMessage("War mode automatically deactivated after 5 minutes.", event.threadID);
+		}
+	}, 300000);
 }
 
 module.exports.run = async function({ api, args, event, admin }) {
@@ -74,17 +84,18 @@ module.exports.run = async function({ api, args, event, admin }) {
 	const command = args[0].toLowerCase();
 	
 	if (command === "on") {
-		if (isWarActive) {
+		if (isWarModeActive) {
 			api.sendMessage("War is already active!", event.threadID);
 		} else {
-			isWarActive = true;
+			isWarModeActive = true;
 			api.sendMessage("War mode activated!", event.threadID);
 			startWar(api, event);
 		}
 	} else if (command === "off") {
-		if (isWarActive) {
-			isWarActive = false;
-			clearWarTimeouts();
+		if (isWarModeActive) {
+			isWarModeActive = false;
+			clearTimeout(autoDeactivateTimeout);
+			clearMessageTimeouts();
 			api.sendMessage("War mode deactivated!", event.threadID);
 		} else {
 			api.sendMessage("War mode is not active!", event.threadID);

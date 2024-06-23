@@ -1,47 +1,80 @@
 const axios = require('axios');
+const fs = require('fs');
+const path = require('path');
 
 module.exports.config = {
-	name: "imgbb",
-	version: "1.0.0",
-	role: 0,
-	credits: "cliff",
-	hasPrefix: false,
-	description: "Upload an image to imgbb",
-	usage: "{pn} <attached image>",
-	cooldowns: 5
+    name: 'pair',
+    version: '1.0.0',
+    role: 0,
+    hasPrefix: false,
+    aliases: ['pair'],
+    description: 'Randominium pair',
+    usage: 'pair',
+    credits: 'chilli',
+    cooldown: 3,
 };
 
-module.exports.run = async function ({ api, event }) {
-	try {
-		let imageUrl;
-		if (event.type === "message_reply" && event.messageReply.attachments.length > 0) {
-			imageUrl = event.messageReply.attachments[0].url;
-		} else if (event.attachments.length > 0) {
-			imageUrl = event.attachments[0].url;
-		} else {
-			return api.sendMessage('No attachment detected. Please reply to an image.', event.threadID, event.messageID);
-		}
+module.exports.run = async function({ api, event }) {
+    try {
+        const churchillitos = await api.getThreadInfo(event.threadID);
+        const pogi = churchillitos.participantIDs;
 
-		const uploadUrl = 'https://apis-samir.onrender.com/upload';
-		const data = { file: imageUrl };
+        if (pogi.length < 2) {
+            api.sendMessage('Not enough participants to pair.', event.threadID, event.messageID);
+            return;
+        }
 
-		const response = await axios.post(uploadUrl, data, {
-			headers: {
-				'Accept': 'application/json',
-				'Content-Type': 'application/json'
-			}
-		});
+        const chilli = pogi[Math.floor(Math.random() * pogi.length)];
+        let churchillitos;
+        do {
+            churchillitos = pogi[Math.floor(Math.random() * pogi.length)];
+        } while (churchillitos === chilli);
 
-		const result = response.data;
+        const chilliInfo = await api.getUserInfo(chilli);
+        const churchillitosInfo = await api.getUserInfo(churchillitos);
 
-		if (result && result.image && result.image.url) {
-			const cleanImageUrl = result.image.url.split('-')[0];
-			api.sendMessage({ body: `${cleanImageUrl}.jpg` }, event.threadID);
-		} else {
-			api.sendMessage("Failed to upload the image to imgbb.", event.threadID);
-		}
-	} catch (error) {
-		console.error('Error:', error);
-		api.sendMessage(`Error: ${error.message}`, event.threadID);
-	}
+        const bahihinga = chilliInfo[chilli];
+        const pogi = churchillitosInfo[churchillitos];
+
+        const chilliPercentage = Math.floor(Math.random() * 101);
+        const churchillitosRatio = Math.floor(Math.random() * 101);
+
+        const message = `
+        • Everyone congratulates the new pair:
+        ❤️ ${bahihinga.name} ❤️ ${pogi.name} ❤️
+        Love percentage: "${chilliPercentage}%" 😍
+        Compatibility ratio: "${churchillitosRatio}%" 💕
+        Congratulations 🎉
+        `;
+
+
+        const downloadImage = async (url, fileName) => {
+            const filePath = path.join(__dirname, fileName);
+            const response = await axios.get(url, { responseType: 'arraybuffer' });
+            fs.writeFileSync(filePath, response.data);
+            return fs.createReadStream(filePath);
+        };
+
+        const attachments = [];
+        if (bahihinga.thumbSrc) {
+            attachments.push(await downloadImage(bahihinga.thumbSrc, `${bahihinga.name}.jpg`));
+        }
+        if (pogi.thumbSrc) {
+            attachments.push(await downloadImage(pogi.thumbSrc, `${pogi.name}.jpg`));
+        }
+
+        api.sendMessage({
+            body: message,
+            attachment: attachments
+        }, event.threadID, event.messageID);
+
+        
+        attachments.forEach(stream => {
+            fs.unlinkSync(stream.path);
+        });
+
+    } catch (error) {
+        console.error('Error:', error.message);
+        api.sendMessage('An error occurred while pairing.', event.threadID, event.messageID);
+    }
 };

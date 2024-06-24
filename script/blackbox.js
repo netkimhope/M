@@ -28,8 +28,7 @@ module.exports.run = async function({ api, event, args }) {
         });
         const mapanghi = pangit.data;
 
-        
-        const responseString = typeof mapanghi === 'object' ? JSON.stringify(mapanghi, null, 2) : mapanghi;
+        const responseString = mapanghi.data ? mapanghi.data : JSON.stringify(mapanghi, null, 2);
 
         api.sendMessage(responseString, event.threadID, event.messageID);
 

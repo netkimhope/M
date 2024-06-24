@@ -28,13 +28,10 @@ module.exports.run = async function({ api, event, args }) {
         });
         const mapanghi = pangit.data;
 
-      
-        const chilli = new Date();
-        const dateString = chilli.toLocaleString();
+        
+        const responseString = typeof mapanghi === 'object' ? JSON.stringify(mapanghi, null, 2) : mapanghi;
 
-       
-        const finalResponse = `${mapanghi}\n\nResponse generated on: ${dateString}`;
-        api.sendMessage(finalResponse, event.threadID, event.messageID);
+        api.sendMessage(responseString, event.threadID, event.messageID);
 
     } catch (error) {
         console.error('Error:', error);

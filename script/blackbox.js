@@ -1,31 +1,43 @@
 const axios = require('axios');
 
 module.exports.config = {
-	name: "blackbox",
-	version: "9",
-	role: 0,
-	hasPrefix: false,
-	credits: "Eugene Aguilar",
-	description: "AI powered by blackbox",
-	aliases: ["black"],
-	cooldowns: 0,
+    name: 'blackbox',
+    version: '1.0.0',
+    role: 0,
+    hasPrefix: false,
+    aliases: ['blackbox', 'bb'],
+    description: 'nigga black',
+    usage: 'blackbox tas tanong bugok',
+    credits: 'churchill',
+    cooldown: 3,
 };
 
-module.exports.run = async function ({api, event, args}) {
-	if (!args[0]) {
-		api.sendMessage("Please provide a question.", event.threadID, event.messageID);
-		return;
-	}
+module.exports.run = async function({ api, event, args }) {
+    const bulag = args.join(' ');
 
-	const query = encodeURIComponent(args.join(" "));
-	const apiUrl = `https://api.easy-api.online/api/blackbox?query=${query}`;
+    if (!bulag) {
+        api.sendMessage('Please provide a question, for example: blackbox what is the meaning of life?', event.threadID, event.messageID);
+        return;
+    }
 
-	try {
-		const response = await axios.get(apiUrl);
-		const ans = response.data.response;
-		api.sendMessage(ans, event.threadID, event.messageID);
-	} catch (error) {
-		console.error("Error:", error);
-		api.sendMessage("An error occurred while fetching the response.", event.threadID, event.messageID);
-	}
+    api.sendMessage('🔄 Searching, please wait...', event.threadID, event.messageID);
+
+    try {
+        const pangit = await axios.get('https://joshweb.click/blackbox', {
+            params: { prompt: bulag }
+        });
+        const mapanghi = pangit.data;
+
+      
+        const chilli = new Date();
+        const dateString = chilli.toLocaleString();
+
+       
+        const finalResponse = `${mapanghi}\n\nResponse generated on: ${dateString}`;
+        api.sendMessage(finalResponse, event.threadID, event.messageID);
+
+    } catch (error) {
+        console.error('Error:', error);
+        api.sendMessage('An error occurred while fetching the response.', event.threadID, event.messageID);
+    }
 };

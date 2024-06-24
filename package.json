@@ -1,12 +1,14 @@
 {
   "name": "auto-messenger-bot",
   "version": "1.0.0",
-  "description": "Auto Messenger Bot",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "build": "echo 'No build step required'"
+    "start": "node index.js"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "@distube/ytdl-core": "^4.13.3",
     "@types/node": "^18.0.6",

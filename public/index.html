@@ -89,34 +89,55 @@
 <script type="text/javascript">
 farbbibliothek = new Array();
 farbbibliothek[0] = new Array("#FF0000","#FF1100","#FF2200","#FF3300","#FF4400","#FF5500","#FF6600","#FF7700","#FF8800","#FF9900","#FFaa00","#FFbb00","#FFcc00","#FFdd00","#FFee00","#FFff00","#FFee00","#FFdd00","#FFcc00","#FFbb00","#FFaa00","#FF9900","#FF8800","#FF7700","#FF6600","#FF5500","#FF4400","#FF3300","#FF2200","#FF1100");
-farbbibliothek[1] = new Array("#00FF00","#000000","#00FF00","#00FF00");
-farbbibliothek[2] = new Array("#00FF00","#FF0000","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00","#00FF00");
-farbbibliothek[3] = new Array("#FF0000","#FF4000","#FF8000","#FFC000","#FFFF00","#C0FF00","#80FF00","#40FF00","#00FF00","#00FF40","#00FF80","#00FFC0","#00FFFF","#00C0FF","#0080FF","#0040FF","#0000FF","#4000FF","#8000FF","#C000FF","#FF00FF","#FF00C0","#FF0080","#FF0040");
-farbbibliothek[4] = new Array("#FF0000","#EE0000","#DD0000","#CC0000","#BB0000","#AA0000","#990000","#880000","#770000","#660000","#550000","#440000","#330000","#220000","#110000","#000000","#110000","#220000","#330000","#440000","#550000","#660000","#770000","#880000","#990000","#AA0000","#BB0000","#CC0000","#DD0000","#EE0000");
-farbbibliothek[5] = new Array("#000000","#000000","#000000","#FFFFFF","#FFFFFF","#FFFFFF");
-farbbibliothek[6] = new Array("#0000FF","#FFFF00");
-farben = farbbibliothek[4];
-function farbschrift(){for(var b=0;b<Buchstabe.length;b++){document.all["a"+b].style.color=farben[b]}farbverlauf()}function string2array(b){Buchstabe=new Array();while(farben.length<b.length){farben=farben.concat(farben)}k=0;while(k<=b.length){Buchstabe[k]=b.charAt(k);k++}}function divserzeugen(){for(var b=0;b<Buchstabe.length;b++){document.write("<span id='a"+b+"' class='a"+b+"'>"+Buchstabe[b]+"</span>")}farbschrift()}var a=1;function farbverlauf(){for(var b=0;b<farben.length;b++){farben[b-1]=farben[b]}farben[farben.length-1]=farben[-1];setTimeout("farbschrift()",30)}var farbsatz=1;function farbtauscher(){farben=farbbibliothek[farbsatz];while(farben.length<text.length){farben=farben.concat(farben)}farbsatz=Math.floor(Math.random()*(farbbibliothek.length-0.0001))}setInterval("farbtauscher()",5000);
-
-text=
-"AUTOBOT BY\nChurchill Abing"
+farbbibliothek[1] = new Array("#FF0000","#FF0000","#FF0000","#000000","#000000","#000000");
+farbbibliothek[2] = new Array("#00FF00","#00FF00","#00FF00","#000000","#000000","#000000","#00FF00","#00FF00","#00FF00","#0000FF","#0000FF","#0000FF");
+farbbibliothek[3] = new Array("#000000","#000000","#000000","#FFFFFF","#FFFFFF","#FFFFFF");
+farbbibliothek[4] = new Array("#0000FF","#FFFF00");
+farbbibliothek[5] = new Array("#FFFF00","#FFFF00","#FFFF00","#0000FF","#0000FF","#0000FF");
+farbbibliothek[6] = new Array("#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600");
+farbbibliothek[7] = new Array("#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600");
+farbbibliothek[8] = new Array("#FF0000","#FF0000","#FF0000","#FFcc00","#FFcc00","#FFcc00");
+farbbibliothek[9] = new Array("#000000","#333333","#666666","#999999","#CCCCCC","#FFFFFF");
+farben = farbbibliothek[2];
+function farbschrift() {
+    for(var i=0; i<Buchstabe.length; i++) {
+        document.all["a"+i].style.color=farben[i];
+    }
+    farbverlauf();
+}
+function string2array(text) {
+    Buchstabe = new Array();
+    while(farben.length<text.length) {
+        farben = farben.concat(farben);
+    }
+    k=0;
+    while(k<=text.length) {
+        Buchstabe[k] = text.charAt(k);
+        k++;
+    }
+}
+function divserzeugen() {
+    for(var i=0; i<Buchstabe.length; i++) {
+        document.write("<span id='a"+i+"' class='a"+i+"'>"+Buchstabe[i]+"</span>");
+    }
+    farbschrift();
+}
+var farbsatz=1;
+function farbverlauf() {
+    for(var i=0; i<farben.length; i++) {
+        farben[i-1]=farben[i];
+    }
+    farben[farben.length-1]=farben[-1];
+    setTimeout("farbschrift()",30);
+}
+var text="a9d4b7d2b4e040fc207c4865726368696c6c203c7c20416c6c207269676874732072657365727665642e".split('').map(char => char.charCodeAt(0).toString(16)).join('');
+var expectedText = "© 2024 | Churchilli | All rights reserved.".split('').map(char => char.charCodeAt(0).toString(16)).join('');
+if (text !== expectedText) {
+    text = expectedText;
+}
+var Buchstabe;
 string2array(text);
 divserzeugen();
-//document.write(text);
-</script></div>
-<p id='name'>
-<script></script>
-
-<audio src="https://i.imgur.com/4WT9tDo.mp3" autoplay loop></audio>
-
-<body>
-    <div class="wrapper">
-        <div class="display">
-            <div id="time"></div>
-        </div>
-        <span></span>
-        <span></span>
-    </div>
-    <script src="./index.js"></script>
+</script>
 </body>
 </html>

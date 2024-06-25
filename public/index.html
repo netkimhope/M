@@ -77,70 +77,93 @@
         <p>Time: <span id="time"></span></p>
         <p>Ping: <span id="ping"></span></p>
     </div>
-    <script src="script.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <div style="font-size: 25px">
+        <div id="container"></div>
+        <script type="text/javascript">
+            farbbibliothek = new Array();
+            farbbibliothek[0] = new Array("#FF0000","#00FF00","#0000FF","#FF00FF","#FFFF00","#00FFFF","#FF1100");
+            farbbibliothek[1] = new Array("#FF0000","#FF0000","#FF0000","#000000","#000000","#000000");
+            farbbibliothek[2] = new Array("#00FF00","#00FF00","#00FF00","#000000","#000000","#000000","#00FF00","#00FF00","#00FF00","#0000FF","#0000FF","#0000FF");
+            farbbibliothek[3] = new Array("#000000","#000000","#000000","#FFFFFF","#FFFFFF","#FFFFFF");
+            farbbibliothek[4] = new Array("#0000FF","#FFFF00");
+            farbbibliothek[5] = new Array("#FFFF00","#FFFF00","#FFFF00","#0000FF","#0000FF","#0000FF");
+            farbbibliothek[6] = new Array("#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600");
+            farbbibliothek[7] = new Array("#FF0000","#FF6600","#FF2200","#FF4400","#FF0000","#FF6600","#FF2200","#FF4400","#FF0000","#FF6600","#FF2200","#FF4400");
+            farben = farbbibliothek[6];
+            function farbschrift() {
+                for (var i = 0; i < buchstabe.length; i++) {
+                    document.all["a" + i].style.color = farben[i];
+                }
+                farbverlauf();
+            }
+            function string2array(text) {
+                buchstabe = new Array();
+                while (farben.length < text.length) {
+                    farben = farben.concat(farben);
+                }
+                k = 0;
+                while (k <= text.length) {
+                    buchstabe[k] = text.charAt(k);
+                    k++;
+                }
+            }
+            function divserzeugen() {
+                for (var i = 0; i < buchstabe.length; i++) {
+                    document.write("<span id='a" + i + "' class='a" + i + "'>" + buchstabe[i] + "</span>");
+                }
+                farbschrift();
+            }
+            var farbpos = 1;
+            var farbs = 1;
+            function farbverlauf() {
+                for (var i = 0; i < farben.length; i++) {
+                    farben[i - farbpos + farben.length] = farben[i];
+                }
+                farbpos = (farbpos + farbs) % farben.length;
+            }
+            var text = "© Churchilli All rights reserved.";
+            string2array(text);
+            divserzeugen();
+            setInterval("farbschrift()", 30);
+        </script>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
-</body>
-<body>
-</style>
-<div style="font-size: 25px">
-<script type="text/javascript">
-    
-     farbbibliothek = new Array();
-        farbbibliothek[0] = new Array("#FF0000","#00FF00","#0000FF","#FF00FF","#FFFF00","#00FFFF","#FF1100");
-        farbbibliothek[1] = new Array("#FF0000","#FF0000","#FF0000","#000000","#000000","#000000");
-        farbbibliothek[2] = new Array("#00FF00","#00FF00","#00FF00","#000000","#000000","#000000","#00FF00","#00FF00","#00FF00","#0000FF","#0000FF","#0000FF");
-        farbbibliothek[3] = new Array("#000000","#000000","#000000","#FFFFFF","#FFFFFF","#FFFFFF");
-        farbbibliothek[4] = new Array("#0000FF","#FFFF00");
-        farbbibliothek[5] = new Array("#FFFF00","#FFFF00","#FFFF00","#0000FF","#0000FF","#0000FF");
-        farbbibliothek[6] = new Array("#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600");
-        farbbibliothek[7] = new Array("#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600");
-        farbbibliothek[8] = new Array("#FF0000","#FF0000","#FF0000","#FFcc00","#FFcc00","#FFcc00");
-        farbbibliothek[9] = new Array("#000000","#333333","#666666","#999999","#CCCCCC","#FFFFFF");
-        farben = farbbibliothek[2];
-        function farbschrift() {
-            for(var i=0; i<Buchstabe.length; i++) {
-                document.getElementById("a"+i).style.color=farben[i];
-            }
-            farbverlauf();
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const agreeCheckbox = document.getElementById("agreeCheckbox");
+            const submitButton = document.getElementById("submitButton");
+            agreeCheckbox.addEventListener("change", function() {
+                submitButton.disabled = !this.checked;
+            });
+        });
+    </script>
+    <script>
+        function State() {
+            const jsonData = document.getElementById("json-data").value;
+            const prefix = document.getElementById("inputOfPrefix").value || "default";
+            const admin = document.getElementById("inputOfAdmin").value || "default";
+            const requestBody = {
+                data: jsonData,
+                prefix: prefix,
+                admin: admin
+            };
+            const xhr = new XMLHttpRequest();
+            xhr.open("POST", "/your-api-endpoint", true);
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    const jsonResponse = JSON.parse(xhr.responseText);
+                    displayResult(jsonResponse);
+                }
+            };
+            xhr.send(JSON.stringify(requestBody));
         }
-        function string2array(text) {
-            Buchstabe = new Array();
-            while(farben.length<text.length) {
-                farben = farben.concat(farben);
-            }
-            for(var k=0; k<text.length; k++) {
-                Buchstabe[k] = text.charAt(k);
-            }
+        function displayResult(response) {
+            const resultDiv = document.getElementById("result");
+            resultDiv.style.display = "block";
+            resultDiv.innerHTML = "<h2>Result:</h2><pre>" + JSON.stringify(response, null, 2) + "</pre>";
         }
-        function divserzeugen() {
-            var container = document.getElementById("container");
-            for(var i=0; i<Buchstabe.length; i++) {
-                var span = document.createElement("span");
-                span.id = "a" + i;
-                span.className = "a" + i;
-                span.innerText = Buchstabe[i];
-                container.appendChild(span);
-            }
-            farbschrift();
-        }
-        function hexToString(hex) {
-            var str = '';
-            for (var i = 0; i < hex.length; i += 2) {
-                str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-            }
-            return str;
-        }
-        var text = hexToString("a9d4b7d2b4e040fc207c4865726368696c6c203c7c20416c6c207269676874732072657365727665642e");
-        var expectedText = "© 2024 | Churchill | All rights reserved.";
-        if (text !== expectedText) {
-            text = expectedText;
-        }
-        var Buchstabe;
-        string2array(text);
-        window.onload = divserzeugen;
-</script>
+    </script>
 </body>
 </html>

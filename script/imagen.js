@@ -1,65 +1,57 @@
 const axios = require('axios');
-const fs = require('fs-extra');
 
 module.exports.config = {
-  name: "imagen",
-  version: "1.0.0",
+  name: 'image',
+  version: '1.0.0',
   role: 0,
   hasPrefix: false,
-  credits: "chilli",
-  description: "Generate imagen.",
-  usages: "imagen [prompt] [model]",
-  cooldowns: 5,
+  aliases: ['imagen', 'generateImage'],
+  description: "imaging eating what?",
+  usage: "image [prompt] [model]",
+  credits: 'chillingbing',
+  cooldown: 3,
 };
 
-module.exports.run = async ({ api, event, args }) => {
-  const { threadID, messageID } = event;
+module.exports.run = async function({ api, event, args }) {
+  const prompt = args.slice(0, -1).join(' ');
+  const model = args.slice(-1)[0];
 
-  if (args.length < 1) {
-    return api.sendMessage("Please provide a prompt. Usage: imagen [prompt] [model]", threadID, messageID);
+  if (!prompt || !model) {
+    api.sendMessage('Please provide a prompt and model for image generation. Models available: v1, v2, v2-beta, v3, lexica, prodia, simurg, animefy, raava, shonin.', event.threadID, event.messageID);
+    return;
   }
 
-  const prompt = args.slice(0, -1).join(' ');
-  const model = args[args.length - 1];
+  const validModels = ['v1', 'v2', 'v2-beta', 'v3', 'lexica', 'prodia', 'simurg', 'animefy', 'raava', 'shonin'];
+  if (!validModels.includes(model)) {
+    api.sendMessage('Invalid model. Please use one of the following models: v1, v2, v2-beta, v3, lexica, prodia, simurg, animefy, raava, shonin.', event.threadID, event.messageID);
+    return;
+  }
+
+  api.sendMessage(`🎨 Generating image for: "${prompt}" using model: "${model}", please wait...`, event.threadID, event.messageID);
 
   try {
-  
-    const modelResponse = await axios.get('https://openapi-idk8.onrender.com/imagen/models');
-    const availableModels = modelResponse.data.available_models;
-
-  
-    if (availableModels.indexOf(model) === -1) {
-      return api.sendMessage(`Invalid or missing model. Available models are: ${availableModels.join(', ')}.`, threadID, messageID);
-    }
-
-  
-    api.sendMessage(`Searching for image with prompt "${prompt}" using model "${model}". Please wait...`, threadID, messageID);
-
-    
-    const imageResponse = await axios.get('https://openapi-idk8.onrender.com/imagen', {
-      params: { prompt: prompt, model: model },
-      responseType: 'arraybuffer'
+    const dodong = await axios.post('https://openapi-idk8.onrender.com/imagen', {
+      prompt: prompt,
+      model: model,
+      n: 1,
+      size: '1024x1024'
+    }, {
+      headers: {
+        'Content-Type': 'application/json'
+      }
     });
-    
-    const time = new Date();
-    const timestamp = time.toISOString().replace(/[:.]/g, "-");
-    const path = __dirname + '/cache/' + `${timestamp}_imagen.png`;
 
-  
-    fs.writeFileSync(path, imageResponse.data);
+    const imageUrl = dodong.data.generated_images[0];
 
-  
+    const nognog = await api.getUserInfo(event.senderID);
+    const pogi = nognog[event.senderID].name;
+
     api.sendMessage({
-      body: `Here's your imagen image nigg."${prompt}" using model "${model}"`,
-      attachment: fs.createReadStream(path)
-    }, threadID, () => fs.unlinkSync(path));
-
+      body: `Here is the generated image for: "${prompt}"\nModel: ${model}\n\nRequested by: ${pogi}`,
+      attachment: await axios.get(imageUrl, { responseType: 'stream' }).then(res => res.data)
+    }, event.threadID, event.messageID);
   } catch (error) {
-    console.error('Error:', error);
-    if (error.response && error.response.data && error.response.data.error) {
-      api.sendMessage(`Error: ${error.response.data.error}`, threadID, messageID);
-    } else {
-      api.sendMessage('An error occurred while fetching the image.', threadID, messageID);
-    }
+    console.error(error);
+    api.sendMessage('An error occurred while generating the image.', event.threadID, event.messageID);
   }
 };

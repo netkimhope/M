@@ -7,7 +7,7 @@ module.exports.config = {
   role: 0,
   hasPrefix: false,
   credits: "chilli",
-  description: "Generate image from a prompt using various models.",
+  description: "Generate imagen.",
   usages: "imagen [prompt] [model]",
   cooldowns: 5,
 };

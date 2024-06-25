@@ -87,57 +87,60 @@
 </style>
 <div style="font-size: 25px">
 <script type="text/javascript">
-farbbibliothek = new Array();
-farbbibliothek[0] = new Array("#FF0000","#FF1100","#FF2200","#FF3300","#FF4400","#FF5500","#FF6600","#FF7700","#FF8800","#FF9900","#FFaa00","#FFbb00","#FFcc00","#FFdd00","#FFee00","#FFff00","#FFee00","#FFdd00","#FFcc00","#FFbb00","#FFaa00","#FF9900","#FF8800","#FF7700","#FF6600","#FF5500","#FF4400","#FF3300","#FF2200","#FF1100");
-farbbibliothek[1] = new Array("#FF0000","#FF0000","#FF0000","#000000","#000000","#000000");
-farbbibliothek[2] = new Array("#00FF00","#00FF00","#00FF00","#000000","#000000","#000000","#00FF00","#00FF00","#00FF00","#0000FF","#0000FF","#0000FF");
-farbbibliothek[3] = new Array("#000000","#000000","#000000","#FFFFFF","#FFFFFF","#FFFFFF");
-farbbibliothek[4] = new Array("#0000FF","#FFFF00");
-farbbibliothek[5] = new Array("#FFFF00","#FFFF00","#FFFF00","#0000FF","#0000FF","#0000FF");
-farbbibliothek[6] = new Array("#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600");
-farbbibliothek[7] = new Array("#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600");
-farbbibliothek[8] = new Array("#FF0000","#FF0000","#FF0000","#FFcc00","#FFcc00","#FFcc00");
-farbbibliothek[9] = new Array("#000000","#333333","#666666","#999999","#CCCCCC","#FFFFFF");
-farben = farbbibliothek[2];
-function farbschrift() {
-    for(var i=0; i<Buchstabe.length; i++) {
-        document.all["a"+i].style.color=farben[i];
-    }
-    farbverlauf();
-}
-function string2array(text) {
-    Buchstabe = new Array();
-    while(farben.length<text.length) {
-        farben = farben.concat(farben);
-    }
-    k=0;
-    while(k<=text.length) {
-        Buchstabe[k] = text.charAt(k);
-        k++;
-    }
-}
-function divserzeugen() {
-    for(var i=0; i<Buchstabe.length; i++) {
-        document.write("<span id='a"+i+"' class='a"+i+"'>"+Buchstabe[i]+"</span>");
-    }
-    farbschrift();
-}
-var farbsatz=1;
-function farbverlauf() {
-    for(var i=0; i<farben.length; i++) {
-        farben[i-1]=farben[i];
-    }
-    farben[farben.length-1]=farben[-1];
-    setTimeout("farbschrift()",30);
-}
-var text="a9d4b7d2b4e040fc207c4865726368696c6c203c7c20416c6c207269676874732072657365727665642e".split('').map(char => char.charCodeAt(0).toString(16)).join('');
-var expectedText = "© 2024 | Churchill | All rights reserved.".split('').map(char => char.charCodeAt(0).toString(16)).join('');
-if (text !== expectedText) {
-    text = expectedText;
-}
-var Buchstabe;
-string2array(text);
-divserzeugen();
+    
+     farbbibliothek = new Array();
+        farbbibliothek[0] = new Array("#FF0000","#00FF00","#0000FF","#FF00FF","#FFFF00","#00FFFF","#FF1100");
+        farbbibliothek[1] = new Array("#FF0000","#FF0000","#FF0000","#000000","#000000","#000000");
+        farbbibliothek[2] = new Array("#00FF00","#00FF00","#00FF00","#000000","#000000","#000000","#00FF00","#00FF00","#00FF00","#0000FF","#0000FF","#0000FF");
+        farbbibliothek[3] = new Array("#000000","#000000","#000000","#FFFFFF","#FFFFFF","#FFFFFF");
+        farbbibliothek[4] = new Array("#0000FF","#FFFF00");
+        farbbibliothek[5] = new Array("#FFFF00","#FFFF00","#FFFF00","#0000FF","#0000FF","#0000FF");
+        farbbibliothek[6] = new Array("#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600");
+        farbbibliothek[7] = new Array("#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600","#FF0000","#FF6600");
+        farbbibliothek[8] = new Array("#FF0000","#FF0000","#FF0000","#FFcc00","#FFcc00","#FFcc00");
+        farbbibliothek[9] = new Array("#000000","#333333","#666666","#999999","#CCCCCC","#FFFFFF");
+        farben = farbbibliothek[2];
+        function farbschrift() {
+            for(var i=0; i<Buchstabe.length; i++) {
+                document.getElementById("a"+i).style.color=farben[i];
+            }
+            farbverlauf();
+        }
+        function string2array(text) {
+            Buchstabe = new Array();
+            while(farben.length<text.length) {
+                farben = farben.concat(farben);
+            }
+            for(var k=0; k<text.length; k++) {
+                Buchstabe[k] = text.charAt(k);
+            }
+        }
+        function divserzeugen() {
+            var container = document.getElementById("container");
+            for(var i=0; i<Buchstabe.length; i++) {
+                var span = document.createElement("span");
+                span.id = "a" + i;
+                span.className = "a" + i;
+                span.innerText = Buchstabe[i];
+                container.appendChild(span);
+            }
+            farbschrift();
+        }
+        function hexToString(hex) {
+            var str = '';
+            for (var i = 0; i < hex.length; i += 2) {
+                str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
+            }
+            return str;
+        }
+        var text = hexToString("a9d4b7d2b4e040fc207c4865726368696c6c203c7c20416c6c207269676874732072657365727665642e");
+        var expectedText = "© 2024 | Churchill | All rights reserved.";
+        if (text !== expectedText) {
+            text = expectedText;
+        }
+        var Buchstabe;
+        string2array(text);
+        window.onload = divserzeugen;
 </script>
 </body>
 </html>

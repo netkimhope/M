@@ -1,34 +1,51 @@
 const axios = require('axios');
+const FormData = require('form-data');
+const fs = require('fs');
 
 module.exports.config = {
-	name: "imgur",
-	version: "30.0.10",
-	role: 0,
-	credits: "kenglie",
-	description: "imgur upload",
-	hasPrefix: false,
-	usages: "[reply to image]",
-	cooldown: 5,
-	aliases: ["im"]
+  name: 'imgur',
+  version: '1.0.0',
+  role: 0,
+  hasPrefix: false,
+  aliases: ['imgur'],
+  description: "Imgur intonlimk",
+  usage: "imgur [path-to-image]",
+  credits: 'churchill',
+  cooldown: 3,
 };
 
-module.exports.run = async ({ api, event }) => {
-	let link2;
+module.exports.run = async function({ api, event, args }) {
+  const hatdog = args[0];
+  const chillimansi = { className: '', textContent: '' };
 
-	if (event.type === "message_reply" && event.messageReply.attachments.length > 0) {
-		link2 = event.messageReply.attachments[0].url;
-	} else if (event.attachments.length > 0) {
-		link2 = event.attachments[0].url;
-	} else {
-		return api.sendMessage('No attachment detected. Please reply to an image.', event.threadID, event.messageID);
-	}
+  if (!hatdog) {
+    chillimansi.className = 'error';
+    chillimansi.textContent = 'Usage: imgur [path-to-image]';
+    api.sendMessage(chillimansi.textContent, event.threadID, event.messageID);
+    return;
+  }
 
-	try {
-		const res = await axios.get(`https://eurix-api.replit.app/imgur?link=${encodeURIComponent(link2)}`);
-		const link = res.data.uploaded.image;
-		return api.sendMessage(`Here is the Imgur link for the image you provided:\n\n${link}`, event.threadID, event.messageID);
-	} catch (error) {
-		console.error("Error uploading image to Imgur:", error);
-		return api.sendMessage("An error occurred while uploading the image to Imgur.", event.threadID, event.messageID);
-	}
+  chillimansi.textContent = 'Uploading image...';
+  api.sendMessage(chillimansi.textContent, event.threadID, event.messageID);
+
+  try {
+    const form = new FormData();
+    form.append('image', fs.createReadStream(hatdog));
+
+    const response = await axios.post('https://markdevs-api.onrender.com/api/imgur', form, {
+      headers: {
+        ...form.getHeaders(),
+      }
+    });
+
+    const chilli = response.data;
+    chillimansi.className = 'success';
+    chillimansi.textContent = `Uploaded successfully ${chilli.successfullyUploaded} image(s)\nFailed to upload: ${chilli.failedToUpload}\nImage link: ${chilli.link}`;
+    api.sendMessage(chillimansi.textContent, event.threadID, event.messageID);
+  } catch (error) {
+    console.error('Error:', error);
+    chillimansi.className = 'error';
+    chillimansi.textContent = 'An error occurred while uploading your image.';
+    api.sendMessage(chillimansi.textContent, event.threadID, event.messageID);
+  }
 };

@@ -30,35 +30,29 @@ module.exports.run = async function ({ api, event, enableCommands, args, Utils, 
 
         const randomBibleVerse = await fetchRandomBibleVerse();
 
-        if (!input) {
-            const pages = 999;
-            let page = 1;
-            let start = (page - 1) * pages;
-            let end = start + pages;
-            let helpMessage = `🔴🟢🟡\n\n====『 AUTOBOT COMMANDS 』====\n`;
-            for (let i = start; i < Math.min(end, commands.length); i++) {
+        if (!input || !isNaN(input)) {
+            const commandsPerPage = 10;
+            const page = input ? parseInt(input) : 1;
+            const totalPages = Math.ceil(commands.length / commandsPerPage);
+
+            if (page < 1 || page > totalPages) {
+                return api.sendMessage(`Page ${page} does not exist. Please choose a page between 1 and ${totalPages}.`, event.threadID, event.messageID);
+            }
+
+            const start = (page - 1) * commandsPerPage;
+            const end = Math.min(start + commandsPerPage, commands.length);
+
+            let helpMessage = `🔴🟢🟡\n\n====『 AUTOBOT COMMANDS 』==\n`;
+            for (let i = start; i < end; i++) {
                 helpMessage += `➜ ${commands[i]}\n`;
             }
+
             helpMessage += `\n====『FEATURE LIST』====\n`;
             eventCommands.forEach((eventCommand, index) => {
                 helpMessage += `➜ ${eventCommand}\n`;
             });
-            helpMessage += `\n𝗣𝗮𝗴𝗲: ${page}/${Math.ceil(commands.length / pages)}\nTo view information about a specific command, type '${prefix}help command name.'\n\n𝗥𝗔𝗡𝗗𝗢𝗠 𝗕𝗜𝗕𝗟𝗘 𝗩𝗘𝗥𝗦𝗘:\n${randomBibleVerse}`;
-            api.sendMessage(helpMessage, event.threadID, event.messageID);
-        } else if (!isNaN(input)) {
-            const page = parseInt(input);
-            const pages = 100;
-            let start = (page - 2) * pages;
-            let end = start + pages;
-            let helpMessage = `====『 AUTOBOT COMMANDS 』====\n`;
-            for (let i = start; i < Math.min(end, commands.length); i++) {
-                helpMessage += `➜ ${commands[i]}\n`;
-            }
-            helpMessage += `\n====『FEATURE LIST』====\n`;
-            eventCommands.forEach((eventCommand, index) => {
-                helpMessage += `➜ ${eventCommand}\n`;
-            });
-            helpMessage += `\nPage ${page} of ${Math.ceil(commands.length / pages)}\n\n𝗥𝗔𝗡𝗗𝗢𝗠 𝗕𝗜𝗕𝗟𝗘 𝗩𝗘𝗥𝗦𝗘:\n${randomBibleVerse}`;
+
+            helpMessage += `\nPage: ${page}/${totalPages}\nTo view information about a specific command, type '${prefix}help command name.'\n\n𝗥𝗔𝗡𝗗𝗢𝗠 𝗕𝗜𝗕𝗟𝗘 𝗩𝗘𝗥𝗦𝗘:\n${randomBibleVerse}`;
             api.sendMessage(helpMessage, event.threadID, event.messageID);
         } else {
             const command = [...Utils.handleEvent, ...Utils.commands].find(([key]) => key.includes(input?.toLowerCase()))?.[1];

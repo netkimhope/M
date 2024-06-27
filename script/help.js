@@ -31,7 +31,7 @@ module.exports.run = async function ({ api, event, enableCommands, args, Utils, 
         const randomBibleVerse = await fetchRandomBibleVerse();
 
         if (!input || !isNaN(input)) {
-            const commandsPerPage = 10;
+            const commandsPerPage = 3;
             const page = input ? parseInt(input) : 1;
             const totalPages = Math.ceil(commands.length / commandsPerPage);
 
@@ -52,7 +52,7 @@ module.exports.run = async function ({ api, event, enableCommands, args, Utils, 
                 helpMessage += `➜ ${eventCommand}\n`;
             });
 
-            helpMessage += `\nPage: ${page}/${totalPages}\nTo view information about a specific command, type '${prefix}help command name.'\n\n𝗥𝗔𝗡𝗗𝗢𝗠 𝗕𝗜𝗕𝗟𝗘 𝗩𝗘𝗥𝗦𝗘:\n${randomBibleVerse}`;
+            helpMessage += `\nPage: ${page}/${totalPages}\nTo view information about a specific command, type '${prefix}help command name.'\nTo see the available list of commands, type '${prefix}help [page number]'.\n\n𝗥𝗔𝗡𝗗𝗢𝗠 𝗕𝗜𝗕𝗟𝗘 𝗩𝗘𝗥𝗦𝗘:\n${randomBibleVerse}`;
             api.sendMessage(helpMessage, event.threadID, event.messageID);
         } else {
             const command = [...Utils.handleEvent, ...Utils.commands].find(([key]) => key.includes(input?.toLowerCase()))?.[1];

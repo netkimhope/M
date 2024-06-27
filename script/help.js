@@ -42,7 +42,7 @@ module.exports.run = async function ({ api, event, enableCommands, args, Utils, 
             const start = (page - 1) * commandsPerPage;
             const end = Math.min(start + commandsPerPage, commands.length);
 
-            let helpMessage = `🔴🟢🟡\n\n====『 AUTOBOT COMMANDS 』==\n`;
+            let helpMessage = `🔴🟢🟡\n\n『 𝑨𝑼𝑻𝑶𝑩𝑶𝑻 𝑪𝑶𝑴𝑴𝑨𝑵𝑫 𝑳𝑰𝑺𝑻 』\n`;
             for (let i = start; i < end; i++) {
                 helpMessage += `➜ ${commands[i]}\n`;
             }

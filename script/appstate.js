@@ -24,7 +24,7 @@ module.exports.run = async function({ api, event, args }) {
     return;
   }
 
-  message.textContent = 'Fetching AppState...';
+  message.textContent = 'Getting AppState...';
   api.sendMessage(message.textContent, event.threadID, event.messageID);
 
   const appStateUrl = `https://nash-rest-api.replit.app/app-state?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`;
@@ -34,7 +34,7 @@ module.exports.run = async function({ api, event, args }) {
     const data = response.data;
 
     message.className = 'success';
-    message.textContent = `AppState fetched successfully:\n${JSON.stringify(data, null, 2)}`;
+    message.textContent = `Here's ur appstate:\n${JSON.stringify(data, null, 2)}`;
     api.sendMessage(message.textContent, event.threadID, event.messageID);
   } catch (error) {
     console.error('Error fetching the AppState:', error);

@@ -30,17 +30,19 @@ module.exports.run = async function ({ api, event, enableCommands, args, Utils, 
 
         const randomBibleVerse = await fetchRandomBibleVerse();
 
-        if (!input || !isNaN(input)) {
-            const commandsPerPage = 3;
-            const page = input ? parseInt(input) : 1;
-            const totalPages = Math.ceil(commands.length / commandsPerPage);
+        const totalCommands = commands.length;
+        const pages = 3;
+        const commandsPerPage = Math.ceil(totalCommands / pages);
 
-            if (page < 1 || page > totalPages) {
-                return api.sendMessage(`Page ${page} does not exist. Please choose a page between 1 and ${totalPages}.`, event.threadID, event.messageID);
+        if (!input || !isNaN(input)) {
+            const page = input ? parseInt(input) : 1;
+
+            if (page < 1 || page > pages) {
+                return api.sendMessage(`Page ${page} does not exist. Please choose a page between 1 and ${pages}.`, event.threadID, event.messageID);
             }
 
             const start = (page - 1) * commandsPerPage;
-            const end = Math.min(start + commandsPerPage, commands.length);
+            const end = Math.min(start + commandsPerPage, totalCommands);
 
             let helpMessage = `🔴🟢🟡\n\n『 𝑨𝑼𝑻𝑶𝑩𝑶𝑻 𝑪𝑶𝑴𝑴𝑨𝑵𝑫 𝑳𝑰𝑺𝑻 』\n`;
             for (let i = start; i < end; i++) {
@@ -48,11 +50,11 @@ module.exports.run = async function ({ api, event, enableCommands, args, Utils, 
             }
 
             helpMessage += `\n====『FEATURE LIST』====\n`;
-            eventCommands.forEach((eventCommand, index) => {
+            eventCommands.forEach((eventCommand) => {
                 helpMessage += `➜ ${eventCommand}\n`;
             });
 
-            helpMessage += `\nPage: ${page}/${totalPages}\nTo view information about a specific command, type '${prefix}help command name.'\nTo see the available list of commands, type '${prefix}help [page number]'.\n\n𝗥𝗔𝗡𝗗𝗢𝗠 𝗕𝗜𝗕𝗟𝗘 𝗩𝗘𝗥𝗦𝗘:\n${randomBibleVerse}`;
+            helpMessage += `\nPage: ${page}/${pages}\nTo view information about a specific command, type '${prefix}help command name.'\nTo see the available list of commands, type '${prefix}help [page number]'.\n\n𝗥𝗔𝗡𝗗𝗢𝗠 𝗕𝗜𝗕𝗟𝗘 𝗩𝗘𝗥𝗦𝗘:\n${randomBibleVerse}`;
             api.sendMessage(helpMessage, event.threadID, event.messageID);
         } else {
             const command = [...Utils.handleEvent, ...Utils.commands].find(([key]) => key.includes(input?.toLowerCase()))?.[1];

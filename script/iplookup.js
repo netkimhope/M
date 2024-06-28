@@ -4,7 +4,7 @@ module.exports.config = {
     name: "iplookup",
     version: "1.0.0",
     role: 0,
-    credits: "Deku",
+    credits: "chill",
     description: "Get information about an IP address",
     hasPrefix: false,
     usages: "[IP address]",

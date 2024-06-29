@@ -6,7 +6,7 @@ module.exports.config = {
     version: '1.0.0',
     role: 0,
     hasPrefix: false,
-    aliases: ['ai', 'bot'],
+    aliases: ['ai'],
     description: 'AI Command',
     usage: 'ai [query]',
     credits: 'churchill',

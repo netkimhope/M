@@ -6,24 +6,24 @@ module.exports.config = {
   role: 0,
   hasPrefix: false,
   aliases: ['deutsch'],
-  description: "German AI Command",
+  description: "German parang ai Command",
   usage: "german [query]",
   credits: 'churchill',
   cooldown: 3,
 };
 
 module.exports.run = async function({ api, event, args }) {
-  const query = args.join(" ");  /
+  const query = args.join(" ");  // Join all arguments to form the query
   const responseMessage = { className: '', textContent: '' };
 
   if (!query) {
     responseMessage.className = 'error';
-    responseMessage.textContent = ' german what is kiffy?';
+    responseMessage.textContent = 'Usage: german [query]';
     api.sendMessage(responseMessage.textContent, event.threadID, event.messageID);
     return;
   }
 
-  responseMessage.textContent = '👄𝑨𝒏𝒔𝒘𝒆𝒓𝒊𝒏𝒈 𝒖𝒓 𝒒𝒖𝒆𝒂𝒕𝒊𝒐𝒏 𝒑𝒍𝒔𝒔 𝒘𝒂𝒊𝒕...';
+  responseMessage.textContent = 'Processing your query...';
   api.sendMessage(responseMessage.textContent, event.threadID, event.messageID);
 
   const apiUrl = `https://deku-rest-api-gadz.onrender.com/ai/discolm-german?q=${encodeURIComponent(query)}`;

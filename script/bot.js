@@ -1,4 +1,4 @@
-@Churchill Ag penge tokenGetter bigyan din kita
+
 
 
 let lastResponseMessageID = null;

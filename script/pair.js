@@ -1,80 +1,63 @@
 const axios = require('axios');
-const fs = require('fs');
-const path = require('path');
 
 module.exports.config = {
-    name: 'pair',
-    version: '1.0.0',
-    role: 0,
-    hasPrefix: false,
-    aliases: ['pair'],
-    description: 'Randominium pair',
-    usage: 'pair',
-    credits: 'chilli',
-    cooldown: 3,
+  name: "weather",
+  version: "1.0",
+  hasPermision: 0,
+  credits: "Hassan",//convert by chill
+  description: "Get weather information for a city",
+  usePrefix: false,
+  usages: "weather <city_name>",
+  cooldown: 3,
 };
 
-module.exports.run = async function({ api, event }) {
+module.exports.handleEvent = async function ({ api, event }) {
+  const startsWithTrigger = (str, trigger) => str.slice(0, trigger.length) === trigger;
+
+  if (!startsWithTrigger(event.body, "weather")) return;
+
+  const args = event.body.split(/\s+/);
+  args.shift();
+
+  const { threadID, messageID } = event;
+  const cityName = args.join(' ');
+
+  if (!cityName) {
+    api.sendMessage("Please provide a city name.", threadID, messageID);
+    return;
+  }
+
+  const url = `https://nodejs-2-jrqi.onrender.com/weather?city=${encodeURIComponent(cityName)}`;
+
+  api.sendMessage("Fetching weather information, please wait...", threadID, async () => {
     try {
-        const churchillitos = await api.getThreadInfo(event.threadID);
-        const pogi = churchillitos.participantIDs;
+      const response = await axios.get(url);
 
-        if (pogi.length < 2) {
-            api.sendMessage('Not enough participants to pair.', event.threadID, event.messageID);
-            return;
-        }
+      if (response.data) {
+        const weatherData = response.data;
+        const city = weatherData.name;
+        const country = weatherData.sys.country;
+        const temperature = weatherData.main.temp;
+        const weatherDescription = weatherData.weather[0].description;
+        const humidity = weatherData.main.humidity;
+        const windSpeed = weatherData.wind.speed;
 
-        const chilli = pogi[Math.floor(Math.random() * pogi.length)];
-        let churchillitos;
-        do {
-            churchillitos = pogi[Math.floor(Math.random() * pogi.length)];
-        } while (churchillitos === chilli);
+        const messageBody =
+          `🌆 **City:** ${city}, ${country}\n` +
+          `🌡️ **Temperature:** ${temperature}°C\n` +
+          `☁️ **Weather:** ${weatherDescription}\n` +
+          `💧 **Humidity:** ${humidity}%\n` +
+          `🌬️ **Wind Speed:** ${windSpeed} m/s`;
 
-        const chilliInfo = await api.getUserInfo(chilli);
-        const churchillitosInfo = await api.getUserInfo(churchillitos);
-
-        const bahihinga = chilliInfo[chilli];
-        const pogi = churchillitosInfo[churchillitos];
-
-        const chilliPercentage = Math.floor(Math.random() * 101);
-        const churchillitosRatio = Math.floor(Math.random() * 101);
-
-        const message = `
-        • Everyone congratulates the new pair:
-        ❤️ ${bahihinga.name} ❤️ ${pogi.name} ❤️
-        Love percentage: "${chilliPercentage}%" 😍
-        Compatibility ratio: "${churchillitosRatio}%" 💕
-        Congratulations 🎉
-        `;
-
-
-        const downloadImage = async (url, fileName) => {
-            const filePath = path.join(__dirname, fileName);
-            const response = await axios.get(url, { responseType: 'arraybuffer' });
-            fs.writeFileSync(filePath, response.data);
-            return fs.createReadStream(filePath);
-        };
-
-        const attachments = [];
-        if (bahihinga.thumbSrc) {
-            attachments.push(await downloadImage(bahihinga.thumbSrc, `${bahihinga.name}.jpg`));
-        }
-        if (pogi.thumbSrc) {
-            attachments.push(await downloadImage(pogi.thumbSrc, `${pogi.name}.jpg`));
-        }
-
-        api.sendMessage({
-            body: message,
-            attachment: attachments
-        }, event.threadID, event.messageID);
-
-        
-        attachments.forEach(stream => {
-            fs.unlinkSync(stream.path);
-        });
-
+        api.sendMessage(messageBody, threadID, messageID);
+      } else {
+        api.sendMessage('Sorry, no weather information was found for the specified city.', threadID, messageID);
+      }
     } catch (error) {
-        console.error('Error:', error.message);
-        api.sendMessage('An error occurred while pairing.', event.threadID, event.messageID);
+      console.error(error);
+      api.sendMessage('Sorry, there was an error fetching weather information.', threadID, messageID);
     }
+  });
 };
+
+module.exports.run = async function ({ api, event }) {};

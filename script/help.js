@@ -45,7 +45,7 @@ module.exports.run = async function ({ api, event, enableCommands, args, Utils, 
 
       let helpMessage = `━━𝙲𝙾𝙼𝙼𝙰𝙽𝙳𝚂━━\n`;
       for (let i = start; i < end; i++) {
-        helpMessage += ` ⊂⊃ ➥ ${commands[i]}✨\n`;
+        helpMessage += ` ⊂⊃ ➥ ${commands[i]}\n`;
       }
 
       helpMessage += `━━━━━━━━━━━━━━━\n`;

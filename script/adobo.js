@@ -22,7 +22,7 @@ module.exports.run = async function({ api, event, args }) {
 
     try {
         const response = await axios.get('https://markdevs69-1efde24ed4ea.herokuapp.com/api/adobo/gpt', {
-            params: { query: query, uid: event.senderID }
+            params: { query: query }
         });
 
         const data = response.data.response;

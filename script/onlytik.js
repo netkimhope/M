@@ -18,19 +18,17 @@ module.exports.config = {
   name: "onlytik",
   version: "1.0",
   hasPermision: 2,
-  credits: "Vex_Kshitiz",//convert by chilli
+  credits: "Vex_Kshitiz",
   description: "18+ TikTok video",
-  usePrefix: false,
+  usePrefix: true,
   usages: "onlytik",
   cooldown: 5,
 };
 
-module.exports.handleEvent = async function ({ api, event }) {
-  const { threadID, messageID } = event;
-  
+module.exports.onStart = async function ({ api, event, args, message }) {
   const isAuthorValid = await checkAuthor(module.exports.config.credits);
   if (!isAuthorValid) {
-    api.sendMessage("Author changer alert! This command belongs to Vex_Kshitiz.", threadID, messageID);
+    await message.reply("Author changer alert! This command belongs to Vex_Kshitiz.");
     return;
   }
 
@@ -48,16 +46,14 @@ module.exports.handleEvent = async function ({ api, event }) {
     writer.on("finish", () => {
       const stream = fs.createReadStream(tempVideoPath);
 
-      api.sendMessage({
+      message.reply({
         body: ``,
         attachment: stream,
-      }, threadID, () => fs.unlinkSync(tempVideoPath), messageID);
+      });
     });
 
   } catch (error) {
     console.error("Error fetching OnlyTik video:", error);
-    api.sendMessage("Sorry, an error occurred while processing your request.", threadID, messageID);
+    message.reply("Sorry, an error occurred while processing your request.");
   }
 };
-
-module.exports.run = async function ({ api, event }) {};

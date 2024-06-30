@@ -18,18 +18,6 @@ module.exports.run = async function ({ api, event, enableCommands, args, Utils, 
     const eventCommands = enableCommands[1].handleEvent;
     const commands = enableCommands[0].commands;
 
-    const fetchRandomBibleVerse = async () => {
-      try {
-        const response = await axios.get('https://deku-rest-api-gadz.onrender.com/bible');
-        return `📖 ${response.data.verse}\n- ${response.data.reference}`;
-      } catch (error) {
-        console.error('Error fetching Bible verse:', error);
-        return 'An error occurred while fetching the Bible verse.';
-      }
-    };
-
-    const randomBibleVerse = await fetchRandomBibleVerse();
-
     const totalCommands = commands.length;
     const pages = Math.ceil(totalCommands / 15); // Adjust the number 15 to change commands per page
 
@@ -50,8 +38,7 @@ module.exports.run = async function ({ api, event, enableCommands, args, Utils, 
 
       helpMessage += `━━━━━━━━━━━━━━━\n`;
       helpMessage += `━━𝙲𝙾𝙼𝙼𝙰𝙽𝙳 𝙿𝙰𝙶𝙴 : <${page}/${pages}>━━\n`;
-      helpMessage += `━━CHILLI 𝖠𝖨 𝖢𝖧𝖠𝖳𝖡𝖮𝖳━━\n`;
-      helpMessage += `𝗥𝗔𝗡𝗗𝗢𝗠 𝗕𝗜𝗕𝗟𝗘 𝗩𝗘𝗥𝗦𝗘:\n${randomBibleVerse}`;
+      helpMessage += `━━CHILLI 𝖠𝖨 𝖢𝖧𝖠𝖳𝖡𝖮𝖳━━`;
 
       api.sendMessage(helpMessage, event.threadID, event.messageID);
     } else {

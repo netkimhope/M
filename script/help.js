@@ -5,7 +5,7 @@ module.exports.config = {
   version: '1.0.0',
   role: 0,
   hasPrefix: true,
-  aliases: ['help'],
+  aliases: ['info'],
   description: "Beginner's guide",
   usage: "Help [page] or [command]",
   credits: 'Developer',
@@ -38,7 +38,8 @@ module.exports.run = async function ({ api, event, enableCommands, args, Utils, 
 
       helpMessage += `━━━━━━━━━━━━━━━\n`;
       helpMessage += `━━𝙲𝙾𝙼𝙼𝙰𝙽𝙳 𝙿𝙰𝙶𝙴 : <${page}/${pages}>━━\n`;
-      helpMessage += `━━CHILLI 𝖠𝖨 𝖢𝖧𝖠𝖳𝖡𝖮𝖳━━`;
+      helpMessage += `━━CHILLI 𝖠𝖨 𝖢𝖧𝖠𝖳𝖡𝖮𝖳━━\n`;
+      helpMessage += `Total commands: ${totalCommands}`;
 
       api.sendMessage(helpMessage, event.threadID, event.messageID);
     } else {

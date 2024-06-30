@@ -21,15 +21,17 @@ module.exports.run = async function({ api, event, args }) {
     }
 
     try {
+        console.log('Query:', query);
         const response = await axios.get('https://markdevs69-1efde24ed4ea.herokuapp.com/api/adobo/gpt', {
             params: { query: query }
         });
 
+        console.log('API Response:', response.data);
         const data = response.data.response;
 
         api.sendMessage(data, event.threadID, event.messageID);
     } catch (error) {
-        console.error('Error:', error);
-        api.sendMessage('An error occurred while fetching the response.', event.threadID, event.messageID);
+        console.error('Error:', error.message);
+        api.sendMessage(`An error occurred while fetching the response: ${error.message}`, event.threadID, event.messageID);
     }
 };

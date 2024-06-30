@@ -127,9 +127,7 @@ const routes = [{
 },{
 	path: '/random_shoti',
 	file: 'shoti.html'
-}, {
-	path: '/analog',
-	file: 'analog.html'
+
 }, {
 	path: '/clock',
 	file: 'clock.html'
@@ -139,9 +137,7 @@ const routes = [{
 },{
 	path: '/developer',
 	file: 'developer.html'
-},{
-	path: '/random',
-	file: 'random.html'
+
 }, ];
 routes.forEach(route => {
 	app.get(route.path, (req, res) => {

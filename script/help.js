@@ -7,7 +7,7 @@ module.exports.config = {
   hasPrefix: true,
   aliases: ['command'],
   description: "Beginner's guide",
-  usage: "Help [page] or [command]",
+  usage: "Help [page] or [command] or [all]",
   credits: 'Developer',
 };
 
@@ -38,6 +38,18 @@ module.exports.run = async function ({ api, event, enableCommands, args, Utils, 
 
       helpMessage += `━━━━━━━━━━━━━━━\n`;
       helpMessage += `━━𝙲𝙾𝙼𝙼𝙰𝙽𝙳 𝙿𝙰𝙶𝙴 : <${page}/${pages}>━━\n`;
+      helpMessage += `━━CHILLI 𝖠𝖨 𝖢𝖧𝖠𝖳𝖡𝖮𝖳━━\n`;
+      helpMessage += `Total commands: ${totalCommands}\n`;
+      helpMessage += `Type "help all" to see all commands.`;
+
+      api.sendMessage(helpMessage, event.threadID, event.messageID);
+    } else if (input.toLowerCase() === 'all') {
+      let helpMessage = `━━𝙰𝙻𝙻 𝙲𝙾𝙼𝙼𝙰𝙽𝙳𝚂━━\n`;
+      for (let i = 0; i < totalCommands; i++) {
+        helpMessage += ` ⊂⊃ ➥ ${commands[i]}\n`;
+      }
+
+      helpMessage += `━━━━━━━━━━━━━━━\n`;
       helpMessage += `━━CHILLI 𝖠𝖨 𝖢𝖧𝖠𝖳𝖡𝖮𝖳━━\n`;
       helpMessage += `Total commands: ${totalCommands}`;
 

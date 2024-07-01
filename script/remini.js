@@ -1,7 +1,7 @@
 const axios = require('axios');
 const fs = require('fs-extra');
 
-module🌐.exports.🌐config = {
+module.exports.config = {
   name: "remini",
   version: "1.0.",
   role: 0,

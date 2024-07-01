@@ -5,7 +5,7 @@ module.exports.config = {
   version: '1.0.0',
   role: 0,
   hasPrefix: true,
-  aliases: ['info'],
+  aliases: ['command'],
   description: "Beginner's guide",
   usage: "Help [page] or [command]",
   credits: 'Developer',

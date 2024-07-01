@@ -3,11 +3,14 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports.config = {
-    name: "remini",
-    version: "1.0",
-    description: "Image Enhancer",
-    usages: "Reply to a photo to enhance image",
-    cooldown: 3,
+  name: "remknj",
+  version: "6.9",
+  hasPermision: 0,
+  credits: "chill", //don’t change credits please
+  description: "Image Enhancer",
+  usePrefix: false,
+  usages: "Reply to a photo to enhance image",
+  cooldown: 3,
 };
 
 let reminderSent = {};

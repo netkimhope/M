@@ -6,7 +6,7 @@ module.exports.config = {
   name: "remini",
   version: "6.9",
   hasPermision: 0,
-  credits: "chill", //don’t change credits please
+  credits: "chill",
   description: "Image Enhancer",
   usePrefix: false,
   usages: "Reply to a photo to enhance image",
@@ -39,8 +39,8 @@ module.exports.handleEvent = async function({ api, event }) {
             const response = await axios.get(`https://markdevs69-1efde24ed4ea.herokuapp.com/api/remini?inputImage=${encodeURIComponent(photoUrl)}`, {
                 responseType: 'arraybuffer'
             });
-            const imageBuffer = Buffer.from(response.data, 'binary');
 
+            const imageBuffer = Buffer.from(response.data, 'binary');
             const filename = path.join(__dirname, 'enhanced_image.jpg');
             fs.writeFileSync(filename, imageBuffer);
 
@@ -51,6 +51,7 @@ module.exports.handleEvent = async function({ api, event }) {
                 fs.unlinkSync(filename);
             }, messageID);
         } catch (error) {
+            console.error("Error while processing image:", error);
             api.sendMessage(`Error while processing image: ${error.message}`, threadID, messageID);
         }
     });

@@ -1,53 +1,42 @@
-const axios = require("axios");
+const axios = require('axios');
 
 module.exports.config = {
-    name: "box",
-    version: "1.0.0",
-    credits: "chill",
-    description: "Interact with BlackBox AI in different formats",
-    hasPrefix: false,
-    cooldown: 5,
-    aliases: []
+  name: 'box',
+  version: '1.0.0',
+  role: 0,
+  hasPrefix: false,
+  aliases: ['box'],
+  description: "blxnigga",
+  usage: "boxbox",
+  credits: 'chilling',
+  cooldown: 3,
 };
 
-module.exports.run = async function ({ api, event, args }) {
-    try {
-        let q = args.join(" ");
-        if (!q) {
-            return api.sendMessage("[ ❗ ] - Missing input for the box command", event.threadID, event.messageID);
+module.exports.run = async function({ api, event, args }) {
+  const query = args.join(' ');
+  if (!query) {
+    api.sendMessage('Please provide a question.', event.threadID, event.messageID);
+    return;
+  }
+
+  api.sendMessage('🔍 Box is answering, please wait...', event.threadID, event.messageID);
+
+  try {
+    const response = await axios.get(`https://joshweb.click/api/blackboxai?q=${encodeURIComponent(query)}&uid=100`);
+    const aiResponse = response.data.response;
+
+    const message = {
+      body: `box answer:\n\n${aiResponse}`,
+      mentions: [
+        {
+          tag: `@${event.senderID}`,
+          id: event.senderID
         }
+      ]
+    };
 
-        api.sendMessage("Processing your request, please wait...", event.threadID, async (err, info) => {
-            try {
-                const response = await axios.get(`https://joshweb.click/api/blackboxai?q=${encodeURIComponent(q)}&uid=100`);
-                const { result, format } = response.data;
-
-                let answer = "";
-
-                // Handling different response formats based on the API documentation
-                switch (format) {
-                    case "text":
-                        answer = result.text;
-                        break;
-                    case "image":
-                        answer = result.imageUrl;
-                        break;
-                    case "link":
-                        answer = result.linkUrl;
-                        break;
-                    default:
-                        answer = "Unsupported format received from API.";
-                        break;
-                }
-
-                api.sendMessage(answer, event.threadID);
-            } catch (error) {
-                console.error(error);
-                api.sendMessage("An error occurred while processing your request.", event.threadID);
-            }
-        });
-    } catch (error) {
-        console.error("Error in box command:", error);
-        api.sendMessage("An error occurred while processing your request.", event.threadID);
-    }
+    api.sendMessage(message, event.threadID, event.messageID);
+  } catch (error) {
+    api.sendMessage('An error occurred while fetching the response.', event.threadID, event.messageID);
+  }
 };

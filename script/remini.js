@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports.config = {
-  name: "remknj",
+  name: "remini",
   version: "6.9",
   hasPermision: 0,
   credits: "chill", //don’t change credits please

@@ -1,6 +1,6 @@
-let path = __dirname + "/cache/spotify.mp3";
 const axios = require("axios");
 const fs = require("fs");
+const path = __dirname + "/cache/spotify.mp3";
 
 module.exports.config = {
 		name: "spotify",
@@ -15,22 +15,16 @@ module.exports.config = {
 
 module.exports.run = async function ({ api, event, args }) {
 		try {
-				const { spotify, spotifydl } = require("betabotz-tools");
 				let q = args.join(" ");
 				if (!q) return api.sendMessage("[ ❗ ] - Missing title of the song", event.threadID, event.messageID);
 
 				api.sendMessage("[ 🔍 ] Searching for “" + q + "” ...", event.threadID, async (err, info) => {
 						try {
-								const r = await axios.get("https://lyrist.vercel.app/api/" + q);
-								const { lyrics, title } = r.data;
-								const results = await spotify(encodeURI(q));
-
-								let url = results.result.data[0].url;
-
-								const result1 = await spotifydl(url);
+								const r = await axios.get(`https://markdevs69-1efde24ed4ea.herokuapp.com/search/spotify?q=${encodeURIComponent(q)}`);
+								const { lyrics, title, url } = r.data.result.data[0];
 
 								const dl = (
-										await axios.get(result1.result, { responseType: "arraybuffer" })
+										await axios.get(url, { responseType: "arraybuffer" })
 								).data;
 								fs.writeFileSync(path, Buffer.from(dl, "utf-8"));
 								api.sendMessage(
@@ -39,7 +33,7 @@ module.exports.run = async function ({ api, event, args }) {
 														"·•———[ SPOTIFY DL ]———•·\n\n" + "Title: " + title + "\nLyrics:\n\n" +
 														lyrics +
 														"\n\nYou can download this audio by clicking this link or paste it to your browser: " +
-														result1.result,
+														url,
 												attachment: fs.createReadStream(path),
 										},
 										event.threadID,

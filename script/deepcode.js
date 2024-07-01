@@ -1,7 +1,7 @@
 const axios = require("axios");
 
 module.exports.config = {
-    name: "coder",
+    name: "deepcode",
     version: "1.0.0",
     credits: "chill",
     description: "Interact with Coder AI",
@@ -17,7 +17,7 @@ module.exports.run = async function ({ api, event, args }) {
             return api.sendMessage(" Missing question for the coder", event.threadID, event.messageID);
         }
 
-        api.sendMessage("coder, answering please wait...", event.threadID, async (err, info) => {
+        api.sendMessage("Deepcode, answering please wait...", event.threadID, async (err, info) => {
             try {
                 const response = await axios.get(`https://joshweb.click/ai/deepseek-coder?q=${encodeURIComponent(q)}&uid=100`);
                 const answer = response.data.result;

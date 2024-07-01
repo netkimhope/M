@@ -8,35 +8,21 @@ module.exports.config = {
     aliases: ['gore'],
     description: 'Fetches a random gore video',
     usage: 'gore',
-    credits: 'chill',
+    credits: 'Developer',
 };
 
 module.exports.run = async function({ api, event }) {
     try {
-        const response = await axios.get('https://nash-rest-api.replit.app/gore');
-        const data = response.data;
+        const chilliResponse = await axios.get('https://nash-rest-api.replit.app/gore');
+        const bingchilliVideoUrl = chilliResponse.data.url; // dito yung na rereturnvng fieldname
 
-        if (data && data.video1) {
-            const { title, source, video1, video2 } = data;
-
-            let message = `🎥 Title: ${title}\n`;
-            message += `🔗 Source: ${source}\n`;
-            
-            let attachments = [{ type: 'video/mp4', url: video1 }];
-            
-            if (video2) {
-                attachments.push({ type: 'video/mp4', url: video2 });
-            }
-
-            api.sendMessage({
-                body: message,
-                attachment: attachments.map(url => ({ type: 'video/mp4', url }))
-            }, event.threadID, event.messageID);
+        if (bingchilliVideoUrl) {
+            api.sendMessage({ body: '🎥 Fetching random gore content...', attachment: bingchilliVideoUrl }, event.threadID, event.messageID);
         } else {
             api.sendMessage('❌ Failed to fetch the gore video. Please try again later.', event.threadID, event.messageID);
         }
-    } catch (error) {
-        console.error('Error fetching gore video:', error);
+    } catch (chillimansiError) {
+        console.error('Error fetching gore video:', chillimansiError);
         api.sendMessage('⚠️ An error occurred while fetching the gore video.', event.threadID, event.messageID);
     }
 };

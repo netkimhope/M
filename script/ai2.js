@@ -3,38 +3,33 @@ const axios = require("axios");
 module.exports.config = {
     name: "ai2",
     version: "1.0.0",
-    role: 0,
     credits: "chill",
-    description: "gpt4",
+    description: "Interact with Llama AI",
     hasPrefix: false,
     cooldown: 5,
-    aliases: ["gpt4"]
+    aliases: ["llama"]
 };
 
-module.exports.run = async function ({ api, event, args, Users }) {
+module.exports.run = async function ({ api, event, args }) {
     try {
-        let prompt = args.join(" ");
-        if (!prompt) return api.sendMessage("[ ❗ ] - use gpt4 like this ai2 what is love ", event.threadID, event.messageID);
+        let q = args.join(" ");
+        if (!q) {
+            return api.sendMessage("[ ❗ ] - Missing question for the ai2", event.threadID, event.messageID);
+        }
 
-        api.sendMessage("[ 🔍 ] Answering plss waittt...", event.threadID, async (err, info) => {
+        api.sendMessage("[ 🔍 ] Finding answer para sa bobong katuad mo ...", event.threadID, async (err, info) => {
             try {
-                const response = await axios.get(`https://joshweb.click/gpt4?prompt=${encodeURIComponent(prompt)}&uid=100`);
+                const response = await axios.get(`https://joshweb.click/ai/llama-3-8b?q=${encodeURIComponent(q)}&uid=100`);
                 const answer = response.data.result;
-                const userName = await Users.getNameUser(event.senderID);
 
-                const message = `📦 𝙶𝙿𝚃4+ 𝙲𝙾𝙽𝚃𝙸𝙽𝚄𝙴𝚂 𝙰𝙸
-━━━━━━━━━━━━━━━━━━
-${answer}
-━━━━━━━━━━━━━━━━━━
-👤 𝙰𝚜𝚔𝚎𝚍 𝚋𝚢: ${userName}`;
-
-                api.sendMessage(message, event.threadID);
+                api.sendMessage(answer, event.threadID);
             } catch (error) {
                 console.error(error);
                 api.sendMessage("An error occurred while processing your request.", event.threadID);
             }
         });
-    } catch (s) {
-        api.sendMessage(s.message, event.threadID);
+    } catch (error) {
+        console.error("Error in lma command:", error);
+        api.sendMessage("An error occurred while processing your request.", event.threadID);
     }
 };

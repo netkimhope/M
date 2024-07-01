@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 module.exports.config = {
-    name: "imagin",
+    name: "imagine",
     version: "1.0.0",
     credits: "Samir Œ",//convert by chilli
     description: "Anime image generator",
@@ -15,7 +15,7 @@ module.exports.run = async function ({ api, event, args }) {
         let prompt = args.join(" ");
         if (!prompt) return api.sendMessage("Missing prompt for anime image generator", event.threadID, event.messageID);
 
-        api.sendMessage("Generating your anime image ...", event.threadID, async (err, info) => {
+        api.sendMessage("Generating your image ...", event.threadID, async (err, info) => {
             try {
                 const apiUrl = `https://samirxpikachu.onrender.com/mageDef?prompt=${encodeURIComponent(prompt)}`;
                 const response = await axios.get(apiUrl, { responseType: 'stream' });

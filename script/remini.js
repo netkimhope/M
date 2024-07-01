@@ -1,60 +1,36 @@
 const axios = require('axios');
-const fs = require('fs');
-const path = require('path');
+const fs = require('fs-extra');
 
-module.exports.config = {
+module🌐.exports.🌐config = {
   name: "remini",
-  version: "6.9",
-  hasPermision: 0,
-  credits: "chill",
-  description: "Image Enhancer",
-  usePrefix: false,
-  usages: "Reply to a photo to enhance image",
-  cooldown: 3,
+  version: "1.0.",
+  role: 0,
+  credits: "Mark Hitsuraan",
+  aliases: [],
+  usages: "< reply image >",
+  cd: 2,
 };
 
-let reminderSent = {};
+module.exports.run = async ({ api, event, args }) => {
+  let pathie = __dirname + `/cache/zombie.jpg`;
+  const { threadID, messageID } = event;
 
-module.exports.handleEvent = async function({ api, event }) {
-    const { threadID, messageID, messageReply, body } = event;
+  var mark = event.messageReply.attachments[0].url || args.join(" ");
 
-    // Check if the message starts with "remini"
-    if (!body || !body.toLowerCase().startsWith("remini")) return;
+  try {
+    api.sendMessage("Generating...", threadID, messageID);
+    const response = await axios.get(`https://markdevs69-1efde24ed4ea.herokuapp.com/api/remini?inputImage=${encodeURIComponent(mark)}`);
+    const processedImageURL = response.data.image_data;
 
-    // Check if the message is a reply and if it contains a photo attachment
-    const photoUrl = messageReply?.attachments[0]?.url;
+    const img = (await axios.get(processedImageURL, { responseType: "arraybuffer"})).data;
 
-    if (!photoUrl) {
-        if (!reminderSent[threadID]) {
-            reminderSent[threadID] = true;
-            api.sendMessage("Please reply to a photo to proceed with enhancing the image.", threadID, messageID);
-        }
-        return;
-    }
+    fs.writeFileSync(pathie, Buffer.from(img, 'utf-8'));
 
-    reminderSent[threadID] = false;
-
-    api.sendMessage("Enhancing image, please wait...", threadID, async () => {
-        try {
-            const response = await axios.get(`https://markdevs69-1efde24ed4ea.herokuapp.com/api/remini?inputImage=${encodeURIComponent(photoUrl)}`, {
-                responseType: 'arraybuffer'
-            });
-
-            const imageBuffer = Buffer.from(response.data, 'binary');
-            const filename = path.join(__dirname, 'enhanced_image.jpg');
-            fs.writeFileSync(filename, imageBuffer);
-
-            api.sendMessage({
-                body: "Successfully enhanced your image.",
-                attachment: fs.createReadStream(filename)
-            }, threadID, () => {
-                fs.unlinkSync(filename);
-            }, messageID);
-        } catch (error) {
-            console.error("Error while processing image:", error);
-            api.sendMessage(`Error while processing image: ${error.message}`, threadID, messageID);
-        }
-    });
+    api.sendMessage({
+      body: "Processed Image",
+      attachment: fs.createReadStream(pathie)
+    }, threadID, () => fs.unlinkSync(pathie), messageID);
+  } catch (error) {
+    api.sendMessage(`Error processing image: ${error}`, threadID, messageID);
+  };
 };
-
-module.exports.run = async function({ api, event }) {};

@@ -1,52 +1,52 @@
-const axios = require("axios");
-const fs = require("fs");
-const path = __dirname + "/cache/spotify.mp3";
+const axios = require('axios');
+const fs = require('fs');
 
 module.exports.config = {
 		name: "spotify",
-		version: "1.0.2",
+		version: "1.0.0",
 		role: 0,
-		credits: "joshua deku",
-		description: "Play and Download music from Spotify",
+		credits: "Jonell Magallanes",
+		description: "Search and play music from Spotify", //api by jonell Magallanes cc project
 		hasPrefix: false,
-		cooldown: 5,
-		aliases: ["spotify"]
+		usages: "[song name]",
+		cooldown: 10
 };
 
 module.exports.run = async function ({ api, event, args }) {
+		const listensearch = encodeURIComponent(args.join(" "));
+		const apiUrl = `https://jonellccapisproject-e1a0d0d91186.herokuapp.com/api/spotify?search=prompt=${listensearch}`;
+
+		if (!listensearch) return api.sendMessage("Please provide the name of the song you want to search.", event.threadID, event.messageID);
+
 		try {
-				let q = args.join(" ");
-				if (!q) return api.sendMessage("[ ❗ ] - Missing title of the song", event.threadID, event.messageID);
+				api.sendMessage("🎵 | Searching for your music on Spotify. Please wait...", event.threadID, event.messageID);
 
-				api.sendMessage("[ 🔍 ] Searching for “" + q + "” ...", event.threadID, async (err, info) => {
-						try {
-								const r = await axios.get(`https://markdevs69-1efde24ed4ea.herokuapp.com/search/spotify?q=${encodeURIComponent(q)}`);
-								const { lyrics, title, url } = r.data.result.data[0];
+				const response = await axios.get(apiUrl);
+				const { platform, status, data } = response.data;
 
-								const dl = (
-										await axios.get(url, { responseType: "arraybuffer" })
-								).data;
-								fs.writeFileSync(path, Buffer.from(dl, "utf-8"));
-								api.sendMessage(
-										{
-												body:
-														"·•———[ SPOTIFY DL ]———•·\n\n" + "Title: " + title + "\nLyrics:\n\n" +
-														lyrics +
-														"\n\nYou can download this audio by clicking this link or paste it to your browser: " +
-														url,
-												attachment: fs.createReadStream(path),
-										},
-										event.threadID,
-										(err, info) => {
-												fs.unlinkSync(path);
-										}
-								);
-						} catch (error) {
-								console.error(error);
-								api.sendMessage("An error occurred while processing your request.", event.threadID);
-						}
-				});
-		} catch (s) {
-				api.sendMessage(s.message, event.threadID);
+				if (status && platform === "Spotify") {
+						const { title, audio } = data;
+
+
+						const filePath = `${__dirname}/cache/${Date.now()}.mp3`;
+						const writeStream = fs.createWriteStream(filePath);
+
+
+						const audioResponse = await axios.get(audio, { responseType: 'stream' });
+						audioResponse.data.pipe(writeStream);
+
+						writeStream.on('finish', () => {
+
+								api.sendMessage({
+										body: `🎧 Here's your music from Spotify enjoy listening\n\nTitle:${title}\n\n💿 Now Playing...`,
+										attachment: fs.createReadStream(filePath)
+								}, event.threadID);
+						});
+				} else {
+						api.sendMessage("❓ | Sorry, couldn't find the requested music on Spotify.", event.threadID);
+				}
+		} catch (error) {
+				console.error(error);
+				api.sendMessage("🚧 | An error occurred while processing your request.", event.threadID);
 		}
 };

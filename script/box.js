@@ -1,42 +1,38 @@
-const axios = require('axios');
+
+
+const axios = require("axios");
 
 module.exports.config = {
-  name: 'box',
-  version: '1.0.0',
-  role: 0,
-  hasPrefix: false,
-  aliases: ['box'],
-  description: "blxnigga",
-  usage: "boxbox",
-  credits: 'chilling',
-  cooldown: 3,
+    name: "box",
+    version: "1.0.0",
+    credits: "chill",
+    description: "Interact with Blackbox AI",
+    hasPrefix: false,
+    cooldown: 5,
+    aliases: []
 };
 
-module.exports.run = async function({ api, event, args }) {
-  const query = args.join(' ');
-  if (!query) {
-    api.sendMessage('Please provide a question.', event.threadID, event.messageID);
-    return;
-  }
+module.exports.run = async function ({ api, event, args }) {
 
-  api.sendMessage('🔍 Box is answering, please wait...', event.threadID, event.messageID);
+    const query = args.join(" ");
+    if (!query) {
+        return api.sendMessage("plss provide question for ex:box give me source of love", event.threadID, event.messageID);
+    }
 
-  try {
-    const response = await axios.get(`https://joshweb.click/api/blackboxai?q=${encodeURIComponent(query)}&uid=100`);
-    const aiResponse = response.data.response;
+    
+    api.sendMessage("Blackbox AI, answering please wait...", event.threadID, async (err, info) => {
+        if (err) return console.error("Error sending initial message:", err);
 
-    const message = {
-      body: `box answer:\n\n${aiResponse}`,
-      mentions: [
-        {
-          tag: `@${event.senderID}`,
-          id: event.senderID
+        try {
+            
+            const response = await axios.get(`https://joshweb.click/api/blackboxai?q=${encodeURIComponent(query)}&uid=100`);
+            const answer = response.data.result;
+
+            
+            api.sendMessage(answer, event.threadID);
+        } catch (error) {
+            console.error("Error fetching data from Blackbox AI:", error);
+            api.sendMessage("An error occurred while processing your request.", event.threadID);
         }
-      ]
-    };
-
-    api.sendMessage(message, event.threadID, event.messageID);
-  } catch (error) {
-    api.sendMessage('An error occurred while fetching the response.', event.threadID, event.messageID);
-  }
+    });
 };

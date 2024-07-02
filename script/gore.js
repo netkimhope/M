@@ -18,35 +18,34 @@ module.exports.run = async function ({ api, event }) {
     try {
         api.sendMessage("⏱️ | Fetching a random gore video, please wait...", event.threadID);
 
-        const response = await axios.get('https://joshweb.click/api/randgre');
-        const result = response.data.result;
+        const poginichill = await axios.get('https://joshweb.click/api/randgre');
+        const chilli = poginichill.data.result;
 
-        if (!result || result.length === 0) {
+        if (!chilli || chilli.length === 0) {
             api.sendMessage("No gore videos found.", event.threadID);
             return;
         }
 
-        
-        const videoTitle = result.title;
-        const videoSource = result.source;
-        const videoViews = result.view;
-        const videoComments = result.comment;
-        const videoVotes = result.vote;
-        const videoUrl = result.video1;
+        const mabantotTitle = chilli.title;
+        const mabantotSource = chilli.source;
+        const mabantotViews = chilli.view;
+        const mabantotComments = chilli.comment;
+        const mabantotVotes = chilli.vote;
+        const mabantotUrl = chilli.video1;
 
-        if (!videoUrl) {
+        if (!mabantotUrl) {
             api.sendMessage("No valid gore video found.", event.threadID);
             return;
         }
 
-        const message = `Title: ${videoTitle}\nSource: ${videoSource}\nViews: ${videoViews}\nComments: ${videoComments}\nVotes: ${videoVotes}`;
+        const message = `Title: ${mabantotTitle}\nSource: ${mabantotSource}\nViews: ${mabantotViews}\nComments: ${mabantotComments}\nVotes: ${mabantotVotes}`;
 
         const filePath = path.join(__dirname, `/cache/gore_video.mp4`);
         const writer = fs.createWriteStream(filePath);
 
         const videoResponse = await axios({
             method: 'get',
-            url: videoUrl,
+            url: mabantotUrl,
             responseType: 'stream'
         });
 

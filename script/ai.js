@@ -4,32 +4,44 @@ module.exports.config = {
     name: "ai",
     version: "1.0.0",
     credits: "chill",
-    description: "Interact with Qwen AI",
+    description: "german from cf",
     hasPrefix: false,
     cooldown: 3,
-    aliases: ["qwen"]
+    aliases: ["germancut"]
 };
 
 module.exports.run = async function ({ api, event, args }) {
     try {
         let q = args.join(" ");
         if (!q) {
-            return api.sendMessage("Plss provide a question for example: ai what is nigga?", event.threadID, event.messageID);
+            return api.sendMessage("Please provide a question. For example: ai what is your name?", event.threadID, event.messageID);
         }
 
-        api.sendMessage("Answering, please wait...", event.threadID, async (err, info) => {
+        api.sendMessage("German, answering please wait...", event.threadID, async (err, info) => {
+            if (err) {
+                console.error("Error sending initial message:", err);
+                return api.sendMessage("An error occurred while processing your request.", event.threadID);
+            }
+
             try {
-                const response = await axios.get(`https://joshweb.click/ai/qwen1.5-14b?q=${encodeURIComponent(q)}&uid=100`);
+                
+                const userInfo = await api.getUserInfo(event.senderID);
+                const senderName = userInfo[event.senderID].name;
+
+            
+                const response = await axios.get(`https://joshweb.click/ai/discolm-german?q=${encodeURIComponent(q)}&uid=100`);
                 const answer = response.data.result;
 
-                api.sendMessage(answer, event.threadID);
+        
+                const finalMessage = `${answer}\n\nAsked by: ${senderName}`;
+                api.sendMessage(finalMessage, event.threadID);
             } catch (error) {
-                console.error(error);
+                console.error("Error fetching AI response or user info:", error);
                 api.sendMessage("An error occurred while processing your request.", event.threadID);
             }
         });
     } catch (error) {
-        console.error("Error in qwenn command:", error);
+        console.error("Error in ai command:", error);
         api.sendMessage("An error occurred while processing your request.", event.threadID);
     }
 };

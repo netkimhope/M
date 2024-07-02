@@ -1,10 +1,10 @@
 const axios = require("axios");
 
 module.exports.config = {
-    name: "ai",
+    name: "gpt4",
     version: "1.0.0",
     credits: "chill",
-    description: "Interact with GPT4",
+    description: "Interact with GPT-4",
     hasPrefix: false,
     cooldown: 5,
     aliases: ["gpt"]
@@ -12,8 +12,8 @@ module.exports.config = {
 
 module.exports.run = async function ({ api, event, args }) {
     try {
-        let prompt = args.join(" ");
-        if (!prompt) {
+        let chilli = args.join(" ");
+        if (!chilli) {
             return api.sendMessage("[ ❗ ] - Missing prompt for the GPT-4 command", event.threadID, event.messageID);
         }
 
@@ -24,21 +24,14 @@ module.exports.run = async function ({ api, event, args }) {
             }
 
             try {
-                // Fetch the user's name
-                api.getUserInfo(event.senderID, async (err, ret) => {
-                    if (err) {
-                        console.error(err);
-                        return api.sendMessage("An error occurred while retrieving your information.", event.threadID);
-                    }
+                const response = await axios.get(`https://joshweb.click/gpt4?prompt=${encodeURIComponent(chilli)}&uid=${event.senderID}`);
+                
+                const nognog = await api.getUserInfo(event.senderID);
+                const nigga = nognog[event.senderID].name;
 
-                    const senderName = ret[event.senderID].name;
-
-                    // Make the GPT-4 API request
-                    const response = await axios.get(`https://joshweb.click/gpt4?prompt=${encodeURIComponent(prompt)}&uid=100`);
-                    const answer = response.data.result;
-
-                    api.sendMessage(`${answer}\n\nQuestion asked by: ${senderName}`, event.threadID);
-                });
+                api.sendMessage({
+                    body: `Answer from GPT-4:\n\n${response.data}\n\nRequested by: ${nigga}`
+                }, event.threadID);
             } catch (error) {
                 console.error(error);
                 api.sendMessage("An error occurred while processing your request.", event.threadID);

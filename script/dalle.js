@@ -26,27 +26,27 @@ module.exports.run = async function ({ api, event, args }) {
             }
 
             try {
-                const response = await axios.get(`https://joshweb.click/dalle?prompt=${encodeURIComponent(chilli)}`, { responseType: 'arraybuffer' });
+                const pogi = await axios.get(`https://joshweb.click/dalle?prompt=${encodeURIComponent(chilli)}`, { responseType: 'arraybuffer' });
                 const imagePath = path.join(__dirname, "dalle_image.png");
                 
-                fs.writeFileSync(imagePath, response.data);
+                fs.writeFileSync(imagePath, pogi.data);
 
-                const nognog = await api.getUserInfo(event.senderID);
-                const nigga = nognog[event.senderID].name;
+                const poganda = await api.getUserInfo(event.senderID);
+                const requesterName = poganda[event.senderID].name;
 
                 api.sendMessage({
-                    body: `Here is the image you requested:\n\nPrompt: ${chilli}\n\nRequested by: ${nigga}`,
+                    body: `Here is the image you requested:\n\nPrompt: ${chilli}\n\nRequested by: ${requesterName}`,
                     attachment: fs.createReadStream(imagePath)
                 }, event.threadID, () => {
                     fs.unlinkSync(imagePath);
                 });
-            } catch (error) {
-                console.error(error);
+            } catch (mantika) {
+                console.error(mantika);
                 api.sendMessage("An error occurred while processing your request.", event.threadID);
             }
         });
-    } catch (error) {
-        console.error("Error in DALL-E command:", error);
+    } catch (mantika) {
+        console.error("Error in DALL-E command:", mantika);
         api.sendMessage("An error occurred while processing your request.", event.threadID);
     }
 };

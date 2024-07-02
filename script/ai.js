@@ -1,32 +1,41 @@
-const axios = require('axios');
+const axios = require("axios");
 
 module.exports.config = {
-    name: 'ai',
-    version: '1.0.0',
-    role: 0,
-    hasPrefix: true,
-    aliases: ['ai'],
-    description: 'Ask a questiion',
-    usage: 'ai <question>',
-    credits: 'Developer',
+    name: "ai",
+    version: "1.0.0",
+    credits: "chill",
+    description: "Interact with GPT-4 ",
+    hasPrefix: false,
+    cooldown: 5,
+    aliases: ["gpt4"]
 };
 
-module.exports.run = async function({ api, event, args }) {
-    const { threadID, messageID, senderID } = event;
-    
-    if (args.length === 0) {
-        return api.sendMessage('Please provide a question for ex: ai what is nigga?.', threadID, messageID);
-    }
-    
-    const question = args.join(' ');
-    const apiUrl = `https://joshweb.click/gpt4?prompt=${encodeURIComponent(question)}&uid=${senderID}`;
-    
+module.exports.run = async function ({ api, event, args }) {
     try {
-        const response = await axios.get(apiUrl);
-        const responseText = response.data.response || 'No response from the API.';
-        api.sendMessage(responseText, threadID, messageID);
+        let prompt = args.join(" ");
+        if (!prompt) {
+            return api.sendMessage("Missing question for the ai", event.threadID, event.messageID);
+        }
+
+        api.sendMessage("Processing your request, please wait...", event.threadID, async (err, info) => {
+            if (err) {
+                console.error(err);
+                return api.sendMessage("An error occurred while processing your request.", event.threadID);
+            }
+
+            try {
+                const response = await axios.get(`https://joshweb.click/gpt4?prompt=${encodeURIComponent(prompt)}&uid=100`);
+                const answer = response.data.result;
+                const senderName = event.senderID; 
+
+                api.sendMessage(`${answer}\n\nQuestion asked by: ${senderName}`, event.threadID);
+            } catch (error) {
+                console.error(error);
+                api.sendMessage("An error occurred while processing your request.", event.threadID);
+            }
+        });
     } catch (error) {
-        console.error('Error fetching response from the API:', error);
-        api.sendMessage('⚠️ An error occurred while fetching the response from the API.', threadID, messageID);
+        console.error("Error in GPT-4 command:", error);
+        api.sendMessage("An error occurred while processing your request.", event.threadID);
     }
 };

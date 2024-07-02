@@ -1,35 +1,32 @@
-const axios = require("axios");
+const axios = require('axios');
 
 module.exports.config = {
-    name: "ai",
-    version: "1.0.0",
-    credits: "chill",
-    description: "Interact with GPT-4 AI",
-    hasPrefix: false,
-    cooldown: 5,
-    aliases: []
+    name: 'ai',
+    version: '1.0.0',
+    role: 0,
+    hasPrefix: true,
+    aliases: ['ai'],
+    description: 'Ask a questiion',
+    usage: 'ai <question>',
+    credits: 'Developer',
 };
 
-module.exports.run = async function ({ api, event, args, Users }) {
-    const query = args.join(" ");
-    if (!query) {
-        return api.sendMessage("Plss provide a question fot ex: ai what is nigga?", event.threadID, event.messageID);
+module.exports.run = async function({ api, event, args }) {
+    const { threadID, messageID, senderID } = event;
+    
+    if (args.length === 0) {
+        return api.sendMessage('Please provide a question for ex: ai what is nigga?.', threadID, messageID);
     }
-
-    api.sendMessage("GPT-4 Continues, answering please wait...", event.threadID, async (err, info) => {
-        if (err) return console.error("Error sending initial message:", err);
-
-        try {
-            const response = await axios.get(`https://joshweb.click/gpt4?prompt=${encodeURIComponent(query)}&uid=100`);
-            const answer = response.data.result;
-
-            const userName = await Users.getName(event.senderID);
-
-            const reply = `***GPT4-CONTINUES***\n\n${answer}\n\nQuestion asked by: ${userName}`;
-            api.sendMessage(reply, event.threadID);
-        } catch (error) {
-            console.error("Error fetching data from GPT-4 AI:", error);
-            api.sendMessage("An error occurred while processing your request.", event.threadID);
-        }
-    });
+    
+    const question = args.join(' ');
+    const apiUrl = `https://joshweb.click/gpt4?prompt=${encodeURIComponent(question)}&uid=${senderID}`;
+    
+    try {
+        const response = await axios.get(apiUrl);
+        const responseText = response.data.response || 'No response from the API.';
+        api.sendMessage(responseText, threadID, messageID);
+    } catch (error) {
+        console.error('Error fetching response from the API:', error);
+        api.sendMessage('⚠️ An error occurred while fetching the response from the API.', threadID, messageID);
+    }
 };

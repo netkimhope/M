@@ -1,51 +1,35 @@
-
-const axios = require('axios');
+const axios = require("axios");
 
 module.exports.config = {
-    name: 'ai',
-    version: '1.0.0',
-    role: 0,
+    name: "ai",
+    version: "1.0.0",
+    credits: "chill",
+    description: "Interact with GPT-4 AI",
     hasPrefix: false,
-    aliases: ['ai'],
-    description: 'AI Command',
-    usage: 'ai [query]',
-    credits: 'churchill',
-    cooldown: 3,
+    cooldown: 5,
+    aliases: []
 };
 
-module.exports.run = async function({ api, event, args }) {
-    const query = args.join(' ');
-
+module.exports.run = async function ({ api, event, args, Users }) {
+    const query = args.join(" ");
     if (!query) {
-        api.sendMessage('Please provide a question ex:ai what is nigga?.', event.threadID, event.messageID);
-        return;
+        return api.sendMessage("Plss provide a question fot ex: ai what is nigga?", event.threadID, event.messageID);
     }
 
-    api.sendMessage('🖕𝙎𝙚𝙖𝙧𝙘𝙝𝙞𝙣𝙜 𝙥𝙡𝙚𝙖𝙨𝙚 𝙬𝙖𝙞𝙩...', event.threadID, event.messageID);
+    api.sendMessage("GPT-4 Continues, answering please wait...", event.threadID, async (err, info) => {
+        if (err) return console.error("Error sending initial message:", err);
 
-    try {
-        
-        const aiResponse = await axios.get('https://markdevs-api.onrender.com/gpt4', {
-            params: { prompt: query, uid: event.senderID }
-        });
-        const aiData = aiResponse.data.gpt4;
+        try {
+            const response = await axios.get(`https://joshweb.click/gpt4?prompt=${encodeURIComponent(query)}&uid=100`);
+            const answer = response.data.result;
 
-        
-        api.getUserInfo(event.senderID, (err, result) => {
-            if (err) {
-                console.error('Error fetching user info:', err);
-                api.sendMessage('An error occurred while fetching the user info.', event.threadID, event.messageID);
-                return;
-            }
+            const userName = await Users.getName(event.senderID);
 
-            const userName = result[event.senderID].name;
-
-            // Send the combined response
-            const finalResponse = `${aiData}\n\nQuestion asked by: ${userName}`;
-            api.sendMessage(finalResponse, event.threadID, event.messageID);
-        });
-    } catch (error) {
-        console.error('Error:', error);
-        api.sendMessage('An error occurred while fetching the response.', event.threadID, event.messageID);
-    }
+            const reply = `***GPT4-CONTINUES***\n\n${answer}\n\nQuestion asked by: ${userName}`;
+            api.sendMessage(reply, event.threadID);
+        } catch (error) {
+            console.error("Error fetching data from GPT-4 AI:", error);
+            api.sendMessage("An error occurred while processing your request.", event.threadID);
+        }
+    });
 };

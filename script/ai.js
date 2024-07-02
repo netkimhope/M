@@ -4,10 +4,10 @@ module.exports.config = {
     name: "ai",
     version: "1.0.0",
     credits: "chill",
-    description: "german from cf",
+    description: "Interact with Mixtral AI",
     hasPrefix: false,
     cooldown: 3,
-    aliases: ["germancut"]
+    aliases: ["mixtral"]
 };
 
 module.exports.run = async function ({ api, event, args }) {
@@ -17,7 +17,7 @@ module.exports.run = async function ({ api, event, args }) {
             return api.sendMessage("Please provide a question. For example: ai what is your name?", event.threadID, event.messageID);
         }
 
-        api.sendMessage("German, answering please wait...", event.threadID, async (err, info) => {
+        api.sendMessage("Mixtral answering, please wait...", event.threadID, async (err, info) => {
             if (err) {
                 console.error("Error sending initial message:", err);
                 return api.sendMessage("An error occurred while processing your request.", event.threadID);
@@ -28,11 +28,11 @@ module.exports.run = async function ({ api, event, args }) {
                 const userInfo = await api.getUserInfo(event.senderID);
                 const senderName = userInfo[event.senderID].name;
 
-            
-                const response = await axios.get(`https://joshweb.click/ai/discolm-german?q=${encodeURIComponent(q)}&uid=100`);
+        
+                const response = await axios.get(`https://joshweb.click/api/mixtral-8b?q=${encodeURIComponent(q)}`);
                 const answer = response.data.result;
 
-        
+                
                 const finalMessage = `${answer}\n\nAsked by: ${senderName}`;
                 api.sendMessage(finalMessage, event.threadID);
             } catch (error) {

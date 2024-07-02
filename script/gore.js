@@ -3,13 +3,13 @@ const fs = require("fs");
 const path = require("path");
 
 module.exports.config = {
-    name: "randomgore",
+    name: "gore",
     version: "1.0.0",
     role: 0,
     credits: "chill", 
     description: "Send a random gore video",
     hasPrefix: false,
-    aliases: ["randgore", "rg"],
+    aliases: ["randgore", "gore"],
     usage: "[randomgore]",
     cooldown: 5,
 };
@@ -26,7 +26,7 @@ module.exports.run = async function ({ api, event }) {
             return;
         }
 
-        // Get video information
+        
         const videoTitle = result.title;
         const videoSource = result.source;
         const videoViews = result.view;

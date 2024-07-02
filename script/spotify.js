@@ -1,52 +1,71 @@
-const axios = require('axios');
+const axios = require("axios");
 const fs = require('fs');
+const path = require('path');
 
 module.exports.config = {
-		name: "spotify",
-		version: "1.0.0",
-		role: 0,
-		credits: "Jonell Magallanes",
-		description: "Search and play music from Spotify", //api by jonell Magallanes cc project
-		hasPrefix: false,
-		usages: "[song name]",
-		cooldown: 10
+    name: "spotify",
+    version: "1.0.0",
+    credits: "chill",
+    description: "Download a Spotify track",
+    hasPrefix: false,
+    cooldown: 3,
+    aliases: ["spdl"]
 };
 
 module.exports.run = async function ({ api, event, args }) {
-		const listensearch = encodeURIComponent(args.join(" "));
-		const apiUrl = `https://jonellccapisproject-e1a0d0d91186.herokuapp.com/api/spotify?search=prompt=${listensearch}`;
+    try {
+        const query = args.join(" ");
+        if (!query) {
+            return api.sendMessage("Please provide a Spotify track query. For example: spotify Imagine Dragons Believer", event.threadID, event.messageID);
+        }
 
-		if (!listensearch) return api.sendMessage("Please provide the name of the song you want to search.", event.threadID, event.messageID);
+        api.sendMessage("Downloading Spotify track, please wait...", event.threadID, async (chilli, kalamansi) => {
+            if (chilli) {
+                console.error("Error sending initial message:", chilli);
+                return api.sendMessage("An error occurred while processing your request.", event.threadID);
+            }
 
-		try {
-				api.sendMessage("🎵 | Searching for your music on Spotify. Please wait...", event.threadID, event.messageID);
+            try {
+                const pangit = await axios.get(`https://joshweb.click/spotify?q=${encodeURIComponent(query)}`);
+                const sibuyas = pangit.data.result;
 
-				const response = await axios.get(apiUrl);
-				const { platform, status, data } = response.data;
+                if (!sibuyas || !sibuyas.audio_url) {
+                    return api.sendMessage("Could not find the track you requested.", event.threadID);
+                }
 
-				if (status && platform === "Spotify") {
-						const { title, audio } = data;
+                const pogi = sibuyas.audio_url;
+                const kalamansiPath = path.join(__dirname, 'spotify_track.mp3');
+                const kalamansiResponse = await axios({
+                    url: pogi,
+                    method: 'GET',
+                    responseType: 'stream'
+                });
 
+                const writer = fs.createWriteStream(kalamansiPath);
+                kalamansiResponse.data.pipe(writer);
 
-						const filePath = `${__dirname}/cache/${Date.now()}.mp3`;
-						const writeStream = fs.createWriteStream(filePath);
+                writer.on('finish', () => {
+                    api.sendMessage({
+                        body: `Here is your downloaded Spotify track: ${sibuyas.title} by ${sibuyas.artist}`,
+                        attachment: fs.createReadStream(kalamansiPath)
+                    }, event.threadID, () => {
+                        fs.unlink(kalamansiPath, (pangit) => {
+                            if (pangit) console.error("Error deleting track file:", pangit);
+                        });
+                    });
+                });
 
-
-						const audioResponse = await axios.get(audio, { responseType: 'stream' });
-						audioResponse.data.pipe(writeStream);
-
-						writeStream.on('finish', () => {
-
-								api.sendMessage({
-										body: `🎧 Here's your music from Spotify enjoy listening\n\nTitle:${title}\n\n💿 Now Playing...`,
-										attachment: fs.createReadStream(filePath)
-								}, event.threadID);
-						});
-				} else {
-						api.sendMessage("❓ | Sorry, couldn't find the requested music on Spotify.", event.threadID);
-				}
-		} catch (error) {
-				console.error(error);
-				api.sendMessage("🚧 | An error occurred while processing your request.", event.threadID);
-		}
+                writer.on('error', (pangit) => {
+                    console.error("Error saving track file:", pangit);
+                    api.sendMessage("An error occurred while processing your request.", event.threadID);
+                });
+            } catch (pangit) {
+                console.error("Error downloading track:", pangit);
+                api.sendMessage("An error occurred while processing your request.", event.threadID);
+            }
+        });
+    } catch (pangit) {
+        console.error("Error in spotify command:", pangit);
+        api.sendMessage("An error occurred while processing your request.", event.threadID);
+    }
 };

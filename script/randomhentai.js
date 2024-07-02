@@ -14,57 +14,51 @@ module.exports.config = {
 
 module.exports.run = async function ({ api, event }) {
     try {
-        api.sendMessage("Fetching a random hentai video, please wait...", event.threadID, async (err, info) => {
-            if (err) {
-                console.error("Error sending initial message:", err);
+        api.sendMessage("Fetching a random hentai video, please wait...", event.threadID, async (chilli, kalamansi) => {
+            if (chilli) {
+                console.error("Error sending initial message:", chilli);
                 return api.sendMessage("An error occurred while processing your request.", event.threadID);
             }
 
             try {
-                // Make the API request to get a random hentai video
-                const response = await axios.get('https://joshweb.click/api/randhntai');
-                const videoData = response.data.result[0];
+                const pangit = await axios.get('https://joshweb.click/api/randhntai');
+                const kamatis = pangit.data.result[0];
 
-                // Extract the video URL and title
-                const videoUrl = videoData.video_1;
-                const videoTitle = videoData.title;
+                const pogi = kamatis.video_1;
+                const sibuyas = kamatis.title;
 
-                // Download the video
-                const videoPath = path.join(__dirname, 'random_hentai_video.mp4');
-                const videoResponse = await axios({
-                    url: videoUrl,
+                const chilliPath = path.join(__dirname, 'random_hentai_video.mp4');
+                const kalamansiResponse = await axios({
+                    url: pogi,
                     method: 'GET',
                     responseType: 'stream'
                 });
 
-                
-                const writer = fs.createWriteStream(videoPath);
-                videoResponse.data.pipe(writer);
+                const writer = fs.createWriteStream(chilliPath);
+                kalamansiResponse.data.pipe(writer);
 
                 writer.on('finish', () => {
-                    
                     api.sendMessage({
-                        body: `Here is a random hentai video: ${videoTitle}`,
-                        attachment: fs.createReadStream(videoPath)
+                        body: `Here is a random hentai video: ${sibuyas}`,
+                        attachment: fs.createReadStream(chilliPath)
                     }, event.threadID, () => {
-                        
-                        fs.unlink(videoPath, (err) => {
-                            if (err) console.error("Error deleting video file:", err);
+                        fs.unlink(chilliPath, (pangit) => {
+                            if (pangit) console.error("Error deleting video file:", pangit);
                         });
                     });
                 });
 
-                writer.on('error', (err) => {
-                    console.error("Error saving video file:", err);
+                writer.on('error', (pogi) => {
+                    console.error("Error saving video file:", pogi);
                     api.sendMessage("An error occurred while processing your request.", event.threadID);
                 });
-            } catch (error) {
-                console.error("Error fetching video:", error);
+            } catch (pangit) {
+                console.error("Error fetching video:", pangit);
                 api.sendMessage("An error occurred while processing your request.", event.threadID);
             }
         });
-    } catch (error) {
-        console.error("Error in randomhentai command:", error);
+    } catch (pangit) {
+        console.error("Error in randomhentai command:", pangit);
         api.sendMessage("An error occurred while processing your request.", event.threadID);
     }
 };

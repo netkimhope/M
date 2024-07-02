@@ -1,44 +1,35 @@
 const axios = require("axios");
 
 module.exports.config = {
-    name: "gpt4",
+    name: "ai",
     version: "1.0.0",
     credits: "chill",
-    description: "Interact with GPT-4",
+    description: "Interact with Qwen AI",
     hasPrefix: false,
-    cooldown: 5,
-    aliases: ["gpt"]
+    cooldown: 3,
+    aliases: ["qwen"]
 };
 
 module.exports.run = async function ({ api, event, args }) {
     try {
-        let chilli = args.join(" ");
-        if (!chilli) {
-            return api.sendMessage("[ ❗ ] - Missing prompt for the GPT-4 command", event.threadID, event.messageID);
+        let q = args.join(" ");
+        if (!q) {
+            return api.sendMessage("Plss provide a question for example: ai what is nigga?", event.threadID, event.messageID);
         }
 
-        api.sendMessage("Processing your request, please wait...", event.threadID, async (err, info) => {
-            if (err) {
-                console.error(err);
-                return api.sendMessage("An error occurred while processing your request.", event.threadID);
-            }
-
+        api.sendMessage("Answering, please wait...", event.threadID, async (err, info) => {
             try {
-                const response = await axios.get(`https://joshweb.click/gpt4?prompt=${encodeURIComponent(chilli)}&uid=${event.senderID}`);
-                
-                const nognog = await api.getUserInfo(event.senderID);
-                const nigga = nognog[event.senderID].name;
+                const response = await axios.get(`https://joshweb.click/ai/qwen1.5-14b?q=${encodeURIComponent(q)}&uid=100`);
+                const answer = response.data.result;
 
-                api.sendMessage({
-                    body: `Answer from GPT-4:\n\n${response.data}\n\nRequested by: ${nigga}`
-                }, event.threadID);
+                api.sendMessage(answer, event.threadID);
             } catch (error) {
                 console.error(error);
                 api.sendMessage("An error occurred while processing your request.", event.threadID);
             }
         });
     } catch (error) {
-        console.error("Error in GPT-4 command:", error);
+        console.error("Error in qwenn command:", error);
         api.sendMessage("An error occurred while processing your request.", event.threadID);
     }
 };

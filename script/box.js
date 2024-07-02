@@ -20,7 +20,7 @@ module.exports.run = async function ({ api, event, args }) {
     }
 
     
-    api.sendMessage("Blackbox AI, answering please wait...", event.threadID, async (err, info) => {
+    api.sendMessage("Blackbox Continues, answering please wait...", event.threadID, async (err, info) => {
         if (err) return console.error("Error sending initial message:", err);
 
         try {

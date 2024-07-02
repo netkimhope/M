@@ -6,7 +6,7 @@ module.exports.config = {
     name: "sdxl",
     version: "1.0.0",
     credits: "chill",
-    description: "Generate images",
+    description: "Generate images using SDXL API",
     hasPrefix: false,
     cooldown: 5,
     aliases: ["sdxl"]
@@ -56,4 +56,7 @@ module.exports.run = async function ({ api, event, args }) {
             }
         });
     } catch (error) {
-        console.error("Error
+        console.error("Error in SDXL command:", error);
+        api.sendMessage("An error occurred while processing your request.", event.threadID, event.messageID);
+    }
+};

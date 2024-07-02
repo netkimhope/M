@@ -14,8 +14,8 @@ module.exports.config = {
 
 module.exports.run = async function ({ api, event, args }) {
     try {
-        let prompt = args.join(" ");
-        if (!prompt) {
+        let chilli = args.join(" ");
+        if (!chilli) {
             return api.sendMessage("[ ❗ ] - Missing prompt for the DALL-E command", event.threadID, event.messageID);
         }
 
@@ -26,15 +26,16 @@ module.exports.run = async function ({ api, event, args }) {
             }
 
             try {
-                const response = await axios.get(`https://joshweb.click/dalle?prompt=${encodeURIComponent(prompt)}`, { responseType: 'arraybuffer' });
+                const response = await axios.get(`https://joshweb.click/dalle?prompt=${encodeURIComponent(chilli)}`, { responseType: 'arraybuffer' });
                 const imagePath = path.join(__dirname, "dalle_image.png");
                 
                 fs.writeFileSync(imagePath, response.data);
 
-                const senderName = event.senderID; 
+                const nognog = await api.getUserInfo(event.senderID);
+                const nigga = nognog[event.senderID].name;
 
                 api.sendMessage({
-                    body: `Here is the image you requested:\n\nPrompt: ${prompt}\n\nRequested by: ${senderName}`,
+                    body: `Here is the image you requested:\n\nPrompt: ${chilli}\n\nRequested by: ${nigga}`,
                     attachment: fs.createReadStream(imagePath)
                 }, event.threadID, () => {
                     fs.unlinkSync(imagePath);

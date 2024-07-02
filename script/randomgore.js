@@ -9,20 +9,25 @@ module.exports.config = {
     description: "Send a random gore video",
     hasPrefix: false,
     cooldown: 5,
-    aliases: ["gore"]
+    aliases: ["rgore"]
 };
 
 module.exports.run = async function ({ api, event }) {
     try {
-        api.sendMessage("Fetching a random gore video, please wait...", event.threadID, async (pangit, chillli) => {
-            if (pangit) return console.error(pangit);
+        api.sendMessage("Fetching a random gore video, please wait...", event.threadID, async (err, info) => {
+            if (err) return console.error(err);
 
             try {
-                const pogi = await axios.get('https://joshweb.click/api/randgre', { responseType: 'stream' });
+                const response = await axios({
+                    method: 'get',
+                    url: 'https://joshweb.click/api/randgre',
+                    responseType: 'stream'
+                });
+                
                 const videoPath = path.join(__dirname, "randomgore.mp4");
                 const writer = fs.createWriteStream(videoPath);
 
-                pogi.data.pipe(writer);
+                response.data.pipe(writer);
 
                 writer.on('finish', () => {
                     const message = {
@@ -30,21 +35,21 @@ module.exports.run = async function ({ api, event }) {
                         attachment: fs.createReadStream(videoPath)
                     };
                     api.sendMessage(message, event.threadID, () => {
-                        fs.unlinkSync(videoPath); 
+                        fs.unlinkSync(videoPath); // Clean up the file after sending
                     });
                 });
 
-                writer.on('error', (pangit) => {
-                    console.error(pangit);
+                writer.on('error', (error) => {
+                    console.error(error);
                     api.sendMessage("An error occurred while downloading the video.", event.threadID);
                 });
-            } catch (pangit) {
-                console.error(pangit);
+            } catch (error) {
+                console.error(error);
                 api.sendMessage("An error occurred while fetching the video.", event.threadID);
             }
         });
-    } catch (pangit) {
-        console.error("Error in randomgore command:", pangit);
+    } catch (error) {
+        console.error("Error in randomgore command:", error);
         api.sendMessage("An error occurred while processing your request.", event.threadID);
     }
 };

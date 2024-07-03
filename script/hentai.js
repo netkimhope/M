@@ -3,7 +3,7 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports.config = {
-    name: "randomhentai",
+    name: "hentai",
     version: "1.0.0",
     credits: "chill",
     description: "Send a random hentai video",

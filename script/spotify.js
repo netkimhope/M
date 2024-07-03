@@ -1,5 +1,5 @@
 module.exports.config = {
-    name: "spotifysearch",
+    name: "spotify",
     version: "1.0.0",
     role: 0,
     credits: "chill",

@@ -16,14 +16,14 @@ const path = require("path");
 
 module.exports.run = async function({ api, event, args }) {
     try {
-        const [id, name, signature, color] = args;
+        const [chilli, pogi, mabantovor, bing] = args;
 
-        if (!id || !name || !signature || !color) {
+        if (!chilli || !pogi || !mabantovor || !bing) {
             api.sendMessage("Usage: avatarwibu <id> <name> <signature> <color>", event.threadID);
             return;
         }
 
-        const url = `https://hiroshi-rest-api.replit.app/canvas/avatarwibu?id=${encodeURIComponent(id)}&name=${encodeURIComponent(name)}&signature=${encodeURIComponent(signature)}&color=${encodeURIComponent(color)}`;
+        const url = `https://hiroshi-rest-api.replit.app/canvas/avatarwibu?id=${encodeURIComponent(chilli)}&name=${encodeURIComponent(pogi)}&signature=${encodeURIComponent(mabantovor)}&color=${encodeURIComponent(bing)}`;
         const imagePath = path.join(__dirname, "avatarwibu.png");
 
         api.sendMessage("Generating your avatar, please wait...", event.threadID);

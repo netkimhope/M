@@ -19,7 +19,7 @@ module.exports.run = async function ({ api, event, enableCommands, args, Utils, 
     const commands = enableCommands[0].commands;
 
     const totalCommands = commands.length;
-    const pages = Math.ceil(totalCommands / 15); // Adjust the number 15 to change commands per page
+    const pages = Math.ceil(totalCommands / 20); // Adjust the number 15 to change commands per page
 
     if (!input || !isNaN(input)) {
       const page = input ? parseInt(input) : 1;

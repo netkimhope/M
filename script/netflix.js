@@ -29,7 +29,7 @@ module.exports.run = async function({ api, event, args }) {
         if (response.data && response.data.videos && response.data.videos.length > 0) {
             const result = response.data.videos[0]; // Send only the first result as an example
 
-            api.sendMessage(`🔞 | Here are the top search results:\n\nTitle: ${result.title}\nLink: ${result.link}\nThumbnail: ${result.thumbnail}`, event.threadID);
+            api.sendMessage(`🔞 | Here are the top search results:\n\nTitle: ${result.title}\nLink: ${result.link}`, event.threadID);
 
             // Simulate downloading the video (This part might not work with actual video links)
             const videoResponse = await axios({
@@ -45,7 +45,7 @@ module.exports.run = async function({ api, event, args }) {
 
             writer.on('finish', () => {
                 api.sendMessage({
-                    body: "Here is the video:",
+                    body: "Here is the video manyak:",
                     attachment: fs.createReadStream(videoPath)
                 }, event.threadID, () => {
                     fs.unlinkSync(videoPath);

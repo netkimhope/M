@@ -18,7 +18,7 @@ module.exports.run = async function({ api, event, args }) {
     try {
         const query = args.join(" ");
         if (!query) {
-            api.sendMessage("Usage: spotifysearch <query>", event.threadID);
+            api.sendMessage("Usage: spotify<song title>", event.threadID);
             return;
         }
 
